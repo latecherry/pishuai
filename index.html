@@ -16,14 +16,31 @@
       --panel-shadow:#000a;
       --glass-bg:#0006;
     }
+
+    /* 把整个页面背景换成海图，而不是渐变 */
     html,body{
       margin:0; padding:0; width:100%; height:100%; overflow:hidden;
-      background:linear-gradient(180deg,var(--bg),#012237 60%,#001320);
+      background:#000; /* 兜底色，防止图片没加载时黑色 */
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif;
       -webkit-text-size-adjust:100%;
     }
-    #wrap{position:fixed; left:0; top:0; width:100dvw; height:100dvh;}
-    #c{width:100%; height:100%; display:block; touch-action:none;}
+
+    /* wrap 作为背景容器，用海图全屏铺满 */
+    #wrap{
+      position:fixed;
+      left:0; top:0;
+      width:100dvw; height:100dvh;
+      background:url("./assets/sea.png") center center / cover no-repeat;
+    }
+
+    /* 画布保持透明，叠在背景图上，只画气泡/角色/金币等前景 */
+    #c{
+      width:100%;
+      height:100%;
+      display:block;
+      touch-action:none;
+      background:transparent;
+    }
 
     /* HUD */
     #hud{
@@ -256,7 +273,7 @@
 
     <!-- 本机排行榜 -->
     <div id="leaderboardBox">
-      <!-- 我们用 JS 动态填充 -->
+      <!-- JS 动态填充 -->
     </div>
   </div>
 
@@ -394,7 +411,7 @@
     const coinImg = new Image();
     coinImg.src = 'assets/coin.svg';
     const heartImg = new Image();
-    heartImg.src = 'assets/heart.svg'; // 修正路径
+    heartImg.src = 'assets/heart.svg';
 
     // --------------------------------------------------
     // 核心 State
@@ -633,25 +650,12 @@
     }
 
     // --------------------------------------------------
-    // 绘制
+    // 绘制（已移除背景海水/赛道线，保留气泡等前景）
     // --------------------------------------------------
-    function drawWaterBackground(t){
-      const g = ctx.createLinearGradient(0,0,0,H);
-      g.addColorStop(0,'#03233b');
-      g.addColorStop(1,'#011625');
-      ctx.fillStyle=g;
-      ctx.fillRect(0,0,W,H);
 
-      ctx.globalAlpha = 0.08;
-      const waves = Math.ceil(H/90)+2;
-      for(let i=0;i<waves;i++){
-        const y=(t*30 + i*90) % (H+90) - 90;
-        ctx.fillStyle='#3fd0ff';
-        ctx.beginPath();
-        ctx.ellipse(W*0.5, y, W*0.55, 40, 0, 0, Math.PI*2);
-        ctx.fill();
-      }
-      ctx.globalAlpha=1;
+    // 新的清屏函数：只清除像素，不画任何背景
+    function clearFrame(){
+      ctx.clearRect(0,0,W,H);
     }
 
     function drawHero(h, t){
@@ -794,20 +798,6 @@
         ctx.bezierCurveTo(-8, -14, -12, -6, 0, 8);
         ctx.fill();
         ctx.restore();
-      }
-    }
-
-    function drawLaneGuides(){
-      ctx.strokeStyle = '#ffffff10';
-      ctx.lineWidth = 1;
-      const x0 = State.cfg.worldPadding;
-      const laneW = State.cfg.laneWidth;
-      for(let i=0;i<=State.cfg.lanes;i++){
-        const x = x0 + i*laneW;
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, H);
-        ctx.stroke();
       }
     }
 
@@ -1158,11 +1148,10 @@
         ctx.translate(sx, sy);
       }
 
-      // 背景 / 赛道线
-      drawWaterBackground(State.world.t);
-      drawLaneGuides();
+      // 清屏但不画背景（去掉 drawWaterBackground / drawLaneGuides）
+      clearFrame();
 
-      // 泡泡
+      // 泡泡（保留气泡渲染）
       for (const b of State.bubbles){
         ctx.globalAlpha=0.35;
         ctx.beginPath();
@@ -1279,4 +1268,3 @@
   </script>
 </body>
 </html>
-
