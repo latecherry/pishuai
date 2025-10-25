@@ -19,21 +19,18 @@
       --rock:#6f8a99;
       --shield:#7fdcff;
     }
-
     html,body{
       margin:0; padding:0; width:100%; height:100%; overflow:hidden;
       background:#000;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif;
       -webkit-text-size-adjust:100%;
     }
-
     #wrap{
       position:fixed;
       left:0; top:0;
       width:100dvw; height:100dvh;
       background:url("assets/sea.png") center center / cover no-repeat;
     }
-
     #c{
       width:100%;
       height:100%;
@@ -41,7 +38,6 @@
       touch-action:none;
       background:transparent;
     }
-
     #hud{
       position:fixed; left:0; right:0; top:0;
       display:flex; justify-content:space-between; gap:.5rem;
@@ -56,7 +52,6 @@
       border-radius:12px;
       padding:.25rem .5rem
     }
-
     #panel{
       position:fixed;left:50%;top:50%;
       transform:translate(-50%, -50%);
@@ -93,8 +88,6 @@
       box-shadow:0 8px 20px #00c8ff44
     }
     #panel small{opacity:.8}
-
-    /* leaderboard */
     #leaderboardBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -161,8 +154,6 @@
       margin-top:.2rem;
       font-weight:400;
     }
-
-    /* 玩法/道具/障碍说明区 */
     #howtoBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -196,13 +187,11 @@
       padding:.15rem .5rem;
       line-height:1;
     }
-
     .howtoColumns{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:1rem .8rem;
     }
-
     .colBlockTitle{
       font-size:.8rem;
       font-weight:600;
@@ -231,13 +220,11 @@
       border:1px solid;
       box-shadow:0 0 6px #000a;
     }
-
     .infoList{
       display:flex;
       flex-direction:column;
       gap:.6rem;
     }
-
     .infoCard{
       background:#ffffff08;
       border:1px solid #ffffff22;
@@ -250,7 +237,6 @@
       justify-content:flex-start;
       position:relative;
     }
-
     .infoHead{
       font-size:.8rem;
       font-weight:600;
@@ -274,7 +260,6 @@
     .tagShield { background:var(--shield); }
     .tagMine   { background:var(--danger); }
     .tagRock   { background:var(--rock); }
-
     .infoBody{
       font-size:.75rem;
       line-height:1.3;
@@ -282,7 +267,6 @@
       text-shadow:0 1px 2px #000;
       font-weight:400;
     }
-
     #tips{
       position:fixed;
       left:50%;transform:translateX(-50%);
@@ -306,7 +290,6 @@
       font-weight:500;
       text-shadow:0 1px 2px #000;
     }
-
     #pauseOverlay{
       position:fixed;inset:0;
       background:#00000080;
@@ -324,7 +307,6 @@
       box-shadow:0 10px 30px #000a;
     }
     #pauseOverlay button{margin-top:10px}
-
     .floating{
       position:fixed;
       right:10px;
@@ -344,7 +326,6 @@
       box-shadow:0 6px 20px #000a;
       cursor:pointer;
     }
-
     @supports (padding: env(safe-area-inset-top)){
       #hud{padding-top:calc(.6rem + env(safe-area-inset-top));}
     }
@@ -354,23 +335,19 @@
   <div id="wrap">
     <canvas id="c" aria-label="Gyro Swim Runner game canvas"></canvas>
   </div>
-
   <div id="hud">
     <div class="pill">分数 <span id="score">0</span></div>
     <div class="pill">速度 <span id="spd">0.0</span> m/s</div>
     <div class="pill">剩余生命 <span id="hp">3</span></div>
   </div>
-
   <div id="panel" role="dialog" aria-modal="true">
     <h1 id="panelTitle">
       <span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>
     </h1>
-
     <p id="panelDesc">
       按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>
       左右倾斜控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。
     </p>
-
     <div class="row" style="margin:.5rem 0 .25rem">
       <label>灵敏度</label>
       <input id="sens" type="range" min="0.2" max="3" step="0.1" value="1.3" />
@@ -381,35 +358,26 @@
         <option value="hard">Hard</option>
       </select>
     </div>
-
     <div class="row" style="gap:1rem;margin-top:.6rem">
       <button id="startBtn">开始游戏</button>
       <button id="calBtn" class="ghostBtn" style="border-radius:12px">校准水平</button>
       <small>（将手机保持你觉得的“水平”姿态后点校准）</small>
     </div>
-
     <p style="margin-top:.6rem">
       <small>调试：桌面可用 ← → ↑ ↓ 控制；<kbd>P</kbd> 暂停；<kbd>R</kbd> 复位。</small>
     </p>
-
     <div id="howtoBox">
       <div id="howtoBoxTitle">
         <span>玩法说明 / 道具与危险</span>
         <span>左边拿，右边躲 😎</span>
       </div>
-
       <div class="howtoColumns">
-
-        <!-- 左列：正面效果 / 道具 -->
         <div>
           <div class="colBlockTitle good">
             <div class="dot"></div>
             <div>增益道具</div>
           </div>
-
           <div class="infoList">
-
-            <!-- 金币 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagCoin"></div>
@@ -419,8 +387,6 @@
                 吃到后 +10 分。分数会进入本机排行榜（按难度分别记录）。
               </div>
             </div>
-
-            <!-- 爱心 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagHeart"></div>
@@ -430,8 +396,6 @@
                 回复 1 滴血；如果血量已满，改为 +5 分。吃到会出现粉色柔光效果。
               </div>
             </div>
-
-            <!-- 护盾 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagShield"></div>
@@ -441,20 +405,14 @@
                 获得一层蓝色护盾球。护盾持续约 10 秒；在此期间，第一次撞到障碍物会被完全抵消，不扣血，然后护盾立刻消失。
               </div>
             </div>
-
-          </div><!-- /.infoList -->
-        </div><!-- 左列 -->
-
-        <!-- 右列：负面效果 / 危险物 -->
+          </div>
+        </div>
         <div>
           <div class="colBlockTitle bad">
             <div class="dot"></div>
             <div>危险障碍</div>
           </div>
-
           <div class="infoList">
-
-            <!-- 鲨鱼 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagMine"></div>
@@ -465,8 +423,6 @@
                 如果你当前有护盾，则优先消耗护盾，不掉血。
               </div>
             </div>
-
-            <!-- 剑鱼 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagRock"></div>
@@ -476,43 +432,34 @@
                 也是危险障碍，会造成伤害。也能被护盾抵挡。
               </div>
             </div>
-
-          </div><!-- /.infoList -->
-        </div><!-- 右列 -->
-
-      </div><!-- /.howtoColumns -->
-    </div><!-- /#howtoBox -->
-
-
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="leaderboardBox"></div>
   </div>
-
   <div id="pauseOverlay">
     <div class="box">
       <div style="font-size:1.2rem;margin-bottom:.4rem">已暂停</div>
       <button class="ghostBtn" id="resumeBtn">继续</button>
     </div>
   </div>
-
   <div id="tips">提示：若无反应，请在系统设置里开启“运动与体能访问权限”。</div>
   <div id="toast"></div>
   <div class="floating">
     <button id="pauseBtn" class="ghostBtn">暂停</button>
     <button id="restartBtn" class="ghostBtn">重开</button>
   </div>
-
   <script>
   ;(() => {
-    // --------------------------------------------------
-    // 基础 DOM 引用
-    // --------------------------------------------------
     const canvas = document.getElementById('c');
     const ctx = canvas.getContext('2d');
     const scoreEl = document.getElementById('score');
     const spdEl = document.getElementById('spd');
     const hpEl = document.getElementById('hp');
     const panel = document.getElementById('panel');
-    const panelTitleEl = document.getElementById('panelTitle');
+    the_panelTitleEl = document.getElementById('panelTitle'); // <-- keep var name consistent below
+    const panelTitleEl = the_panelTitleEl;
     const panelDescEl = document.getElementById('panelDesc');
     const pauseOverlay = document.getElementById('pauseOverlay');
     const startBtn = document.getElementById('startBtn');
@@ -525,10 +472,8 @@
     const toast = document.getElementById('toast');
     const leaderboardBox = document.getElementById('leaderboardBox');
 
-    // --------------------------------------------------
-    // 画布自适应
-    // --------------------------------------------------
     let W = 0, H = 0, dpr = 1;
+
     function fitToViewport(){
       const vw = window.visualViewport?.width || window.innerWidth;
       const vh = window.visualViewport?.height || window.innerHeight;
@@ -547,9 +492,6 @@
     window.addEventListener('resize', fitToViewport, {passive:true});
     window.visualViewport?.addEventListener('resize', fitToViewport, {passive:true});
 
-    // --------------------------------------------------
-    // 小工具函数
-    // --------------------------------------------------
     const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
     const rand = (a,b)=>a + Math.random()*(b-a);
 
@@ -560,9 +502,6 @@
       showToast.tid = setTimeout(()=>toast.style.display='none', ms);
     }
 
-    // --------------------------------------------------
-    // 本地排行榜
-    // --------------------------------------------------
     function loadScores(mode){
       try{
         const raw = localStorage.getItem('scores_'+mode);
@@ -574,7 +513,6 @@
         return [];
       }
     }
-
     function saveScore(mode, score){
       if(!mode) return;
       const entry = {
@@ -615,9 +553,7 @@
       leaderboardBox.innerHTML = html;
     }
 
-    // --------------------------------------------------
-    // 资源
-    // --------------------------------------------------
+    // 资源图片
     const coinImg = new Image();
     coinImg.src = 'assets/coin.svg';
     const heartImg = new Image();
@@ -629,9 +565,7 @@
     const swordfishImg = new Image();
     swordfishImg.src = 'assets/swordfish.png';
 
-    // --------------------------------------------------
-    // 核心 State
-    // --------------------------------------------------
+    // 全局状态
     const State = {
       init(){
         this.reset();
@@ -641,9 +575,7 @@
         this.input={ax:0,ay:0,sprint:false};
         this.time={now:0,last:0,dt:0};
         this.shake = { t:0, mag:0 };
-
         this.runDifficulty = diffSel.value;
-
         this.fx = {
           particles: [],
           pulse: 0,
@@ -689,6 +621,7 @@
         }, diffCfg);
 
         this.world = { z:0, speed:this.cfg.baseSpeed, t:0 };
+
         this.hero = {
           x:W/2, y:H/2,
           vx:0, vy:0,
@@ -708,13 +641,12 @@
         this.spawnTick=0;
         this.coinTick=0;
         this.bubbleTick=0;
-
         this.heartTick=rand(this.cfg.heartRateRange[0], this.cfg.heartRateRange[1]) * 0.3;
         this.shieldTick=rand(this.cfg.shieldRateRange[0], this.cfg.shieldRateRange[1]) * 0.3;
 
         this.surviveTime=0;
-        this.shake = { t:0, mag:0 };
 
+        this.shake = { t:0, mag:0 };
         this.fx = {
           particles: [],
           pulse: 0,
@@ -722,39 +654,22 @@
           flash: 0,
           flashMax: 0.15
         };
-
         this.runDifficulty = diffSel.value;
       }
     };
     State.init();
 
-    // --------------------------------------------------
-    // 获取玩家真实可达范围（playable bounds）
-    // --------------------------------------------------
-    function getPlayableBounds(){
-      const h = State.hero;
-      const cfg = State.cfg;
-      const xmin = cfg.worldPadding + h.r;
-      const xmax = W - cfg.worldPadding - h.r;
-      const ymin = h.r;
-      const ymax = H - h.r;
-      return { xmin, xmax, ymin, ymax };
-    }
-
-    // --------------------------------------------------
-    // 传感器 / 输入
-    // --------------------------------------------------
-    async function requestMotionPermission(){
+    function requestMotionPermission(){
       const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-      try{
-        if (isIOS && typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
-          const r1 = await DeviceMotionEvent.requestPermission();
-          const r2 = await DeviceOrientationEvent.requestPermission?.();
-          if (r1 !== 'granted') throw new Error('未授权运动传感器');
-          if (r2 && r2 !== 'granted') throw new Error('未授权方向传感器');
-        }
-      }catch(e){
-        showToast(e.message || '需要传感器权限');
+      if (isIOS && typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+        DeviceMotionEvent.requestPermission().then(r1=>{
+          if(r1!=='granted') throw new Error('未授权运动传感器');
+          if (typeof DeviceOrientationEvent.requestPermission === 'function'){
+            return DeviceOrientationEvent.requestPermission();
+          }
+        }).catch(e=>{
+          showToast(e.message || '需要传感器权限');
+        });
       }
     }
 
@@ -766,7 +681,6 @@
       State.input.ax = clamp(ax, -1.5, 1.5);
       State.input.ay = clamp(ay, -1.5, 1.5);
     }
-
     function calibrate(){
       State.device.calib.beta = State.device.beta;
       State.device.calib.gamma = State.device.gamma;
@@ -780,7 +694,7 @@
       handleOrientation(State.device);
     });
 
-    // 触摸按住=冲刺
+    // 触摸 / 键盘输入
     let touchId = null;
     canvas.addEventListener('touchstart',(e)=>{
       if (touchId===null){
@@ -788,6 +702,7 @@
         State.input.sprint=true;
       }
     }, {passive:true});
+
     canvas.addEventListener('touchend',(e)=>{
       for (const t of e.changedTouches){
         if (t.identifier===touchId){
@@ -797,7 +712,6 @@
       }
     }, {passive:true});
 
-    // 键盘调试
     const keys = new Set();
     window.addEventListener('keydown', (e)=>{
       keys.add(e.key);
@@ -814,47 +728,26 @@
       State.input.sprint = keys.has(' ');
     }
 
-    // --------------------------------------------------
-    // 生成物（已限制到 playable 范围）
-    // --------------------------------------------------
-    function laneX(l){ return State.cfg.worldPadding + l*State.cfg.laneWidth; }
-
+    // —— 这里开始是我们修改的地方之一：spawnObstacle 增加 flip 随机方向 ——
     function spawnObstacle(){
-      const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
-      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
-
-      const w = rand(laneW*0.7, laneW*1.2);
+      const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
-
-      const lane = Math.floor(rand(0, lanes));
-      let x = laneX(lane) + (laneW - w)/2;
-      let y = rand(Math.max(50,H*0.12), H - Math.max(50,H*0.12));
-
-      const halfW = w/2;
-      const halfH = h/2;
-      x = clamp(x, xmin + halfW, xmax - halfW);
-      y = clamp(y, ymin + halfH, ymax - halfH);
-
+      let x = rand(w/2, W - w/2);
+      let y = rand(h/2, H - h/2);
       const z = State.world.z + rand(H*1.1, H*2.0);
-
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
 
-      State.obs.push({x,y,z,w,h,type,hit:false});
+      // 新增：随机水平翻转方向，1 = 正常，-1 = 镜像
+      const flip = (Math.random() < 0.5) ? 1 : -1;
+
+      State.obs.push({x,y,z,w,h,type,hit:false,flip});
     }
+    // —— 修改结束 ——
 
     function spawnCoin(){
-      const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
-      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
-
-      const lane = Math.floor(rand(0, lanes));
-      let x = laneX(lane) + laneW/2;
-      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
-
       const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
-
-      x = clamp(x, xmin + r, xmax - r);
-      y = clamp(y, ymin + r, ymax - r);
-
+      let x = rand(r, W - r);
+      let y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.coins.push({
         x,y,z,
@@ -868,18 +761,9 @@
     }
 
     function spawnHeart(){
-      const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
-      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
-
-      const lane = Math.floor(rand(0, lanes));
-      let x = laneX(lane) + laneW/2;
-      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
-
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-
-      x = clamp(x, xmin + r, xmax - r);
-      y = clamp(y, ymin + r, ymax - r);
-
+      let x = rand(r, W - r);
+      let y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.hearts.push({
         x,y,z,
@@ -893,18 +777,9 @@
     }
 
     function spawnShield(){
-      const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
-      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
-
-      const lane = Math.floor(rand(0, lanes));
-      let x = laneX(lane) + laneW/2;
-      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
-
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-
-      x = clamp(x, xmin + r, xmax - r);
-      y = clamp(y, ymin + r, ymax - r);
-
+      let x = rand(r, W - r);
+      let y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.shields.push({
         x,y,z,
@@ -928,9 +803,6 @@
       });
     }
 
-    // --------------------------------------------------
-    // 碰撞
-    // --------------------------------------------------
     function aabbCircleOverlap(ax,ay,aw,ah,cx,cy,cr){
       const nx = clamp(cx, ax, ax+aw);
       const ny = clamp(cy, ay, ay+ah);
@@ -938,9 +810,6 @@
       return (dx*dx + dy*dy) <= cr*cr;
     }
 
-    // --------------------------------------------------
-    // 绘制
-    // --------------------------------------------------
     function clearFrame(){
       ctx.clearRect(0,0,W,H);
     }
@@ -949,6 +818,7 @@
       const sway = Math.sin(t*8 + h.y*0.02) * 6;
       const x=h.x, y=h.y;
 
+      // 护盾发光
       if (h.shieldTime > 0){
         const glowR = h.r + 18;
         ctx.save();
@@ -972,6 +842,7 @@
         ctx.restore();
       }
 
+      // 泡泡尾迹
       ctx.globalAlpha = 0.8;
       ctx.fillStyle = '#7fdcff';
       for(let i=0;i<4;i++){
@@ -983,21 +854,25 @@
       }
       ctx.globalAlpha = 1;
 
+      // 身体
       ctx.fillStyle = '#73c6ff';
       ctx.beginPath();
       ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2);
       ctx.fill();
 
+      // 头
       ctx.fillStyle = '#ffd4a3';
       ctx.beginPath();
       ctx.arc(x+24, y-2, 7, 0, Math.PI*2);
       ctx.fill();
 
+      // 护目镜
       ctx.fillStyle = '#144d66';
       ctx.fillRect(x+18, y-6, 12, 8);
       ctx.fillStyle = '#8be0ff';
       ctx.fillRect(x+19, y-5, 10, 6);
 
+      // 手臂
       ctx.strokeStyle = '#73c6ff';
       ctx.lineWidth = 4;
       ctx.lineCap='round';
@@ -1010,6 +885,7 @@
       ctx.lineTo(x-8, y - sway*0.6);
       ctx.stroke();
 
+      // 受伤闪烁
       if (h.invul>0){
         ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30);
         ctx.fillStyle='#fff';
@@ -1020,13 +896,13 @@
       }
     }
 
+    // —— 这里开始是我们修改的地方之二：drawObstacle 支持水平翻转 ——
     function drawObstacle(o, zRel){
       ctx.save();
+
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
-
-      const rx = (o.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
-      const ry = (o.y - H/2) * par + H/2;
-
+      const rx = o.x;
+      const ry = o.y;
       const boxW = o.w * par;
       const boxH = o.h * par;
 
@@ -1039,7 +915,6 @@
           const ih = imgObj.naturalHeight;
           const imgRatio = iw / ih;
           const boxRatio = boxW / boxH;
-
           let drawW, drawH;
           if (boxRatio > imgRatio){
             drawH = boxH;
@@ -1048,17 +923,24 @@
             drawW = boxW;
             drawH = drawW / imgRatio;
           }
-
           drawW *= SCALE;
           drawH *= SCALE;
 
+          // 新增：按照 o.flip 来水平翻转
+          const flipSign = (o.flip === -1) ? -1 : 1;
+
+          ctx.save();
+          ctx.translate(rx, ry);
+          ctx.scale(flipSign, 1);
           ctx.drawImage(
             imgObj,
-            rx - drawW/2,
-            ry - drawH/2,
+            -drawW/2,
+            -drawH/2,
             drawW,
             drawH
           );
+          ctx.restore();
+
         }else{
           if (o.type==='shark'){
             ctx.fillStyle = '#8a1f1f';
@@ -1069,7 +951,6 @@
           ctx.ellipse(rx, ry, boxW*0.6, boxH*0.4, 0, 0, Math.PI*2);
           ctx.fill();
         }
-
       }else{
         ctx.fillStyle = '#ff00ff';
         ctx.beginPath();
@@ -1079,18 +960,20 @@
 
       ctx.restore();
     }
+    // —— 修改结束 ——
 
     function drawCoinDepth(c, zRel){
       if (!coinImg.complete || !coinImg.naturalWidth) return;
       ctx.save();
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = (c.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
-      const ry = (c.y - H/2) * par + H/2;
+      const rx = c.x;
+      const ry = c.y;
       const r = c.r * (par*0.8+0.2);
       const s = r*2;
       ctx.drawImage(coinImg, rx - s/2, ry - s/2, s, s);
       ctx.restore();
     }
+
     function drawCoinFloating(c){
       if (!coinImg.complete || !coinImg.naturalWidth) return;
       ctx.save();
@@ -1102,10 +985,9 @@
 
     function drawHeartDepth(hc, zRel){
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = (hc.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
-      const ry = (hc.y - H/2) * par + H/2;
+      const rx = hc.x;
+      const ry = hc.y;
       const r  = hc.r * (par*0.8+0.2);
-
       if (heartImg.complete && heartImg.naturalWidth){
         const s = r*2;
         ctx.drawImage(heartImg, rx - s/2, ry - s/2, s, s);
@@ -1122,6 +1004,7 @@
         ctx.restore();
       }
     }
+
     function drawHeartFloating(hc){
       const r = hc.fr;
       if (heartImg.complete && heartImg.naturalWidth){
@@ -1144,10 +1027,9 @@
     function drawShieldDepth(sh){
       const zRel = sh.z - State.world.z;
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = (sh.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
-      const ry = (sh.y - H/2) * par + H/2;
+      const rx = sh.x;
+      const ry = sh.y;
       const r  = sh.r * (par*0.8+0.2);
-
       if (shieldImg.complete && shieldImg.naturalWidth){
         const s = r*2;
         ctx.drawImage(shieldImg, rx - s/2, ry - s/2, s, s);
@@ -1168,6 +1050,7 @@
         ctx.restore();
       }
     }
+
     function drawShieldFloating(sh){
       const r = sh.fr;
       if (shieldImg.complete && shieldImg.naturalWidth){
@@ -1191,20 +1074,18 @@
       }
     }
 
-    // --------------------------------------------------
-    // 可拾取物的浮动/收集逻辑
-    // --------------------------------------------------
     function maybeSwitchToFloatingPickup(item, zRel){
       if (item.floating || item.got) return;
       if (zRel < 0){
         const par = clamp(1 - zRel/(H*2.0), 0, 1);
-        item.fx = (item.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
-        item.fy = (item.y - H/2) * par + H/2;
+        item.fx = item.x;
+        item.fy = item.y;
         item.fr = item.r * (par*0.8+0.2);
         item.floating = true;
         item.linger = 1.5;
       }
     }
+
     function updateFloatingItem(item, dt){
       if (!item.floating || item.got) return;
       item.linger -= dt;
@@ -1229,6 +1110,7 @@
         });
       }
     }
+
     function triggerPulse(){
       State.fx.pulse = State.fx.pulseMax;
     }
@@ -1247,6 +1129,7 @@
         spawnCoinBurst(h.x, h.y);
       }
     }
+
     function checkPickupFloatingHeart(item){
       if (item.got) return;
       const h = State.hero;
@@ -1264,6 +1147,7 @@
         triggerFlash();
       }
     }
+
     function checkPickupFloatingShield(item){
       if (item.got) return;
       const h = State.hero;
@@ -1275,9 +1159,6 @@
       }
     }
 
-    // --------------------------------------------------
-    // 主更新逻辑
-    // --------------------------------------------------
     function update(dt){
       if (!('ontouchstart' in window)) keyboardInput();
 
@@ -1289,12 +1170,14 @@
       w.t += dt;
       State.surviveTime += dt;
 
+      // 难度随时间加速
       const targetSpd = cfg.baseSpeed + Math.min(1, State.surviveTime/120) * (cfg.maxSpeed - cfg.baseSpeed);
       w.speed += (targetSpd - w.speed) * 0.2;
 
       const spdMul = State.input.sprint ? cfg.sprintBoost : 1;
       w.z += w.speed * spdMul * dt * 60;
 
+      // 角色运动
       h.vx += State.input.ax * cfg.swimAccel;
       h.vy += State.input.ay * cfg.swimAccel;
       h.vx *= cfg.swimDamp;
@@ -1307,21 +1190,23 @@
         if (h.shieldTime < 0) h.shieldTime = 0;
       }
 
-      // 生成背景泡泡、障碍、金币
+      // 生成气泡
       if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){
         State.bubbleTick = 0;
         spawnBubble();
       }
+      // 生成障碍
       if ((State.spawnTick  += dt) > cfg.obstacleRate){
         State.spawnTick  = 0;
         spawnObstacle();
       }
+      // 生成金币
       if ((State.coinTick   += dt) > cfg.coinRate){
         State.coinTick   = 0;
         spawnCoin();
       }
 
-      // 爱心生成
+      // 生成心
       State.heartTick += dt;
       const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
       if (State.heartTick >= heartInterval){
@@ -1333,7 +1218,7 @@
         State.heartTick = 0;
       }
 
-      // 护盾生成
+      // 生成护盾
       State.shieldTick += dt;
       const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
       if (State.shieldTick >= shieldInterval){
@@ -1345,7 +1230,7 @@
         State.shieldTick = 0;
       }
 
-      // 泡泡上浮 & 生命周期
+      // 气泡上浮衰减
       for (let i=State.bubbles.length-1;i>=0;i--){
         const b=State.bubbles[i];
         b.life -= dt;
@@ -1353,7 +1238,7 @@
         if (b.life<=0) State.bubbles.splice(i,1);
       }
 
-      // 障碍更新+碰撞
+      // 障碍检测
       for (let i=State.obs.length-1;i>=0;i--){
         const o=State.obs[i];
         const zRel = o.z - w.z;
@@ -1461,9 +1346,10 @@
         }
       }
 
-      // 无敌/特效
+      // 受伤后无敌计时
       h.invul = Math.max(0, h.invul - dt);
 
+      // 粒子更新
       for (let i = State.fx.particles.length-1; i>=0; i--){
         const p = State.fx.particles[i];
         p.t += dt;
@@ -1473,6 +1359,8 @@
           State.fx.particles.splice(i,1);
         }
       }
+
+      // 心跳脉冲、闪光衰减
       if (State.fx.pulse > 0){
         State.fx.pulse -= dt;
         if (State.fx.pulse < 0) State.fx.pulse = 0;
@@ -1482,25 +1370,23 @@
         if (State.fx.flash < 0) State.fx.flash = 0;
       }
 
+      // HUD
       scoreEl.textContent = Math.floor(h.score);
       spdEl.textContent = w.speed.toFixed(1);
       hpEl.textContent = h.hp;
 
+      // 基础分随时间增加
       h.score += dt * w.speed * (State.input.sprint?1.0:0.7);
 
+      // 震屏衰减
       if (State.shake.t > 0){
         State.shake.t -= dt;
         if (State.shake.t < 0) State.shake.t = 0;
       }
     }
 
-    // --------------------------------------------------
-    // 受伤 / 结束 / 菜单
-    // --------------------------------------------------
     function onHit(){
       const h=State.hero;
-
-      // 有护盾 -> 抵挡伤害
       if (h.shieldTime > 0){
         h.shieldTime = 0;
         h.invul = State.cfg.hurtCooldown * 0.5;
@@ -1509,16 +1395,14 @@
         showToast('护盾抵挡!');
         return;
       }
-
       if (h.invul>0) return;
 
       h.hp -= State.cfg.damage;
       h.invul = State.cfg.hurtCooldown;
-
       State.shake.t = 0.25;
       State.shake.mag = 5;
-
       showToast(h.hp>0 ? '-HP' : '你被击倒了');
+
       if (h.hp <= 0){
         gameOver();
       }
@@ -1534,10 +1418,9 @@
       panelTitleEl.textContent='Game Over · 再来一把？';
       panelDescEl.innerHTML='你被击倒了。可以直接重新开始，或点右下角“重开”回到主菜单重新调难度。';
       startBtn.textContent='重新开始';
-
       renderLeaderboardPanel();
-
       panel.style.display='block';
+
       State.time.last = 0;
     }
 
@@ -1549,10 +1432,9 @@
       panelTitleEl.innerHTML='<span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>';
       panelDescEl.innerHTML='按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>左右倾斜控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。';
       startBtn.textContent='开始游戏';
-
       renderLeaderboardPanel();
-
       panel.style.display='block';
+
       State.time.last = 0;
     }
 
@@ -1575,13 +1457,11 @@
       pauseOverlay.style.display = State.paused?'grid':'none';
     }
 
-    // --------------------------------------------------
-    // 主循环
-    // --------------------------------------------------
     let rafId=0;
     function loop(){
       rafId = requestAnimationFrame(loop);
       if (!State.running || State.paused) return;
+
       const now=performance.now();
       if (!State.time.last) State.time.last=now;
       const dt = clamp((now - State.time.last)/1000, 0, 0.05);
@@ -1591,6 +1471,7 @@
 
       ctx.save();
 
+      // 屏幕抖动
       if (State.shake.t > 0){
         const decay = State.shake.t / 0.25;
         const magNow = State.shake.mag * decay;
@@ -1601,7 +1482,7 @@
 
       clearFrame();
 
-      // 泡泡
+      // 画背景泡泡
       for (const b of State.bubbles){
         ctx.globalAlpha=0.35;
         ctx.beginPath();
@@ -1611,7 +1492,7 @@
         ctx.globalAlpha=1;
       }
 
-      // 金币
+      // 金币（两种状态：深度 or 飘浮）
       for (const c of State.coins){
         if (!c.floating){
           const zRel = c.z - State.world.z;
@@ -1621,7 +1502,7 @@
         }
       }
 
-      // 障碍物
+      // 障碍物（含鲨鱼/剑鱼，已经支持随机朝向）
       for (const o of State.obs){
         drawObstacle(o, o.z - State.world.z);
       }
@@ -1645,7 +1526,7 @@
         }
       }
 
-      // 爱心回血脉冲圈
+      // 获得爱心/受击时的粉色脉冲圈
       if (State.fx.pulse > 0){
         const h = State.hero;
         const k = 1 - (State.fx.pulse / State.fx.pulseMax);
@@ -1666,7 +1547,7 @@
       // 主角
       drawHero(State.hero, State.world.t);
 
-      // 金色粒子（金币爆散）
+      // 金币爆裂的金色小粒子
       for (const p of State.fx.particles){
         const lifeK = 1 - (p.t / p.life);
         ctx.save();
@@ -1681,7 +1562,7 @@
         ctx.restore();
       }
 
-      // 粉色柔光
+      // 红粉色闪屏
       if (State.fx.flash > 0){
         const k = 1 - (State.fx.flash / State.fx.flashMax);
         const alpha = 0.2 * (1 - k);
@@ -1695,11 +1576,8 @@
       ctx.restore();
     }
 
-    // --------------------------------------------------
-    // 事件绑定
-    // --------------------------------------------------
-    startBtn.addEventListener('click', async ()=>{
-      await requestMotionPermission();
+    startBtn.addEventListener('click', ()=>{
+      requestMotionPermission();
       start();
     }, {passive:true});
 
@@ -1709,7 +1587,6 @@
       restart();
     });
 
-    // 校准按钮：方案二（按钮文字临时变“已校准 ✅”）
     calBtn.addEventListener('click', ()=>{
       calibrate();
       const oldText = calBtn.textContent;
@@ -1720,13 +1597,11 @@
     sensSlider.addEventListener('input', ()=>{
       State.device.sens = parseFloat(sensSlider.value);
     });
+
     diffSel.addEventListener('change', ()=>{
       showToast('难度：'+diffSel.value);
     });
 
-    // --------------------------------------------------
-    // 初始化菜单排行榜 + 启动渲染循环
-    // --------------------------------------------------
     renderLeaderboardPanel();
     loop();
   })();
