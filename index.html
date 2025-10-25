@@ -458,7 +458,7 @@
     const spdEl = document.getElementById('spd');
     const hpEl = document.getElementById('hp');
     const panel = document.getElementById('panel');
-    the_panelTitleEl = document.getElementById('panelTitle'); // <-- keep var name consistent below
+    the_panelTitleEl = document.getElementById('panelTitle'); // 保持原写法
     const panelTitleEl = the_panelTitleEl;
     const panelDescEl = document.getElementById('panelDesc');
     const pauseOverlay = document.getElementById('pauseOverlay');
@@ -728,26 +728,37 @@
       State.input.sprint = keys.has(' ');
     }
 
-    // —— 这里开始是我们修改的地方之一：spawnObstacle 增加 flip 随机方向 ——
+    // 生成障碍物（含随机左右翻转 + 限制到玩家可达区域）
     function spawnObstacle(){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
-      let x = rand(w/2, W - w/2);
-      let y = rand(h/2, H - h/2);
+
+      // 避开左右死区：使用 worldPadding
+      const minX = State.cfg.worldPadding + w/2;
+      const maxX = W - State.cfg.worldPadding - w/2;
+
+      const x = rand(minX, maxX);
+      const y = rand(h/2, H - h/2);
+
       const z = State.world.z + rand(H*1.1, H*2.0);
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
 
-      // 新增：随机水平翻转方向，1 = 正常，-1 = 镜像
+      // 随机水平翻转
       const flip = (Math.random() < 0.5) ? 1 : -1;
 
       State.obs.push({x,y,z,w,h,type,hit:false,flip});
     }
-    // —— 修改结束 ——
 
+    // 生成金币（限制到玩家可达区域）
     function spawnCoin(){
       const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
-      let x = rand(r, W - r);
-      let y = rand(r, H - r);
+
+      const minX = State.cfg.worldPadding + r;
+      const maxX = W - State.cfg.worldPadding - r;
+
+      const x = rand(minX, maxX);
+      const y = rand(r, H - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.coins.push({
         x,y,z,
@@ -760,10 +771,16 @@
       });
     }
 
+    // 生成爱心（限制到玩家可达区域）
     function spawnHeart(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-      let x = rand(r, W - r);
-      let y = rand(r, H - r);
+
+      const minX = State.cfg.worldPadding + r;
+      const maxX = W - State.cfg.worldPadding - r;
+
+      const x = rand(minX, maxX);
+      const y = rand(r, H - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.hearts.push({
         x,y,z,
@@ -776,10 +793,16 @@
       });
     }
 
+    // 生成护盾（限制到玩家可达区域）
     function spawnShield(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-      let x = rand(r, W - r);
-      let y = rand(r, H - r);
+
+      const minX = State.cfg.worldPadding + r;
+      const maxX = W - State.cfg.worldPadding - r;
+
+      const x = rand(minX, maxX);
+      const y = rand(r, H - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.shields.push({
         x,y,z,
@@ -896,7 +919,7 @@
       }
     }
 
-    // —— 这里开始是我们修改的地方之二：drawObstacle 支持水平翻转 ——
+    // 绘制障碍物（带水平翻转）
     function drawObstacle(o, zRel){
       ctx.save();
 
@@ -926,7 +949,7 @@
           drawW *= SCALE;
           drawH *= SCALE;
 
-          // 新增：按照 o.flip 来水平翻转
+          // 根据 o.flip 水平翻转
           const flipSign = (o.flip === -1) ? -1 : 1;
 
           ctx.save();
@@ -960,7 +983,6 @@
 
       ctx.restore();
     }
-    // —— 修改结束 ——
 
     function drawCoinDepth(c, zRel){
       if (!coinImg.complete || !coinImg.naturalWidth) return;
@@ -1182,7 +1204,13 @@
       h.vy += State.input.ay * cfg.swimAccel;
       h.vx *= cfg.swimDamp;
       h.vy *= cfg.swimDamp;
-      h.x = clamp(h.x + h.vx * dt, cfg.worldPadding + h.r, W - cfg.worldPadding - h.r);
+
+      // clamp 到 worldPadding 内部
+      h.x = clamp(
+        h.x + h.vx * dt,
+        cfg.worldPadding + h.r,
+        W - cfg.worldPadding - h.r
+      );
       h.y = clamp(h.y + h.vy * dt, h.r, H - h.r);
 
       if (h.shieldTime > 0){
@@ -1502,7 +1530,7 @@
         }
       }
 
-      // 障碍物（含鲨鱼/剑鱼，已经支持随机朝向）
+      // 障碍物（鲨鱼/剑鱼，带随机朝向）
       for (const o of State.obs){
         drawObstacle(o, o.z - State.world.z);
       }
