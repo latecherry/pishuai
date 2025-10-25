@@ -162,7 +162,7 @@
       font-weight:400;
     }
 
-    /* ★INFO: 玩法/道具/障碍说明区 */
+    /* 玩法/道具/障碍说明区 */
     #howtoBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -368,7 +368,7 @@
 
     <p id="panelDesc">
       按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>
-      左右倾斿控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。
+      左右倾斜控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。
     </p>
 
     <div class="row" style="margin:.5rem 0 .25rem">
@@ -454,7 +454,7 @@
 
           <div class="infoList">
 
-            <!-- 鲨鱼（原红色障碍） -->
+            <!-- 鲨鱼 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagMine"></div>
@@ -466,7 +466,7 @@
               </div>
             </div>
 
-            <!-- 剑鱼（原灰色障碍） -->
+            <!-- 剑鱼 -->
             <div class="infoCard">
               <div class="infoHead">
                 <div class="tagIcon tagRock"></div>
@@ -561,7 +561,7 @@
     }
 
     // --------------------------------------------------
-    // 本地排行榜（localStorage）
+    // 本地排行榜
     // --------------------------------------------------
     function loadScores(mode){
       try{
@@ -625,9 +625,9 @@
     const shieldImg = new Image();
     shieldImg.src = 'assets/shield.svg';
     const sharkImg = new Image();
-    sharkImg.src = 'assets/shark.png'; // 🦈 鲨鱼
+    sharkImg.src = 'assets/shark.png';
     const swordfishImg = new Image();
-    swordfishImg.src = 'assets/swordfish.png'; // 🗡️ 剑鱼
+    swordfishImg.src = 'assets/swordfish.png';
 
     // --------------------------------------------------
     // 核心 State
@@ -644,7 +644,6 @@
 
         this.runDifficulty = diffSel.value;
 
-        // FX
         this.fx = {
           particles: [],
           pulse: 0,
@@ -655,7 +654,6 @@
       },
       reset(){
         const diff = diffSel.value;
-        // 难度配置，包括鲨鱼出现概率
         const diffCfg = {
           easy:   { baseSpeed:4,  maxSpeed:8.5,  spawn:1.1,  damage:1, heartRate:[12,18], sharkProb:0.15 },
           normal: { baseSpeed:5,  maxSpeed:10.5, spawn:0.95, damage:1, heartRate:[16,24], sharkProb:0.30 },
@@ -666,7 +664,6 @@
         const padding = clamp(Math.round(W*0.06), 32, 80);
         const lanes = clamp(Math.floor((W - 2*padding)/laneW), 5, 11);
 
-        // 护盾掉率≈心掉率的0.6倍
         const shieldRateRange = [
           diffCfg.heartRate[0]*0.6,
           diffCfg.heartRate[1]*0.6
@@ -688,7 +685,7 @@
           heartRateRange: diffCfg.heartRate,
           shieldRateRange: shieldRateRange,
           shieldDuration: 10.0,
-          sharkProb: diffCfg.sharkProb // 鲨鱼概率；剑鱼=剩下那部分
+          sharkProb: diffCfg.sharkProb
         }, diffCfg);
 
         this.world = { z:0, speed:this.cfg.baseSpeed, t:0 };
@@ -718,7 +715,6 @@
         this.surviveTime=0;
         this.shake = { t:0, mag:0 };
 
-        // FX 复位
         this.fx = {
           particles: [],
           pulse: 0,
@@ -731,6 +727,19 @@
       }
     };
     State.init();
+
+    // --------------------------------------------------
+    // 获取玩家真实可达范围（playable bounds）
+    // --------------------------------------------------
+    function getPlayableBounds(){
+      const h = State.hero;
+      const cfg = State.cfg;
+      const xmin = cfg.worldPadding + h.r;
+      const xmax = W - cfg.worldPadding - h.r;
+      const ymin = h.r;
+      const ymax = H - h.r;
+      return { xmin, xmax, ymin, ymax };
+    }
 
     // --------------------------------------------------
     // 传感器 / 输入
@@ -806,24 +815,28 @@
     }
 
     // --------------------------------------------------
-    // 生成物
+    // 生成物（已限制到 playable 范围）
     // --------------------------------------------------
     function laneX(l){ return State.cfg.worldPadding + l*State.cfg.laneWidth; }
 
     function spawnObstacle(){
       const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
+      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
 
       const w = rand(laneW*0.7, laneW*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
 
       const lane = Math.floor(rand(0, lanes));
-      const x = laneX(lane) + (laneW - w)/2;
-      const y = rand(Math.max(50,H*0.12), H - Math.max(50,H*0.12));
+      let x = laneX(lane) + (laneW - w)/2;
+      let y = rand(Math.max(50,H*0.12), H - Math.max(50,H*0.12));
+
+      const halfW = w/2;
+      const halfH = h/2;
+      x = clamp(x, xmin + halfW, xmax - halfW);
+      y = clamp(y, ymin + halfH, ymax - halfH);
+
       const z = State.world.z + rand(H*1.1, H*2.0);
 
-      // 生成类型：
-      //   'shark' 按 sharkProb
-      //   'swordfish' 其他情况
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
 
       State.obs.push({x,y,z,w,h,type,hit:false});
@@ -831,13 +844,21 @@
 
     function spawnCoin(){
       const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
+      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
+
       const lane = Math.floor(rand(0, lanes));
-      const x = laneX(lane) + laneW/2;
-      const y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+      let x = laneX(lane) + laneW/2;
+      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+
+      const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
+
+      x = clamp(x, xmin + r, xmax - r);
+      y = clamp(y, ymin + r, ymax - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.coins.push({
         x,y,z,
-        r:Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50))),
+        r,
         got:false,
         floating:false,
         linger:0,
@@ -848,13 +869,21 @@
 
     function spawnHeart(){
       const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
+      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
+
       const lane = Math.floor(rand(0, lanes));
-      const x = laneX(lane) + laneW/2;
-      const y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+      let x = laneX(lane) + laneW/2;
+      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+
+      const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
+
+      x = clamp(x, xmin + r, xmax - r);
+      y = clamp(y, ymin + r, ymax - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.hearts.push({
         x,y,z,
-        r:Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46))),
+        r,
         got:false,
         floating:false,
         linger:0,
@@ -865,13 +894,21 @@
 
     function spawnShield(){
       const laneW = State.cfg.laneWidth, lanes=State.cfg.lanes;
+      const { xmin, xmax, ymin, ymax } = getPlayableBounds();
+
       const lane = Math.floor(rand(0, lanes));
-      const x = laneX(lane) + laneW/2;
-      const y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+      let x = laneX(lane) + laneW/2;
+      let y = rand(Math.max(70,H*0.14), H - Math.max(70,H*0.14));
+
+      const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
+
+      x = clamp(x, xmin + r, xmax - r);
+      y = clamp(y, ymin + r, ymax - r);
+
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.shields.push({
         x,y,z,
-        r:Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46))),
+        r,
         got:false,
         floating:false,
         linger:0,
@@ -912,12 +949,11 @@
       const sway = Math.sin(t*8 + h.y*0.02) * 6;
       const x=h.x, y=h.y;
 
-      // 护盾外观
       if (h.shieldTime > 0){
         const glowR = h.r + 18;
         ctx.save();
         ctx.globalAlpha = 0.35;
-        const grd = ctx.createRadialGradient(x, y, glowR*0.2, x, y, glowR);
+        const grd = ctx.createRadialGradient(x, y, 0, x, y, glowR);
         grd.addColorStop(0, 'rgba(120,200,255,0.8)');
         grd.addColorStop(1, 'rgba(120,200,255,0)');
         ctx.fillStyle = grd;
@@ -936,7 +972,6 @@
         ctx.restore();
       }
 
-      // 小气泡尾巴
       ctx.globalAlpha = 0.8;
       ctx.fillStyle = '#7fdcff';
       for(let i=0;i<4;i++){
@@ -948,25 +983,21 @@
       }
       ctx.globalAlpha = 1;
 
-      // 身体
       ctx.fillStyle = '#73c6ff';
       ctx.beginPath();
       ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2);
       ctx.fill();
 
-      // 头
       ctx.fillStyle = '#ffd4a3';
       ctx.beginPath();
       ctx.arc(x+24, y-2, 7, 0, Math.PI*2);
       ctx.fill();
 
-      // 护目镜
       ctx.fillStyle = '#144d66';
       ctx.fillRect(x+18, y-6, 12, 8);
       ctx.fillStyle = '#8be0ff';
       ctx.fillRect(x+19, y-5, 10, 6);
 
-      // 鳍/手
       ctx.strokeStyle = '#73c6ff';
       ctx.lineWidth = 4;
       ctx.lineCap='round';
@@ -979,7 +1010,6 @@
       ctx.lineTo(x-8, y - sway*0.6);
       ctx.stroke();
 
-      // 受伤无敌白光
       if (h.invul>0){
         ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30);
         ctx.fillStyle='#fff';
@@ -994,16 +1024,13 @@
       ctx.save();
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
 
-      // 伪3D投影位置
       const rx = (o.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
       const ry = (o.y - H/2) * par + H/2;
 
-      // 用于决定缩放的“逻辑框”
       const boxW = o.w * par;
       const boxH = o.h * par;
 
       if (o.type==='shark' || o.type==='swordfish'){
-        // 我们抽象成一个通用函数，按比例缩放并放大
         const imgObj = (o.type==='shark') ? sharkImg : swordfishImg;
         const SCALE  = (o.type==='shark') ? 3.5 : 2.5;
 
@@ -1015,16 +1042,13 @@
 
           let drawW, drawH;
           if (boxRatio > imgRatio){
-            // 目标框比较扁 -> 以高度限制
             drawH = boxH;
             drawW = drawH * imgRatio;
           }else{
-            // 目标框比较高/窄 -> 以宽度限制
             drawW = boxW;
             drawH = drawW / imgRatio;
           }
 
-          // 放大
           drawW *= SCALE;
           drawH *= SCALE;
 
@@ -1036,7 +1060,6 @@
             drawH
           );
         }else{
-          // 占位形状（如果贴图还没加载完）
           if (o.type==='shark'){
             ctx.fillStyle = '#8a1f1f';
           }else{
@@ -1048,7 +1071,6 @@
         }
 
       }else{
-        // 理论上不应该走到这里了，但保个兜底
         ctx.fillStyle = '#ff00ff';
         ctx.beginPath();
         ctx.roundRect(rx-boxW/2, ry-boxH/2, boxW, boxH, 10);
@@ -1119,7 +1141,8 @@
       }
     }
 
-    function drawShieldDepth(sh, zRel){
+    function drawShieldDepth(sh){
+      const zRel = sh.z - State.world.z;
       const par = clamp(1 - zRel/(H*2.0), 0, 1);
       const rx = (sh.x - State.cfg.worldPadding) * par + State.cfg.worldPadding;
       const ry = (sh.y - H/2) * par + H/2;
@@ -1169,7 +1192,7 @@
     }
 
     // --------------------------------------------------
-    // 可捡起物的浮动/收集通用逻辑
+    // 可拾取物的浮动/收集逻辑
     // --------------------------------------------------
     function maybeSwitchToFloatingPickup(item, zRel){
       if (item.floating || item.got) return;
@@ -1241,7 +1264,6 @@
         triggerFlash();
       }
     }
-
     function checkPickupFloatingShield(item){
       if (item.got) return;
       const h = State.hero;
@@ -1280,7 +1302,6 @@
       h.x = clamp(h.x + h.vx * dt, cfg.worldPadding + h.r, W - cfg.worldPadding - h.r);
       h.y = clamp(h.y + h.vy * dt, h.r, H - h.r);
 
-      // 护盾计时
       if (h.shieldTime > 0){
         h.shieldTime -= dt;
         if (h.shieldTime < 0) h.shieldTime = 0;
@@ -1324,7 +1345,7 @@
         State.shieldTick = 0;
       }
 
-      // 更新泡泡
+      // 泡泡上浮 & 生命周期
       for (let i=State.bubbles.length-1;i>=0;i--){
         const b=State.bubbles[i];
         b.life -= dt;
@@ -1332,7 +1353,7 @@
         if (b.life<=0) State.bubbles.splice(i,1);
       }
 
-      // 更新障碍 + 碰撞检查
+      // 障碍更新+碰撞
       for (let i=State.obs.length-1;i>=0;i--){
         const o=State.obs[i];
         const zRel = o.z - w.z;
@@ -1348,7 +1369,7 @@
         }
       }
 
-      // 更新金币
+      // 金币
       for (let i=State.coins.length-1;i>=0;i--){
         const c=State.coins[i];
         if (!c.floating){
@@ -1377,7 +1398,7 @@
         }
       }
 
-      // 更新爱心
+      // 爱心
       for (let i=State.hearts.length-1;i>=0;i--){
         const hc=State.hearts[i];
         if (!hc.floating){
@@ -1412,7 +1433,7 @@
         }
       }
 
-      // 更新护盾
+      // 护盾
       for (let i=State.shields.length-1;i>=0;i--){
         const sh=State.shields[i];
         if (!sh.floating){
@@ -1440,9 +1461,9 @@
         }
       }
 
+      // 无敌/特效
       h.invul = Math.max(0, h.invul - dt);
 
-      // FX 更新
       for (let i = State.fx.particles.length-1; i>=0; i--){
         const p = State.fx.particles[i];
         p.t += dt;
@@ -1479,7 +1500,7 @@
     function onHit(){
       const h=State.hero;
 
-      // 护盾优先抵挡
+      // 有护盾 -> 抵挡伤害
       if (h.shieldTime > 0){
         h.shieldTime = 0;
         h.invul = State.cfg.hurtCooldown * 0.5;
@@ -1489,7 +1510,6 @@
         return;
       }
 
-      // 没护盾就扣血
       if (h.invul>0) return;
 
       h.hp -= State.cfg.damage;
@@ -1556,7 +1576,7 @@
     }
 
     // --------------------------------------------------
-    // 主循环：update + render
+    // 主循环
     // --------------------------------------------------
     let rafId=0;
     function loop(){
@@ -1571,7 +1591,6 @@
 
       ctx.save();
 
-      // 屏幕震动
       if (State.shake.t > 0){
         const decay = State.shake.t / 0.25;
         const magNow = State.shake.mag * decay;
@@ -1602,7 +1621,7 @@
         }
       }
 
-      // 障碍物（鲨鱼 / 剑鱼）
+      // 障碍物
       for (const o of State.obs){
         drawObstacle(o, o.z - State.world.z);
       }
@@ -1620,14 +1639,13 @@
       // 护盾
       for (const sh of State.shields){
         if (!sh.floating){
-          const zRel = sh.z - State.world.z;
-          drawShieldDepth(sh, zRel);
+          drawShieldDepth(sh);
         }else{
           drawShieldFloating(sh);
         }
       }
 
-      // 爱心回血脉冲光圈
+      // 爱心回血脉冲圈
       if (State.fx.pulse > 0){
         const h = State.hero;
         const k = 1 - (State.fx.pulse / State.fx.pulseMax);
@@ -1648,7 +1666,7 @@
       // 主角
       drawHero(State.hero, State.world.t);
 
-      // 金色粒子特效（金币）
+      // 金色粒子（金币爆散）
       for (const p of State.fx.particles){
         const lifeK = 1 - (p.t / p.life);
         ctx.save();
@@ -1663,7 +1681,7 @@
         ctx.restore();
       }
 
-      // 粉色柔光（吃到心）
+      // 粉色柔光
       if (State.fx.flash > 0){
         const k = 1 - (State.fx.flash / State.fx.flashMax);
         const alpha = 0.2 * (1 - k);
@@ -1691,7 +1709,14 @@
       restart();
     });
 
-    calBtn.addEventListener('click', ()=> calibrate());
+    // 校准按钮：方案二（按钮文字临时变“已校准 ✅”）
+    calBtn.addEventListener('click', ()=>{
+      calibrate();
+      const oldText = calBtn.textContent;
+      calBtn.textContent = '已校准 ✅';
+      setTimeout(()=>{ calBtn.textContent = oldText; }, 1200);
+    });
+
     sensSlider.addEventListener('input', ()=>{
       State.device.sens = parseFloat(sensSlider.value);
     });
@@ -1700,7 +1725,7 @@
     });
 
     // --------------------------------------------------
-    // 初始化主菜单排行榜 + 启动循环
+    // 初始化菜单排行榜 + 启动渲染循环
     // --------------------------------------------------
     renderLeaderboardPanel();
     loop();
@@ -1708,4 +1733,3 @@
   </script>
 </body>
 </html>
-
