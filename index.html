@@ -22,6 +22,9 @@
       --btn-text:#ddf;
       --btn-border:#ffffff4d;
     }
+    /* 关键：统一盒模型，保证 100% 宽度包含 padding/border */
+    *, *::before, *::after { box-sizing: border-box; }
+
     html,body{
       margin:0; padding:0; width:100%; height:100%; overflow:hidden;
       background:#000;
@@ -65,7 +68,7 @@
       border:1px solid var(--panel-border);
       border-radius:16px;
       color:var(--ui);
-      padding:16px 16px 14px;
+      padding:16px;              /* 内边距统一 */
       box-shadow:0 10px 30px var(--panel-shadow);
       backdrop-filter:blur(6px);
       z-index:20
@@ -101,14 +104,15 @@
       margin-top:1rem;
       margin-bottom:.5rem;
     }
+    /* 关键：宽度 100% 与下方卡片一致；左右对齐 */
     .blockCard{
-      width:min(560px, 96%);
+      width:100%;
       background:#0004;
       border:1px solid #ffffff22;
       border-radius:12px;
       box-shadow:0 8px 24px #0008;
       padding:.9rem .9rem .8rem;
-      margin:0 auto;
+      margin:0;                 /* 与下方盒子保持相同的左右外边距（0） */
     }
     .rowTitle{
       font-size:.9rem;
@@ -120,113 +124,51 @@
       text-align:center;
     }
 
-    /* 难度选择（新版样式，防止重叠） */
+    /* 难度选择（分段控件样式） */
     .diffGroup{
       display:flex;
       border-radius:10px;
       background:#001a27aa;
       border:1px solid #ffffff30;
       box-shadow:0 8px 24px #000a;
-      overflow:hidden;            /* clip 子元素的高亮光晕，避免溢出叠影 */
+      overflow:hidden;
       min-width:0;
     }
-    .diffOption{
-      position:relative;
-      flex:1;
-      min-width:0;
-      display:flex;
-    }
-    .diffOption:not(:last-child) .diffBtn{
-      border-right:1px solid #ffffff22;  /* 中间竖线分隔段 */
-    }
-    .diffOption input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
+    .diffOption{ position:relative; flex:1; min-width:0; display:flex; }
+    .diffOption:not(:last-child) .diffBtn{ border-right:1px solid #ffffff22; }
+    .diffOption input{ position:absolute; opacity:0; pointer-events:none; }
     .diffBtn{
-      flex:1;
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
+      flex:1; min-width:0;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
       padding:.7rem .5rem .6rem;
-      text-align:center;
-      background:transparent;
-      color:#cfe8ff;
-      line-height:1.2;
-      font-weight:600;
-      user-select:none;
+      text-align:center; background:transparent;
+      color:#cfe8ff; line-height:1.2; font-weight:600; user-select:none;
     }
-    .diffMainTxt{
-      font-size:.9rem;
-      font-weight:600;
-      color:#fff;
-      text-shadow:0 1px 2px #000;
-      white-space:nowrap;
-    }
-    .diffSubTxt{
-      font-size:.7rem;
-      line-height:1.2;
-      color:#cfe8ff99;
-      text-shadow:0 1px 2px #000a;
-      font-weight:400;
-      margin-top:.25rem;
-      white-space:nowrap;
-    }
+    .diffMainTxt{ font-size:.9rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; white-space:nowrap; }
+    .diffSubTxt{ font-size:.7rem; line-height:1.2; color:#cfe8ff99; text-shadow:0 1px 2px #000a; font-weight:400; margin-top:.25rem; white-space:nowrap; }
 
-    /* 选中态：用背景高亮 + 内阴影，而不是外发光，避免“浮上来”重叠 */
     #diff_easy:checked + .diffBtn{
-      background:linear-gradient(
-        rgba(0,80,40,.7),
-        rgba(0,60,30,.4)
-      );
-      box-shadow:inset 0 0 12px rgba(0,255,128,.45);
-      color:#cfffef;
+      background:linear-gradient(rgba(0,80,40,.7), rgba(0,60,30,.4));
+      box-shadow:inset 0 0 12px rgba(0,255,128,.45); color:#cfffef;
     }
-    #diff_easy:checked + .diffBtn .diffMainTxt{
-      color:#6bffb0;
-      text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000;
-    }
-
+    #diff_easy:checked + .diffBtn .diffMainTxt{ color:#6bffb0; text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000; }
     #diff_normal:checked + .diffBtn{
-      background:linear-gradient(
-        rgba(0,90,110,.7),
-        rgba(0,60,80,.4)
-      );
-      box-shadow:inset 0 0 12px rgba(0,200,255,.45);
-      color:#dff9ff;
+      background:linear-gradient(rgba(0,90,110,.7), rgba(0,60,80,.4));
+      box-shadow:inset 0 0 12px rgba(0,200,255,.45); color:#dff9ff;
     }
-    #diff_normal:checked + .diffBtn .diffMainTxt{
-      color:var(--accent);
-      text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000;
-    }
-
+    #diff_normal:checked + .diffBtn .diffMainTxt{ color:var(--accent); text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000; }
     #diff_hard:checked + .diffBtn{
-      background:linear-gradient(
-        rgba(110,0,30,.7),
-        rgba(60,0,10,.4)
-      );
-      box-shadow:inset 0 0 12px rgba(255,0,80,.45);
-      color:#ffe3f0;
+      background:linear-gradient(rgba(110,0,30,.7), rgba(60,0,10,.4));
+      box-shadow:inset 0 0 12px rgba(255,0,80,.45); color:#ffe3f0;
     }
-    #diff_hard:checked + .diffBtn .diffMainTxt{
-      color:#ff4d6d;
-      text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000;
-    }
+    #diff_hard:checked + .diffBtn .diffMainTxt{ color:#ff4d6d; text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000; }
 
     /* 灵敏度滑条 */
     #sens{ width:100%; }
     .sensWrap{ max-width:520px; margin:0 auto; }
 
     /* 按钮行 */
-    .btnRow{
-      display:flex;
-      justify-content:center;
-      gap:.8rem;
-      flex-wrap:wrap;
-    }
+    .btnRow{ display:flex; justify-content:center; gap:.8rem; flex-wrap:wrap; }
     .mainBtn{
       appearance:none;
       border:1px solid var(--btn-border);
@@ -244,25 +186,17 @@
       text-align:center;
     }
     .calibNote{
-      font-size:.75rem;
-      line-height:1.3;
-      color:#cfe8ffcc;
-      text-shadow:0 1px 2px #0009;
-      font-weight:400;
-      text-align:center;
-      margin-top:.35rem;
+      font-size:.75rem; line-height:1.3; color:#cfe8ffcc; text-shadow:0 1px 2px #0009;
+      font-weight:400; text-align:center; margin-top:.35rem;
     }
 
-    /* 其他 UI（榜单/说明等） */
-    #leaderboardBox{
-      background:#0004;
-      border:1px solid #ffffff22;
-      border-radius:12px;
-      padding:.75rem .9rem .6rem;
-      line-height:1.4;
-      margin-top:1rem;
+    /* 下方两块也保持 100% 宽度，样式一致 */
+    #leaderboardBox, #howtoBox{
+      width:100%;
+      background:#0004; border:1px solid #ffffff22; border-radius:12px;
       box-shadow:0 8px 24px #0008;
     }
+    #leaderboardBox{ padding:.75rem .9rem .6rem; line-height:1.4; margin-top:1rem; }
     .lb-title{
       font-size:.9rem; font-weight:600; color:var(--accent); text-shadow:0 1px 2px #000c;
       margin-bottom:.5rem; display:flex; align-items:center; justify-content:space-between;
@@ -277,11 +211,7 @@
     .lb-scores{ flex:1; text-align:right; color:var(--gold); font-variant-numeric:tabular-nums; }
     .lb-hint{ font-size:.7rem; line-height:1.3; color:#cfe8ff99; text-align:right; margin-top:.2rem; font-weight:400; }
 
-    #howtoBox{
-      background:#0004; border:1px solid #ffffff22; border-radius:12px;
-      padding:.9rem .9rem .6rem; line-height:1.4; margin-top:1rem; box-shadow:0 8px 24px #0008;
-      color:var(--ui); font-size:.85rem;
-    }
+    #howtoBox{ padding:.9rem .9rem .6rem; line-height:1.4; margin-top:1rem; color:var(--ui); font-size:.85rem; }
     #howtoBoxTitle{
       font-size:.9rem; font-weight:600; color:var(--accent); text-shadow:0 1px 2px #000c;
       margin-bottom:.6rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; row-gap:.4rem;
@@ -291,7 +221,7 @@
       border-radius:999px; padding:.15rem .5rem; line-height:1;
     }
     .howtoColumns{ display:grid; grid-template-columns:1fr 1fr; gap:1rem .8rem; }
-    .colBlockTitle{ font-size:.8rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; border-left:3px solid var(--accent); padding-left:.5rem; margin-bottom:.5rem; line-height:1.2; display:flex; align-items:center; gap:.4rem; }
+    .colBlockTitle{ font-size:.8rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; border-left:3px solid --accent; padding-left:.5rem; margin-bottom:.5rem; line-height:1.2; display:flex; align-items:center; gap:.4rem; }
     .colBlockTitle.good .dot{ background:var(--shield); border-color:#ffffff66; }
     .colBlockTitle.bad  .dot{ background:var(--danger); border-color:#ffffff66; }
     .colBlockTitle .dot{ width:.6rem; height:.6rem; border-radius:4px; border:1px solid; box-shadow:0 0 6px #000a; }
@@ -351,9 +281,8 @@
       左右倾斜控制水平移动；前后倾斜控制上/下浮。
     </p>
 
-    <!-- 三行垂直居中的控制区 -->
+    <!-- 三行，宽度与下方完全一致 -->
     <section class="controlSection">
-      <!-- 行 1：难度 -->
       <div class="blockCard">
         <div class="rowTitle">难度</div>
         <div class="diffGroup" id="diffGroup">
@@ -381,7 +310,6 @@
         </div>
       </div>
 
-      <!-- 行 2：灵敏度 -->
       <div class="blockCard">
         <div class="rowTitle">灵敏度</div>
         <div class="sensWrap">
@@ -389,7 +317,6 @@
         </div>
       </div>
 
-      <!-- 行 3：按钮 -->
       <div class="blockCard">
         <div class="btnRow">
           <button id="startBtn" class="mainBtn">开始游戏</button>
@@ -669,6 +596,7 @@
       State.input.ay = ay * State.device.sens;
     }
 
+    // 物体生成 & 绘制
     function spawnObstacle(){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
@@ -927,12 +855,11 @@
     function restart(){ goToMenu(); }
     function togglePause(){ if (!State.running) return; State.paused=!State.paused; pauseOverlay.style.display = State.paused?'grid':'none'; }
 
-    let rafId=0;
     function loop(){
-      rafId = requestAnimationFrame(loop);
+      requestAnimationFrame(loop);
       if (!State.running || State.paused) return;
       const now=performance.now(); if (!State.time.last) State.time.last=now;
-      const dt = clamp((now - State.time.last)/1000, 0, 0.05); State.time.last=now;
+      const dt = Math.max(0, Math.min(0.05, (now - State.time.last)/1000)); State.time.last=now;
 
       update(dt);
 
@@ -942,7 +869,7 @@
         const sx=(Math.random()*2-1)*magNow, sy=(Math.random()*2-1)*magNow;
         ctx.translate(sx, sy);
       }
-      clearFrame();
+      ctx.clearRect(0,0,canvas.width,canvas.height); // dpr 已设置
 
       for (const b of State.bubbles){ ctx.globalAlpha=0.35; ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fillStyle='#7fdcff'; ctx.fill(); ctx.globalAlpha=1; }
       for (const c of State.coins){ if (!c.floating){ const zRel=c.z - State.world.z; drawCoinDepth(c, zRel); } else { drawCoinFloating(c); } }
@@ -970,7 +897,7 @@
 
       if (State.fx.flash > 0){
         const k = 1 - (State.fx.flash / State.fx.flashMax), alpha = 0.2 * (1 - k);
-        ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#ff99bb'; ctx.fillRect(0,0,W,H); ctx.restore();
+        ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#ff99bb'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.restore();
       }
 
       ctx.restore();
@@ -978,21 +905,18 @@
 
     // 绑定
     startBtn.addEventListener('click', ()=>{ requestMotionPermission(); start(); }, {passive:true});
+    document.getElementById('diffGroup').addEventListener('change', ()=>{ State.runDifficulty = getDifficulty(); }); // 切换难度不弹 toast
     pauseBtn.addEventListener('click', ()=> togglePause());
     resumeBtn.addEventListener('click', ()=> togglePause());
-    restartBtn.addEventListener('click', ()=> { restart(); });
-
+    restartBtn.addEventListener('click', ()=> { goToMenu(); });
     calBtn.addEventListener('click', ()=>{
-      calibrate();
-      const oldText = calBtn.textContent;
+      State.device.calib.beta = State.device.beta;
+      State.device.calib.gamma = State.device.gamma;
+      const txt = calBtn.textContent;
       calBtn.textContent = '已校准 ✅';
-      setTimeout(()=>{ calBtn.textContent = oldText; }, 1200);
+      setTimeout(()=>{ calBtn.textContent = txt; }, 1200);
     });
-
     sensSlider.addEventListener('input', ()=>{ State.device.sens = parseFloat(sensSlider.value); });
-
-    // 难度切换：只记录，不弹 toast
-    document.getElementById('diffGroup').addEventListener('change', ()=>{ State.runDifficulty = getDifficulty(); });
 
     renderLeaderboardPanel();
     loop();
