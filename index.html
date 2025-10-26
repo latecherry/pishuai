@@ -58,14 +58,14 @@
     #panel{
       position:fixed;left:50%;top:50%;
       transform:translate(-50%, -50%);
-      width:min(520px,92vw);
-      max-height:min(90vh,600px);
+      width:min(560px,92vw);
+      max-height:min(90vh,640px);
       overflow-y:auto;
       background:var(--panel-bg);
       border:1px solid var(--panel-border);
       border-radius:16px;
       color:var(--ui);
-      padding:16px 16px 12px;
+      padding:16px 16px 14px;
       box-shadow:0 10px 30px var(--panel-shadow);
       backdrop-filter:blur(6px);
       z-index:20
@@ -92,82 +92,46 @@
       color:#fff;
     }
 
-    /* 控制区整体布局 */
+    /* —— 新控制区：三行垂直居中 —— */
     .controlSection{
       display:flex;
       flex-direction:column;
-      gap:1rem;
+      align-items:center;   /* 让每个区块居中 */
+      gap:.8rem;
       margin-top:1rem;
       margin-bottom:.5rem;
     }
-    @media(min-width:600px){
-      .controlSection{
-        flex-direction:row;
-        align-items:flex-start;
-        justify-content:space-between;
-      }
-    }
-
-    /* 左半部分（灵敏度+难度） */
-    .controlLeft{
-      flex:1;
-      min-width:0;
+    .blockCard{
+      width:min(560px, 96%);
       background:#0004;
       border:1px solid #ffffff22;
       border-radius:12px;
       box-shadow:0 8px 24px #0008;
       padding:.9rem .9rem .8rem;
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
+      margin:0 auto;
     }
-    .sensBlock{
-      display:flex;
-      flex-direction:column;
-      gap:.5rem;
-    }
-    .sensHeader{
+    .rowTitle{
       font-size:.9rem;
       opacity:.9;
       line-height:1.2;
       font-weight:500;
       color:var(--ui);
-    }
-    #sens{
-      width:100%;
+      margin-bottom:.5rem;
+      text-align:center;
     }
 
-    /* 难度块 */
-    .diffWrap{
-      display:flex;
-      flex-direction:column;
-      gap:.5rem;
-    }
-    .diffLabel{
-      font-size:.9rem;
-      opacity:.9;
-      line-height:1.2;
-      font-weight:500;
-      color:var(--ui);
-    }
+    /* 难度选择 */
     .diffGroup{
       display:flex;
+      gap:.4rem;
       background:#0004;
       border:1px solid #ffffff22;
       border-radius:12px;
       padding:.4rem;
       box-shadow:0 8px 24px #0008;
-      gap:.4rem;
     }
-    .diffOption{
-      position:relative;
-      flex:1;
-    }
-    .diffOption input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
+    .diffOption{ position:relative; flex:1; }
+    .diffOption input{ position:absolute; opacity:0; pointer-events:none; }
     .diffBtn{
       width:100%;
       background:#001a27aa;
@@ -180,83 +144,39 @@
       padding:.6rem .5rem .55rem;
       text-align:center;
       box-shadow:0 6px 16px #000a;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      min-width:4.5rem;
-      cursor:pointer;
-      user-select:none;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      min-width:4.5rem; cursor:pointer; user-select:none;
     }
-    .diffMainTxt{
-      font-size:.8rem;
-      font-weight:600;
-      color:#fff;
-      text-shadow:0 1px 2px #000;
-      display:block;
-    }
-    .diffSubTxt{
-      font-size:.7rem;
-      line-height:1.2;
-      color:#cfe8ff99;
-      text-shadow:0 1px 2px #000a;
-      font-weight:400;
-      margin-top:.25rem;
-    }
-    /* 选中态 */
-    #diff_easy:checked + .diffBtn{
-      background:rgba(0,60,30,.6);
-      border:1px solid rgba(0,255,128,.4);
-      box-shadow:0 0 12px rgba(0,255,128,.4),0 10px 24px #000c;
-      color:#cfffef;
-    }
-    #diff_easy:checked + .diffBtn .diffMainTxt{
-      color:#6bffb0;
-      text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000;
-    }
-    #diff_normal:checked + .diffBtn{
-      background:#003044aa;
-      border:1px solid #00e1ff55;
-      box-shadow:0 0 12px rgba(0,200,255,.4),0 10px 24px #000c;
-      color:#dff9ff;
-    }
-    #diff_normal:checked + .diffBtn .diffMainTxt{
-      color:var(--accent);
-      text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000;
-    }
-    #diff_hard:checked + .diffBtn{
-      background:rgba(60,0,10,.6);
-      border:1px solid rgba(255,0,80,.4);
-      box-shadow:0 0 12px rgba(255,0,80,.4),0 10px 24px #000c;
-      color:#ffe3f0;
-    }
-    #diff_hard:checked + .diffBtn .diffMainTxt{
-      color:#ff4d6d;
-      text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000;
-    }
+    .diffMainTxt{ font-size:.8rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; }
+    .diffSubTxt{ font-size:.7rem; line-height:1.2; color:#cfe8ff99; text-shadow:0 1px 2px #000a; margin-top:.25rem; }
 
-    /* 右半部分（按钮+说明） */
-    .controlRight{
-      flex-shrink:0;
-      display:flex;
-      flex-direction:column;
-      gap:.6rem;
-      background:#0000;
+    /* 选中态高亮 */
+    #diff_easy:checked + .diffBtn{
+      background:rgba(0,60,30,.6); border:1px solid rgba(0,255,128,.4);
+      box-shadow:0 0 12px rgba(0,255,128,.4),0 10px 24px #000c; color:#cfffef;
     }
-    @media(min-width:600px){
-      .controlRight{
-        min-width:180px;
-        background:#0004;
-        border:1px solid #ffffff22;
-        border-radius:12px;
-        box-shadow:0 8px 24px #0008;
-        padding:.9rem .9rem .8rem;
-      }
+    #diff_easy:checked + .diffBtn .diffMainTxt{ color:#6bffb0; text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000; }
+    #diff_normal:checked + .diffBtn{
+      background:#003044aa; border:1px solid #00e1ff55;
+      box-shadow:0 0 12px rgba(0,200,255,.4),0 10px 24px #000c; color:#dff9ff;
     }
+    #diff_normal:checked + .diffBtn .diffMainTxt{ color:var(--accent); text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000; }
+    #diff_hard:checked + .diffBtn{
+      background:rgba(60,0,10,.6); border:1px solid rgba(255,0,80,.4);
+      box-shadow:0 0 12px rgba(255,0,80,.4),0 10px 24px #000c; color:#ffe3f0;
+    }
+    #diff_hard:checked + .diffBtn .diffMainTxt{ color:#ff4d6d; text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000; }
+
+    /* 灵敏度滑条 */
+    #sens{ width:100%; }
+    .sensWrap{ max-width:520px; margin:0 auto; }
+
+    /* 按钮行 */
     .btnRow{
       display:flex;
+      justify-content:center;
+      gap:.8rem;
       flex-wrap:wrap;
-      gap:.6rem;
     }
     .mainBtn{
       appearance:none;
@@ -270,10 +190,9 @@
       line-height:1.2;
       box-shadow:0 8px 20px #000a;
       cursor:pointer;
-      flex:1;
+      min-width:7.5rem;
+      flex:1 1 10rem;      /* 宽屏均分，窄屏可换行 */
       text-align:center;
-      white-space:nowrap;
-      min-width:7rem;
     }
     .calibNote{
       font-size:.75rem;
@@ -281,8 +200,11 @@
       color:#cfe8ffcc;
       text-shadow:0 1px 2px #0009;
       font-weight:400;
+      text-align:center;
+      margin-top:.35rem;
     }
 
+    /* 其他 UI（榜单/说明等，保持原样） */
     #leaderboardBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -293,237 +215,68 @@
       box-shadow:0 8px 24px #0008;
     }
     .lb-title{
-      font-size:.9rem;
-      font-weight:600;
-      color:var(--accent);
-      text-shadow:0 1px 2px #000c;
-      margin-bottom:.5rem;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      font-size:.9rem; font-weight:600; color:var(--accent); text-shadow:0 1px 2px #000c;
+      margin-bottom:.5rem; display:flex; align-items:center; justify-content:space-between;
     }
     .lb-title::after{
       content:"本机前三名";
-      font-size:.7rem;
-      font-weight:500;
-      color:#cfe8ffcc;
-      background:#003044aa;
-      border:1px solid #00e1ff55;
-      border-radius:999px;
-      padding:.15rem .5rem;
-      line-height:1;
+      font-size:.7rem; font-weight:500; color:#cfe8ffcc;
+      background:#003044aa; border:1px solid #00e1ff55; border-radius:999px; padding:.15rem .5rem; line-height:1;
     }
-    .lb-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      font-size:.9rem;
-      font-weight:600;
-      color:#fff;
-      text-shadow:0 1px 2px #000a;
-      margin-bottom:.4rem;
-    }
-    .lb-mode{
-      min-width:4.5rem;
-      color:#fff;
-      background:#ffffff18;
-      border:1px solid #ffffff33;
-      border-radius:8px;
-      padding:.2rem .5rem;
-      font-size:.8rem;
-      font-weight:600;
-      line-height:1.2;
-      text-align:center;
-    }
-    .lb-scores{
-      flex:1;
-      text-align:right;
-      color:var(--gold);
-      font-variant-numeric:tabular-nums;
-    }
-    .lb-hint{
-      font-size:.7rem;
-      line-height:1.3;
-      color:#cfe8ff99;
-      text-align:right;
-      margin-top:.2rem;
-      font-weight:400;
-    }
+    .lb-row{ display:flex; justify-content:space-between; align-items:flex-start; font-size:.9rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000a; margin-bottom:.4rem; }
+    .lb-mode{ min-width:4.5rem; color:#fff; background:#ffffff18; border:1px solid #ffffff33; border-radius:8px; padding:.2rem .5rem; font-size:.8rem; font-weight:600; line-height:1.2; text-align:center; }
+    .lb-scores{ flex:1; text-align:right; color:var(--gold); font-variant-numeric:tabular-nums; }
+    .lb-hint{ font-size:.7rem; line-height:1.3; color:#cfe8ff99; text-align:right; margin-top:.2rem; font-weight:400; }
 
     #howtoBox{
-      background:#0004;
-      border:1px solid #ffffff22;
-      border-radius:12px;
-      padding:.9rem .9rem .6rem;
-      line-height:1.4;
-      margin-top:1rem;
-      box-shadow:0 8px 24px #0008;
-      color:var(--ui);
-      font-size:.85rem;
+      background:#0004; border:1px solid #ffffff22; border-radius:12px;
+      padding:.9rem .9rem .6rem; line-height:1.4; margin-top:1rem; box-shadow:0 8px 24px #0008;
+      color:var(--ui); font-size:.85rem;
     }
     #howtoBoxTitle{
-      font-size:.9rem;
-      font-weight:600;
-      color:var(--accent);
-      text-shadow:0 1px 2px #000c;
-      margin-bottom:.6rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      flex-wrap:wrap;
-      row-gap:.4rem;
+      font-size:.9rem; font-weight:600; color:var(--accent); text-shadow:0 1px 2px #000c;
+      margin-bottom:.6rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; row-gap:.4rem;
     }
     #howtoBoxTitle span:last-child{
-      font-size:.7rem;
-      font-weight:500;
-      color:#cfe8ffcc;
-      background:#003044aa;
-      border:1px solid #00e1ff55;
-      border-radius:999px;
-      padding:.15rem .5rem;
-      line-height:1;
+      font-size:.7rem; font-weight:500; color:#cfe8ffcc; background:#003044aa; border:1px solid #00e1ff55;
+      border-radius:999px; padding:.15rem .5rem; line-height:1;
     }
-    .howtoColumns{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:1rem .8rem;
-    }
-    .colBlockTitle{
-      font-size:.8rem;
-      font-weight:600;
-      color:#fff;
-      text-shadow:0 1px 2px #000;
-      border-left:3px solid var(--accent);
-      padding-left:.5rem;
-      margin-bottom:.5rem;
-      line-height:1.2;
-      display:flex;
-      align-items:center;
-      gap:.4rem;
-    }
-    .colBlockTitle.good .dot{
-      background:var(--shield);
-      border-color:#ffffff66;
-    }
-    .colBlockTitle.bad .dot{
-      background:var(--danger);
-      border-color:#ffffff66;
-    }
-    .colBlockTitle .dot{
-      width:.6rem;
-      height:.6rem;
-      border-radius:4px;
-      border:1px solid;
-      box-shadow:0 0 6px #000a;
-    }
-    .infoList{
-      display:flex;
-      flex-direction:column;
-      gap:.6rem;
-    }
-    .infoCard{
-      background:#ffffff08;
-      border:1px solid #ffffff22;
-      border-radius:10px;
-      padding:.5rem .6rem .55rem;
-      box-shadow:0 6px 16px #000a;
-      min-height:4.5rem;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
-      position:relative;
-    }
-    .infoHead{
-      font-size:.8rem;
-      font-weight:600;
-      line-height:1.2;
-      display:flex;
-      align-items:center;
-      gap:.4rem;
-      color:#fff;
-      text-shadow:0 1px 2px #000;
-      margin-bottom:.4rem;
-    }
-    .tagIcon{
-      width:.7rem;
-      height:.7rem;
-      border-radius:4px;
-      border:1px solid #ffffff66;
-      box-shadow:0 0 6px #000a;
-    }
-    .tagCoin   { background:var(--gold); color:#000; }
-    .tagHeart  { background:var(--danger); }
-    .tagShield { background:var(--shield); }
-    .tagMine   { background:var(--danger); }
-    .tagRock   { background:var(--rock); }
-    .infoBody{
-      font-size:.75rem;
-      line-height:1.3;
-      color:#cfe8ffdd;
-      text-shadow:0 1px 2px #000;
-      font-weight:400;
-    }
+    .howtoColumns{ display:grid; grid-template-columns:1fr 1fr; gap:1rem .8rem; }
+    .colBlockTitle{ font-size:.8rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; border-left:3px solid var(--accent); padding-left:.5rem; margin-bottom:.5rem; line-height:1.2; display:flex; align-items:center; gap:.4rem; }
+    .colBlockTitle.good .dot{ background:var(--shield); border-color:#ffffff66; }
+    .colBlockTitle.bad  .dot{ background:var(--danger); border-color:#ffffff66; }
+    .colBlockTitle .dot{ width:.6rem; height:.6rem; border-radius:4px; border:1px solid; box-shadow:0 0 6px #000a; }
+    .infoList{ display:flex; flex-direction:column; gap:.6rem; }
+    .infoCard{ background:#ffffff08; border:1px solid #ffffff22; border-radius:10px; padding:.5rem .6rem .55rem; box-shadow:0 6px 16px #000a; min-height:4.5rem; display:flex; flex-direction:column; justify-content:flex-start; position:relative; }
+    .infoHead{ font-size:.8rem; font-weight:600; line-height:1.2; display:flex; align-items:center; gap:.4rem; color:#fff; text-shadow:0 1px 2px #000; margin-bottom:.4rem; }
+    .tagIcon{ width:.7rem; height:.7rem; border-radius:4px; border:1px solid #ffffff66; box-shadow:0 0 6px #000a; }
+    .tagCoin{ background:var(--gold); color:#000; } .tagHeart{ background:var(--danger); } .tagShield{ background:var(--shield); }
+    .tagMine{ background:var(--danger); } .tagRock{ background:var(--rock); }
+    .infoBody{ font-size:.75rem; line-height:1.3; color:#cfe8ffdd; text-shadow:0 1px 2px #000; font-weight:400; }
 
     #tips{
-      position:fixed;
-      left:50%;transform:translateX(-50%);
-      color:#cfe8ff;opacity:.85;
-      font-size:.9rem;
-      text-shadow:0 1px 2px #0009;
-      z-index:5;
+      position:fixed; left:50%; transform:translateX(-50%);
+      color:#cfe8ff; opacity:.85; font-size:.9rem; text-shadow:0 1px 2px #0009; z-index:5;
       bottom:calc(10px + env(safe-area-inset-bottom,0px));
     }
     #toast{
-      position:fixed;
-      left:50%;top:14%;
-      transform:translateX(-50%);
-      padding:.4rem .8rem;
-      background:#0008;
-      color:#fff;
-      border:1px solid #ffffff24;
-      border-radius:12px;
-      display:none;
-      z-index:30;
-      font-weight:500;
-      text-shadow:0 1px 2px #000;
+      position:fixed; left:50%; top:14%; transform:translateX(-50%);
+      padding:.4rem .8rem; background:#0008; color:#fff; border:1px solid #ffffff24; border-radius:12px;
+      display:none; z-index:30; font-weight:500; text-shadow:0 1px 2px #000;
     }
 
     #pauseOverlay{
-      position:fixed;inset:0;
-      background:#00000080;
-      display:none;
-      place-items:center;
-      color:#fff;
-      z-index:25
+      position:fixed; inset:0; background:#00000080; display:none; place-items:center; color:#fff; z-index:25
     }
     #pauseOverlay .box{
-      background:#072235;
-      border:1px solid #ffffff2b;
-      border-radius:16px;
-      padding:16px 20px;
-      text-align:center;
-      box-shadow:0 10px 30px #000a;
+      background:#072235; border:1px solid #ffffff2b; border-radius:16px; padding:16px 20px; text-align:center; box-shadow:0 10px 30px #000a;
     }
     #pauseOverlay button{margin-top:10px}
 
-    .floating{
-      position:fixed;
-      right:10px;
-      display:flex;
-      gap:.5rem;
-      z-index:10;
-      bottom:calc(10px + env(safe-area-inset-bottom,0px));
-    }
+    .floating{ position:fixed; right:10px; display:flex; gap:.5rem; z-index:10; bottom:calc(10px + env(safe-area-inset-bottom,0px)); }
     .ghostBtn{
-      appearance:none;
-      border:1px solid var(--btn-border);
-      background:#0005;
-      color:var(--btn-text);
-      border-radius:999px;
-      padding:.55rem .8rem;
-      font-weight:700;
-      box-shadow:0 6px 20px #000a;
-      cursor:pointer;
+      appearance:none; border:1px solid var(--btn-border); background:#0005; color:var(--btn-text);
+      border-radius:999px; padding:.55rem .8rem; font-weight:700; box-shadow:0 6px 20px #000a; cursor:pointer;
     }
 
     @supports (padding: env(safe-area-inset-top)){
@@ -543,55 +296,52 @@
   </div>
 
   <div id="panel" role="dialog" aria-modal="true">
-    <h1 id="panelTitle">
-      <span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>
-    </h1>
+    <h1 id="panelTitle"><span>Gyro Swim Runner · 游泳陀螺仪跑酷</span></h1>
     <p id="panelDesc">
       按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>
       左右倾斜控制水平移动；前后倾斜控制上/下浮。
     </p>
 
-    <!-- 控制区 -->
+    <!-- 三行垂直居中的控制区 -->
     <section class="controlSection">
-      <!-- 左：灵敏度+难度 -->
-      <div class="controlLeft">
-        <div class="sensBlock">
-          <div class="sensHeader">灵敏度</div>
-          <input id="sens" type="range" min="0.2" max="3" step="0.1" value="1.3" />
-        </div>
-
-        <div class="diffWrap">
-          <div class="diffLabel">难度</div>
-          <div class="diffGroup" id="diffGroup">
-            <label class="diffOption">
-              <input type="radio" name="difficulty" id="diff_easy" value="easy">
-              <div class="diffBtn">
-                <span class="diffMainTxt">Easy</span>
-                <span class="diffSubTxt">更少障碍</span>
-              </div>
-            </label>
-
-            <label class="diffOption">
-              <input type="radio" name="difficulty" id="diff_normal" value="normal" checked>
-              <div class="diffBtn">
-                <span class="diffMainTxt">Normal</span>
-                <span class="diffSubTxt">标准速度</span>
-              </div>
-            </label>
-
-            <label class="diffOption">
-              <input type="radio" name="difficulty" id="diff_hard" value="hard">
-              <div class="diffBtn">
-                <span class="diffMainTxt">Hard</span>
-                <span class="diffSubTxt">高压挑战</span>
-              </div>
-            </label>
-          </div>
+      <!-- 行 1：难度 -->
+      <div class="blockCard">
+        <div class="rowTitle">难度</div>
+        <div class="diffGroup" id="diffGroup">
+          <label class="diffOption">
+            <input type="radio" name="difficulty" id="diff_easy" value="easy">
+            <div class="diffBtn">
+              <span class="diffMainTxt">Easy</span>
+              <span class="diffSubTxt">更少障碍</span>
+            </div>
+          </label>
+          <label class="diffOption">
+            <input type="radio" name="difficulty" id="diff_normal" value="normal" checked>
+            <div class="diffBtn">
+              <span class="diffMainTxt">Normal</span>
+              <span class="diffSubTxt">标准速度</span>
+            </div>
+          </label>
+          <label class="diffOption">
+            <input type="radio" name="difficulty" id="diff_hard" value="hard">
+            <div class="diffBtn">
+              <span class="diffMainTxt">Hard</span>
+              <span class="diffSubTxt">高压挑战</span>
+            </div>
+          </label>
         </div>
       </div>
 
-      <!-- 右：开始+校准 -->
-      <div class="controlRight">
+      <!-- 行 2：灵敏度 -->
+      <div class="blockCard">
+        <div class="rowTitle">灵敏度</div>
+        <div class="sensWrap">
+          <input id="sens" type="range" min="0.2" max="3" step="0.1" value="1.3" />
+        </div>
+      </div>
+
+      <!-- 行 3：按钮 -->
+      <div class="blockCard">
         <div class="btnRow">
           <button id="startBtn" class="mainBtn">开始游戏</button>
           <button id="calBtn" class="mainBtn">校准水平</button>
@@ -611,64 +361,32 @@
       </div>
       <div class="howtoColumns">
         <div>
-          <div class="colBlockTitle good">
-            <div class="dot"></div>
-            <div>增益道具</div>
-          </div>
+          <div class="colBlockTitle good"><div class="dot"></div><div>增益道具</div></div>
           <div class="infoList">
             <div class="infoCard">
-              <div class="infoHead">
-                <div class="tagIcon tagCoin"></div>
-                <div>金币</div>
-              </div>
-              <div class="infoBody">
-                吃到后 +10 分。分数会进入本机排行榜（按难度分别记录）。
-              </div>
+              <div class="infoHead"><div class="tagIcon tagCoin"></div><div>金币</div></div>
+              <div class="infoBody">吃到后 +10 分。分数会进入本机排行榜（按难度分别记录）。</div>
             </div>
             <div class="infoCard">
-              <div class="infoHead">
-                <div class="tagIcon tagHeart"></div>
-                <div>爱心</div>
-              </div>
-              <div class="infoBody">
-                回复 1 滴血；如果血量已满，改为 +5 分。吃到会出现粉色柔光效果。
-              </div>
+              <div class="infoHead"><div class="tagIcon tagHeart"></div><div>爱心</div></div>
+              <div class="infoBody">回复 1 滴血；如果血量已满，改为 +5 分。吃到会出现粉色柔光效果。</div>
             </div>
             <div class="infoCard">
-              <div class="infoHead">
-                <div class="tagIcon tagShield"></div>
-                <div>护盾</div>
-              </div>
-              <div class="infoBody">
-                获得一层蓝色护盾球。护盾持续约 10 秒；在此期间，第一次撞到障碍物会被完全抵消，不扣血，然后护盾立刻消失。
-              </div>
+              <div class="infoHead"><div class="tagIcon tagShield"></div><div>护盾</div></div>
+              <div class="infoBody">获得一层蓝色护盾球。护盾持续约 10 秒；期间第一次撞到障碍会被抵消。</div>
             </div>
           </div>
         </div>
         <div>
-          <div class="colBlockTitle bad">
-            <div class="dot"></div>
-            <div>危险障碍</div>
-          </div>
+          <div class="colBlockTitle bad"><div class="dot"></div><div>危险障碍</div></div>
           <div class="infoList">
             <div class="infoCard">
-              <div class="infoHead">
-                <div class="tagIcon tagMine"></div>
-                <div>鲨鱼</div>
-              </div>
-              <div class="infoBody">
-                撞到会掉血：Easy / Normal 掉 1 滴血，Hard 掉 2 滴血。<br>
-                如果你当前有护盾，则优先消耗护盾，不掉血。
-              </div>
+              <div class="infoHead"><div class="tagIcon tagMine"></div><div>鲨鱼</div></div>
+              <div class="infoBody">撞到会掉血：Easy/Normal 掉 1，Hard 掉 2。若有护盾则先消耗护盾。</div>
             </div>
             <div class="infoCard">
-              <div class="infoHead">
-                <div class="tagIcon tagRock"></div>
-                <div>剑鱼</div>
-              </div>
-              <div class="infoBody">
-                也是危险障碍，会造成伤害。也能被护盾抵挡。
-              </div>
+              <div class="infoHead"><div class="tagIcon tagRock"></div><div>剑鱼</div></div>
+              <div class="infoBody">危险障碍，会造成伤害，也能被护盾抵挡。</div>
             </div>
           </div>
         </div>
@@ -756,84 +474,54 @@
         const arr = JSON.parse(raw);
         if(!Array.isArray(arr)) return [];
         return arr;
-      }catch(e){
-        return [];
-      }
+      }catch(e){ return []; }
     }
     function saveScore(mode, score){
       if(!mode) return;
-      const entry = {
-        score: Math.floor(score),
-        time: Date.now()
-      };
+      const entry = { score: Math.floor(score), time: Date.now() };
       const arr = loadScores(mode);
       arr.push(entry);
       arr.sort((a,b)=>b.score-a.score);
       const top3 = arr.slice(0,3);
-      try{
-        localStorage.setItem('scores_'+mode, JSON.stringify(top3));
-      }catch(e){}
+      try{ localStorage.setItem('scores_'+mode, JSON.stringify(top3)); }catch(e){}
     }
-
     function formatRow(label, arr){
       const s1 = arr[0]?.score ?? '—';
       const s2 = arr[1]?.score ?? '—';
       const s3 = arr[2]?.score ?? '—';
-      return `
-        <div class="lb-row">
-          <span class="lb-mode">${label}</span>
-          <span class="lb-scores">${s1} / ${s2} / ${s3}</span>
-        </div>`;
+      return `<div class="lb-row"><span class="lb-mode">${label}</span><span class="lb-scores">${s1} / ${s2} / ${s3}</span></div>`;
     }
-
     function renderLeaderboardPanel(){
       const easy   = loadScores('easy');
       const normal = loadScores('normal');
       const hard   = loadScores('hard');
-      const html = `
+      leaderboardBox.innerHTML = `
         <div class="lb-title">本机最高分</div>
-        ${formatRow('Easy',   easy)}
+        ${formatRow('Easy', easy)}
         ${formatRow('Normal', normal)}
-        ${formatRow('Hard',   hard)}
-        <div class="lb-hint">（只记录前三名，保存在本设备）</div>
-      `;
-      leaderboardBox.innerHTML = html;
+        ${formatRow('Hard', hard)}
+        <div class="lb-hint">（只记录前三名，保存在本设备）</div>`;
     }
 
-    // 图片资源
-    const coinImg = new Image();
-    coinImg.src = 'assets/coin.svg';
-    const heartImg = new Image();
-    heartImg.src = 'assets/heart.svg';
-    const shieldImg = new Image();
-    shieldImg.src = 'assets/shield.svg';
-    const sharkImg = new Image();
-    sharkImg.src = 'assets/shark.png';
-    const swordfishImg = new Image();
-    swordfishImg.src = 'assets/swordfish.png';
+    // 资源
+    const coinImg = new Image();   coinImg.src   = 'assets/coin.svg';
+    const heartImg = new Image();  heartImg.src  = 'assets/heart.svg';
+    const shieldImg = new Image(); shieldImg.src = 'assets/shield.svg';
+    const sharkImg = new Image();  sharkImg.src  = 'assets/shark.png';
+    const swordfishImg = new Image(); swordfishImg.src = 'assets/swordfish.png';
 
-    // 全局状态
+    // 状态
     const State = {
       init(){
         this.reset();
         this.running=false;
         this.paused=false;
-        this.device={
-          beta:0,gamma:0,
-          calib:{beta:0,gamma:0},
-          sens: parseFloat(sensSlider.value)
-        };
+        this.device={beta:0,gamma:0, calib:{beta:0,gamma:0}, sens: parseFloat(sensSlider.value)};
         this.input={ax:0,ay:0,sprint:false};
         this.time={now:0,last:0};
         this.shake = { t:0, mag:0 };
         this.runDifficulty = getDifficulty();
-        this.fx = {
-          particles: [],
-          pulse: 0,
-          pulseMax: 0.3,
-          flash: 0,
-          flashMax: 0.15
-        };
+        this.fx = { particles: [], pulse: 0, pulseMax: 0.3, flash: 0, flashMax: 0.15 };
       },
       reset(){
         const diff = getDifficulty();
@@ -846,64 +534,28 @@
         const laneW = clamp(Math.round(W/9), 90, 140);
         const padding = clamp(Math.round(W*0.06), 32, 80);
         const lanes = clamp(Math.floor((W - 2*padding)/laneW), 5, 11);
-
-        const shieldRateRange = [
-          diffCfg.heartRate[0]*0.6,
-          diffCfg.heartRate[1]*0.6
-        ];
+        const shieldRateRange = [diffCfg.heartRate[0]*0.6, diffCfg.heartRate[1]*0.6];
 
         this.cfg = Object.assign({
-          laneWidth: laneW,
-          lanes,
-          worldPadding: padding,
-          swimAccel: 18,
-          swimDamp:0.90,
-          sprintBoost:1.8,
-          bubbleRate:60,
-          coinRate:2.2,
-          obstacleRate: diffCfg.spawn,
-          hurtCooldown:0.9,
-          hpMax:5,
-          heartRateRange: diffCfg.heartRate,
-          shieldRateRange: shieldRateRange,
-          shieldDuration: 10.0,
-          sharkProb: diffCfg.sharkProb
+          laneWidth: laneW, lanes, worldPadding: padding,
+          swimAccel: 18, swimDamp:0.90, sprintBoost:1.8,
+          bubbleRate:60, coinRate:2.2, obstacleRate: diffCfg.spawn,
+          hurtCooldown:0.9, hpMax:5,
+          heartRateRange: diffCfg.heartRate, shieldRateRange,
+          shieldDuration: 10.0, sharkProb: diffCfg.sharkProb
         }, diffCfg);
 
         this.world = { z:0, speed:this.cfg.baseSpeed, t:0 };
+        this.hero = { x:W/2, y:H/2, vx:0, vy:0, r:Math.max(14, Math.min(20, Math.round(Math.min(W,H)/30))), hp:3, invul:0, score:0, shieldTime:0 };
 
-        this.hero = {
-          x:W/2, y:H/2,
-          vx:0, vy:0,
-          r:Math.max(14, Math.min(20, Math.round(Math.min(W,H)/30))),
-          hp:3,
-          invul:0,
-          score:0,
-          shieldTime:0
-        };
-
-        this.obs=[];
-        this.coins=[];
-        this.bubbles=[];
-        this.hearts=[];
-        this.shields=[];
-
-        this.spawnTick=0;
-        this.coinTick=0;
-        this.bubbleTick=0;
+        this.obs=[]; this.coins=[]; this.bubbles=[]; this.hearts=[]; this.shields=[];
+        this.spawnTick=0; this.coinTick=0; this.bubbleTick=0;
         this.heartTick=rand(this.cfg.heartRateRange[0], this.cfg.heartRateRange[1]) * 0.3;
         this.shieldTick=rand(this.cfg.shieldRateRange[0], this.cfg.shieldRateRange[1]) * 0.3;
-
         this.surviveTime=0;
 
         this.shake = { t:0, mag:0 };
-        this.fx = {
-          particles: [],
-          pulse: 0,
-          pulseMax: 0.3,
-          flash: 0,
-          flashMax: 0.15
-        };
+        this.fx = { particles: [], pulse: 0, pulseMax: 0.3, flash: 0, flashMax: 0.15 };
         this.runDifficulty = diff;
       }
     };
@@ -917,31 +569,22 @@
           if (typeof DeviceOrientationEvent.requestPermission === 'function'){
             return DeviceOrientationEvent.requestPermission();
           }
-        }).catch(e=>{
-          showToast(e.message || '需要传感器权限');
-        });
+        }).catch(e=>{ showToast(e.message || '需要传感器权限'); });
       }
     }
 
-    // 根据竖屏/横屏选择不同轴映射
+    // 横竖屏轴映射
     function computeInputFromOrientation(beta, gamma){
-      const b0=State.device.calib.beta;
-      const g0=State.device.calib.gamma;
-      const sens=State.device.sens;
-
+      const b0=State.device.calib.beta, g0=State.device.calib.gamma, sens=State.device.sens;
       const isLandscape = W > H;
-
       let ax, ay;
-      if (!isLandscape){
-        // 竖屏：和之前一样
+      if (!isLandscape){           // 竖屏
         ax = clamp((gamma - g0) / 25, -1, 1);
         ay = clamp((beta  - b0) / 25, -1, 1);
-      }else{
-        // 横屏：把beta当作左右，把-gamma当作上下
+      }else{                        // 横屏：beta 控左右，-gamma 控上下
         ax = clamp((beta  - b0) / 25, -1, 1);
         ay = clamp(-(gamma - g0) / 25, -1, 1);
       }
-
       State.input.ax = clamp(ax * sens, -1.5, 1.5);
       State.input.ay = clamp(ay * sens, -1.5, 1.5);
     }
@@ -949,7 +592,7 @@
     function calibrate(){
       State.device.calib.beta = State.device.beta;
       State.device.calib.gamma = State.device.gamma;
-      // 按钮文字闪一下
+      // 不弹窗，按钮文案轻量提示
     }
 
     window.addEventListener('deviceorientation', (e)=>{
@@ -958,20 +601,10 @@
       computeInputFromOrientation(State.device.beta, State.device.gamma);
     });
 
-    // 触摸占位（不再有冲刺）
+    // 触摸（无长按冲刺）
     let touchId = null;
-    canvas.addEventListener('touchstart',(e)=>{
-      if (touchId===null){
-        touchId=e.changedTouches[0].identifier;
-      }
-    }, {passive:true});
-    canvas.addEventListener('touchend',(e)=>{
-      for (const t of e.changedTouches){
-        if (t.identifier===touchId){
-          touchId=null;
-        }
-      }
-    }, {passive:true});
+    canvas.addEventListener('touchstart',(e)=>{ if (touchId===null){ touchId=e.changedTouches[0].identifier; } }, {passive:true});
+    canvas.addEventListener('touchend',(e)=>{ for (const t of e.changedTouches){ if (t.identifier===touchId){ touchId=null; } } }, {passive:true});
 
     // 键盘（桌面）
     const keys = new Set();
@@ -981,7 +614,6 @@
       if (e.key==='r'||e.key==='R'){ restart(); }
     });
     window.addEventListener('keyup', (e)=>{ keys.delete(e.key); });
-
     function keyboardInput(){
       const ax = (keys.has('ArrowRight')?1:0) - (keys.has('ArrowLeft')?1:0);
       const ay = (keys.has('ArrowDown')?1:0) - (keys.has('ArrowUp')?1:0);
@@ -989,848 +621,319 @@
       State.input.ay = ay * State.device.sens;
     }
 
+    // 生成物体 & 绘制等 —— 与前版本一致
     function spawnObstacle(){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
-
       const minX = State.cfg.worldPadding + w/2;
       const maxX = W - State.cfg.worldPadding - w/2;
-
-      const x = rand(minX, maxX);
-      const y = rand(h/2, H - h/2);
-
+      const x = rand(minX, maxX), y = rand(h/2, H - h/2);
       const z = State.world.z + rand(H*1.1, H*2.0);
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
-
       const flip = (Math.random() < 0.5) ? 1 : -1;
-
       State.obs.push({x,y,z,w,h,type,hit:false,flip});
     }
-
     function spawnCoin(){
       const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
-
-      const minX = State.cfg.worldPadding + r;
-      const maxX = W - State.cfg.worldPadding - r;
-
-      const x = rand(minX, maxX);
-      const y = rand(r, H - r);
-
+      const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
+      const x = rand(minX, maxX), y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
-      State.coins.push({
-        x,y,z,
-        r,
-        got:false,
-        floating:false,
-        linger:0,
-        fx:0,fy:0,fr:0,
-        remove:false
-      });
+      State.coins.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
-
     function spawnHeart(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-
-      const minX = State.cfg.worldPadding + r;
-      const maxX = W - State.cfg.worldPadding - r;
-
-      const x = rand(minX, maxX);
-      const y = rand(r, H - r);
-
+      const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
+      const x = rand(minX, maxX), y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
-      State.hearts.push({
-        x,y,z,
-        r,
-        got:false,
-        floating:false,
-        linger:0,
-        fx:0,fy:0,fr:0,
-        remove:false
-      });
+      State.hearts.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
-
     function spawnShield(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
-
-      const minX = State.cfg.worldPadding + r;
-      const maxX = W - State.cfg.worldPadding - r;
-
-      const x = rand(minX, maxX);
-      const y = rand(r, H - r);
-
+      const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
+      const x = rand(minX, maxX), y = rand(r, H - r);
       const z = State.world.z + rand(H*0.9, H*1.8);
-      State.shields.push({
-        x,y,z,
-        r,
-        got:false,
-        floating:false,
-        linger:0,
-        fx:0,fy:0,fr:0,
-        remove:false
-      });
+      State.shields.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
-
     function spawnBubble(){
-      const x = rand(20, W-20);
-      const y = rand(H-30, H-10);
-      State.bubbles.push({
-        x,y,
-        r:rand(2,5),
-        vz:rand(-120,-60),
-        life:rand(0.8,1.8)
-      });
+      const x = rand(20, W-20), y = rand(H-30, H-10);
+      State.bubbles.push({x,y, r:rand(2,5), vz:rand(-120,-60), life:rand(0.8,1.8)});
     }
-
-    function aabbCircleOverlap(ax,ay,aw,ah,cx,cy,cr){
-      const nx = clamp(cx, ax, ax+aw);
-      const ny = clamp(cy, ay, ay+ah);
-      const dx = cx - nx, dy = cy - ny;
-      return (dx*dx + dy*dy) <= cr*cr;
-    }
-
-    function clearFrame(){
-      ctx.clearRect(0,0,W,H);
-    }
+    const aabbCircleOverlap=(ax,ay,aw,ah,cx,cy,cr)=>{ const nx = Math.max(ax, Math.min(cx, ax+aw)); const ny = Math.max(ay, Math.min(cy, ay+ah)); const dx=cx-nx, dy=cy-ny; return dx*dx+dy*dy <= cr*cr; };
+    function clearFrame(){ ctx.clearRect(0,0,W,H); }
 
     function drawHero(h, t){
-      const sway = Math.sin(t*8 + h.y*0.02) * 6;
-      const x=h.x, y=h.y;
-
+      const sway = Math.sin(t*8 + h.y*0.02) * 6, x=h.x, y=h.y;
       if (h.shieldTime > 0){
         const glowR = h.r + 18;
-        ctx.save();
-        ctx.globalAlpha = 0.35;
+        ctx.save(); ctx.globalAlpha = 0.35;
         const grd = ctx.createRadialGradient(x, y, 0, x, y, glowR);
-        grd.addColorStop(0, 'rgba(120,200,255,0.8)');
-        grd.addColorStop(1, 'rgba(120,200,255,0)');
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(x, y, glowR, 0, Math.PI*2);
-        ctx.fill();
-        ctx.restore();
-
-        ctx.save();
-        ctx.globalAlpha = 0.7;
-        ctx.strokeStyle = '#7fdcff';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(x, y, glowR, 0, Math.PI*2);
-        ctx.stroke();
-        ctx.restore();
+        grd.addColorStop(0,'rgba(120,200,255,0.8)'); grd.addColorStop(1,'rgba(120,200,255,0)');
+        ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.fill(); ctx.restore();
+        ctx.save(); ctx.globalAlpha = 0.7; ctx.strokeStyle = '#7fdcff'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.stroke(); ctx.restore();
       }
-
-      ctx.globalAlpha = 0.8;
-      ctx.fillStyle = '#7fdcff';
-      for(let i=0;i<4;i++){
-        const bx = x - 22 - i*10 + Math.sin(t*10+i)*2;
-        const by = y + Math.cos(t*8+i)*2;
-        ctx.beginPath();
-        ctx.arc(bx, by, 2+i*0.8, 0, Math.PI*2);
-        ctx.fill();
-      }
+      ctx.globalAlpha = 0.8; ctx.fillStyle = '#7fdcff';
+      for(let i=0;i<4;i++){ const bx = x - 22 - i*10 + Math.sin(t*10+i)*2; const by = y + Math.cos(t*8+i)*2; ctx.beginPath(); ctx.arc(bx, by, 2+i*0.8, 0, Math.PI*2); ctx.fill(); }
       ctx.globalAlpha = 1;
-
-      ctx.fillStyle = '#73c6ff';
-      ctx.beginPath();
-      ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2);
-      ctx.fill();
-
-      ctx.fillStyle = '#ffd4a3';
-      ctx.beginPath();
-      ctx.arc(x+24, y-2, 7, 0, Math.PI*2);
-      ctx.fill();
-
-      ctx.fillStyle = '#144d66';
-      ctx.fillRect(x+18, y-6, 12, 8);
-      ctx.fillStyle = '#8be0ff';
-      ctx.fillRect(x+19, y-5, 10, 6);
-
-      ctx.strokeStyle = '#73c6ff';
-      ctx.lineWidth = 4;
-      ctx.lineCap='round';
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x-18, y + sway*0.6);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x+6, y+2);
-      ctx.lineTo(x-8, y - sway*0.6);
-      ctx.stroke();
-
+      ctx.fillStyle = '#73c6ff'; ctx.beginPath(); ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#ffd4a3'; ctx.beginPath(); ctx.arc(x+24, y-2, 7, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#144d66'; ctx.fillRect(x+18, y-6, 12, 8); ctx.fillStyle = '#8be0ff'; ctx.fillRect(x+19, y-5, 10, 6);
+      ctx.strokeStyle='#73c6ff'; ctx.lineWidth=4; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-18, y + sway*0.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+6,y+2); ctx.lineTo(x-8, y - sway*0.6); ctx.stroke();
       if (h.invul>0){
-        ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30);
-        ctx.fillStyle='#fff';
-        ctx.beginPath();
-        ctx.ellipse(x, y, 29, 15, 0, 0, Math.PI*2);
-        ctx.fill();
-        ctx.globalAlpha=1;
+        ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30); ctx.fillStyle='#fff';
+        ctx.beginPath(); ctx.ellipse(x, y, 29, 15, 0, 0, Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
       }
     }
 
     function drawObstacle(o, zRel){
       ctx.save();
-
-      const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = o.x;
-      const ry = o.y;
-      const boxW = o.w * par;
-      const boxH = o.h * par;
-
+      const par = clamp(1 - zRel/(H*2.0), 0, 1), rx=o.x, ry=o.y, boxW=o.w*par, boxH=o.h*par;
       if (o.type==='shark' || o.type==='swordfish'){
-        const imgObj = (o.type==='shark') ? sharkImg : swordfishImg;
-        const SCALE  = (o.type==='shark') ? 3.5 : 2.5;
-
+        const imgObj = (o.type==='shark') ? sharkImg : swordfishImg, SCALE = (o.type==='shark') ? 3.5 : 2.5;
         if (imgObj.complete && imgObj.naturalWidth){
-          const iw = imgObj.naturalWidth;
-          const ih = imgObj.naturalHeight;
-          const imgRatio = iw / ih;
-          const boxRatio = boxW / boxH;
+          const iw = imgObj.naturalWidth, ih = imgObj.naturalHeight, imgRatio=iw/ih, boxRatio=boxW/boxH;
           let drawW, drawH;
-          if (boxRatio > imgRatio){
-            drawH = boxH;
-            drawW = drawH * imgRatio;
-          }else{
-            drawW = boxW;
-            drawH = drawW / imgRatio;
-          }
-          drawW *= SCALE;
-          drawH *= SCALE;
-
+          if (boxRatio > imgRatio){ drawH = boxH; drawW = drawH * imgRatio; } else { drawW = boxW; drawH = drawW / imgRatio; }
+          drawW *= SCALE; drawH *= SCALE;
           const flipSign = (o.flip === -1) ? -1 : 1;
-
-          ctx.save();
-          ctx.translate(rx, ry);
-          ctx.scale(flipSign, 1);
-          ctx.drawImage(
-            imgObj,
-            -drawW/2,
-            -drawH/2,
-            drawW,
-            drawH
-          );
-          ctx.restore();
-
+          ctx.save(); ctx.translate(rx, ry); ctx.scale(flipSign, 1); ctx.drawImage(imgObj, -drawW/2, -drawH/2, drawW, drawH); ctx.restore();
         }else{
-          if (o.type==='shark'){
-            ctx.fillStyle = '#8a1f1f';
-          }else{
-            ctx.fillStyle = '#274e5f';
-          }
-          ctx.beginPath();
-          ctx.ellipse(rx, ry, boxW*0.6, boxH*0.4, 0, 0, Math.PI*2);
-          ctx.fill();
+          ctx.fillStyle = (o.type==='shark')? '#8a1f1f' : '#274e5f';
+          ctx.beginPath(); ctx.ellipse(rx, ry, boxW*0.6, boxH*0.4, 0, 0, Math.PI*2); ctx.fill();
         }
       }else{
-        ctx.fillStyle = '#ff00ff';
-        ctx.beginPath();
-        ctx.roundRect(rx-boxW/2, ry-boxH/2, boxW, boxH, 10);
-        ctx.fill();
+        ctx.fillStyle='#ff00ff'; ctx.beginPath(); ctx.roundRect(rx-boxW/2, ry-boxH/2, boxW, boxH, 10); ctx.fill();
       }
-
       ctx.restore();
     }
 
     function drawCoinDepth(c, zRel){
       if (!coinImg.complete || !coinImg.naturalWidth) return;
-      ctx.save();
-      const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = c.x;
-      const ry = c.y;
-      const r = c.r * (par*0.8+0.2);
-      const s = r*2;
-      ctx.drawImage(coinImg, rx - s/2, ry - s/2, s, s);
-      ctx.restore();
+      ctx.save(); const par=clamp(1 - zRel/(H*2.0),0,1), r=c.r*(par*0.8+0.2), s=r*2;
+      ctx.drawImage(coinImg, c.x - s/2, c.y - s/2, s, s); ctx.restore();
     }
-
-    function drawCoinFloating(c){
-      if (!coinImg.complete || !coinImg.naturalWidth) return;
-      ctx.save();
-      const r = c.fr;
-      const s = r*2;
-      ctx.drawImage(coinImg, c.fx - s/2, c.fy - s/2, s, s);
-      ctx.restore();
-    }
+    function drawCoinFloating(c){ if (!coinImg.complete || !coinImg.naturalWidth) return; const s=c.fr*2; ctx.drawImage(coinImg, c.fx - s/2, c.fy - s/2, s, s); }
 
     function drawHeartDepth(hc, zRel){
-      const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = hc.x;
-      const ry = hc.y;
-      const r  = hc.r * (par*0.8+0.2);
-      if (heartImg.complete && heartImg.naturalWidth){
-        const s = r*2;
-        ctx.drawImage(heartImg, rx - s/2, ry - s/2, s, s);
-      }else{
-        ctx.save();
-        ctx.translate(rx, ry);
-        ctx.scale(r/12, r/12);
-        ctx.fillStyle = '#ff4d6d';
-        ctx.beginPath();
-        ctx.moveTo(0, 8);
-        ctx.bezierCurveTo(12, -6, 8, -14, 0, -6);
-        ctx.bezierCurveTo(-8, -14, -12, -6, 0, 8);
-        ctx.fill();
-        ctx.restore();
-      }
+      const par=clamp(1 - zRel/(H*2.0),0,1), r=hc.r*(par*0.8+0.2);
+      if (heartImg.complete && heartImg.naturalWidth){ const s=r*2; ctx.drawImage(heartImg, hc.x - s/2, hc.y - s/2, s, s); }
+      else{ ctx.save(); ctx.translate(hc.x, hc.y); ctx.scale(r/12, r/12); ctx.fillStyle='#ff4d6d';
+        ctx.beginPath(); ctx.moveTo(0,8); ctx.bezierCurveTo(12,-6,8,-14,0,-6); ctx.bezierCurveTo(-8,-14,-12,-6,0,8); ctx.fill(); ctx.restore(); }
     }
-
     function drawHeartFloating(hc){
-      const r = hc.fr;
-      if (heartImg.complete && heartImg.naturalWidth){
-        const s = r*2;
-        ctx.drawImage(heartImg, hc.fx - s/2, hc.fy - s/2, s, s);
-      }else{
-        ctx.save();
-        ctx.translate(hc.fx, hc.fy);
-        ctx.scale(r/12, r/12);
-        ctx.fillStyle = '#ff4d6d';
-        ctx.beginPath();
-        ctx.moveTo(0, 8);
-        ctx.bezierCurveTo(12, -6, 8, -14, 0, -6);
-        ctx.bezierCurveTo(-8, -14, -12, -6, 0, 8);
-        ctx.fill();
-        ctx.restore();
-      }
+      if (heartImg.complete && heartImg.naturalWidth){ const s=hc.fr*2; ctx.drawImage(heartImg, hc.fx - s/2, hc.fy - s/2, s, s); }
+      else{ ctx.save(); ctx.translate(hc.fx, hc.fy); ctx.scale(hc.fr/12, hc.fr/12); ctx.fillStyle='#ff4d6d';
+        ctx.beginPath(); ctx.moveTo(0,8); ctx.bezierCurveTo(12,-6,8,-14,0,-6); ctx.bezierCurveTo(-8,-14,-12,-6,0,8); ctx.fill(); ctx.restore(); }
     }
 
     function drawShieldDepth(sh){
-      const zRel = sh.z - State.world.z;
-      const par = clamp(1 - zRel/(H*2.0), 0, 1);
-      const rx = sh.x;
-      const ry = sh.y;
-      const r  = sh.r * (par*0.8+0.2);
-      if (shieldImg.complete && shieldImg.naturalWidth){
-        const s = r*2;
-        ctx.drawImage(shieldImg, rx - s/2, ry - s/2, s, s);
-      }else{
-        ctx.save();
-        ctx.translate(rx, ry);
-        ctx.scale(r/12, r/12);
-        ctx.fillStyle = '#5ad0ff';
-        ctx.beginPath();
-        ctx.moveTo(0,-10);
-        ctx.lineTo(8,-4);
-        ctx.lineTo(6,6);
-        ctx.lineTo(0,10);
-        ctx.lineTo(-6,6);
-        ctx.lineTo(-8,-4);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      }
+      const zRel = sh.z - State.world.z, par=clamp(1 - zRel/(H*2.0),0,1), r = sh.r*(par*0.8+0.2);
+      if (shieldImg.complete && shieldImg.naturalWidth){ const s=r*2; ctx.drawImage(shieldImg, sh.x - s/2, sh.y - s/2, s, s); }
+      else{ ctx.save(); ctx.translate(sh.x, sh.y); ctx.scale(r/12, r/12); ctx.fillStyle='#5ad0ff';
+        ctx.beginPath(); ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6); ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4); ctx.closePath(); ctx.fill(); ctx.restore(); }
     }
-
     function drawShieldFloating(sh){
-      const r = sh.fr;
-      if (shieldImg.complete && shieldImg.naturalWidth){
-        const s = r*2;
-        ctx.drawImage(shieldImg, sh.fx - s/2, sh.fy - s/2, s, s);
-      }else{
-        ctx.save();
-        ctx.translate(sh.fx, sh.fy);
-        ctx.scale(r/12, r/12);
-        ctx.fillStyle = '#5ad0ff';
-        ctx.beginPath();
-        ctx.moveTo(0,-10);
-        ctx.lineTo(8,-4);
-        ctx.lineTo(6,6);
-        ctx.lineTo(0,10);
-        ctx.lineTo(-6,6);
-        ctx.lineTo(-8,-4);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      }
+      if (shieldImg.complete && shieldImg.naturalWidth){ const s=sh.fr*2; ctx.drawImage(shieldImg, sh.fx - s/2, sh.fy - s/2, s, s); }
+      else{ ctx.save(); ctx.translate(sh.fx, sh.fy); ctx.scale(sh.fr/12, sh.fr/12); ctx.fillStyle='#5ad0ff';
+        ctx.beginPath(); ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6); ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4); ctx.closePath(); ctx.fill(); ctx.restore(); }
     }
 
     function maybeSwitchToFloatingPickup(item, zRel){
       if (item.floating || item.got) return;
-      if (zRel < 0){
-        const par = clamp(1 - zRel/(H*2.0), 0, 1);
-        item.fx = item.x;
-        item.fy = item.y;
-        item.fr = item.r * (par*0.8+0.2);
-        item.floating = true;
-        item.linger = 1.5;
-      }
+      if (zRel < 0){ const par=clamp(1 - zRel/(H*2.0),0,1); item.fx=item.x; item.fy=item.y; item.fr=item.r*(par*0.8+0.2); item.floating=true; item.linger=1.5; }
     }
-
-    function updateFloatingItem(item, dt){
-      if (!item.floating || item.got) return;
-      item.linger -= dt;
-      item.fy += -20 * dt;
-      if (item.linger <= 0){
-        item.remove = true;
-      }
-    }
-
-    function spawnCoinBurst(x, y){
-      for (let i=0; i<8; i++){
-        const ang = Math.random()*Math.PI*2;
-        const spd = 60 + Math.random()*80;
-        State.fx.particles.push({
-          x,
-          y,
-          vx: Math.cos(ang)*spd,
-          vy: Math.sin(ang)*spd,
-          life: 0.2 + Math.random()*0.15,
-          t: 0,
-          r: 3 + Math.random()*2
-        });
-      }
-    }
-
-    function triggerPulse(){
-      State.fx.pulse = State.fx.pulseMax;
-    }
-    function triggerFlash(){
-      State.fx.flash = State.fx.flashMax;
-    }
-
-    function checkPickupFloatingCoin(item){
-      if (item.got) return;
-      const h = State.hero;
-      const dx=item.fx-h.x, dy=item.fy-h.y;
-      if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
-        item.got=true;
-        State.hero.score += 10;
-        showToast('+10');
-        spawnCoinBurst(h.x, h.y);
-      }
-    }
-
-    function checkPickupFloatingHeart(item){
-      if (item.got) return;
-      const h = State.hero;
-      const dx=item.fx-h.x, dy=item.fy-h.y;
-      if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){
-        item.got=true;
-        if (h.hp < State.cfg.hpMax){
-          h.hp++;
-          showToast('生命+1');
-        }else{
-          State.hero.score += 5;
-          showToast('+5（满血）');
-        }
-        triggerPulse();
-        triggerFlash();
-      }
-    }
-
-    function checkPickupFloatingShield(item){
-      if (item.got) return;
-      const h = State.hero;
-      const dx=item.fx-h.x, dy=item.fy-h.y;
-      if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){
-        item.got=true;
-        h.shieldTime = State.cfg.shieldDuration;
-        showToast('护盾已激活');
-      }
-    }
+    function updateFloatingItem(item, dt){ if (!item.floating || item.got) return; item.linger -= dt; item.fy += -20*dt; if (item.linger <= 0){ item.remove = true; } }
+    function spawnCoinBurst(x, y){ for (let i=0;i<8;i++){ const ang=Math.random()*Math.PI*2, spd=60+Math.random()*80; State.fx.particles.push({x,y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,life:0.2+Math.random()*0.15,t:0,r:3+Math.random()*2}); } }
+    function triggerPulse(){ State.fx.pulse = State.fx.pulseMax; }
+    function triggerFlash(){ State.fx.flash = State.fx.flashMax; }
+    function checkPickupFloatingCoin(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){ item.got=true; h.score += 10; showToast('+10'); spawnCoinBurst(h.x,h.y); } }
+    function checkPickupFloatingHeart(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){ item.got=true; if (h.hp < State.cfg.hpMax){ h.hp++; showToast('生命+1'); }else{ h.score += 5; showToast('+5（满血）'); } triggerPulse(); triggerFlash(); } }
+    function checkPickupFloatingShield(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){ item.got=true; h.shieldTime = State.cfg.shieldDuration; showToast('护盾已激活'); } }
 
     function update(dt){
       if (!('ontouchstart' in window)) keyboardInput();
-
-      const h = State.hero;
-      const w = State.world;
-      const cfg = State.cfg;
-
-      State.time.now += dt;
-      w.t += dt;
-      State.surviveTime += dt;
+      const h=State.hero, w=State.world, cfg=State.cfg;
+      State.time.now += dt; w.t += dt; State.surviveTime += dt;
 
       const targetSpd = cfg.baseSpeed + Math.min(1, State.surviveTime/120) * (cfg.maxSpeed - cfg.baseSpeed);
-      w.speed += (targetSpd - w.speed) * 0.2;
+      w.speed += (targetSpd - w.speed) * 0.2; w.z += w.speed * dt * 60;
 
-      w.z += w.speed * dt * 60;
-
-      h.vx += State.input.ax * cfg.swimAccel;
-      h.vy += State.input.ay * cfg.swimAccel;
-      h.vx *= cfg.swimDamp;
-      h.vy *= cfg.swimDamp;
-
-      h.x = clamp(
-        h.x + h.vx * dt,
-        cfg.worldPadding + h.r,
-        W - cfg.worldPadding - h.r
-      );
+      h.vx += State.input.ax * cfg.swimAccel; h.vy += State.input.ay * cfg.swimAccel;
+      h.vx *= cfg.swimDamp; h.vy *= cfg.swimDamp;
+      h.x = clamp(h.x + h.vx * dt, cfg.worldPadding + h.r, W - cfg.worldPadding - h.r);
       h.y = clamp(h.y + h.vy * dt, h.r, H - h.r);
 
-      if (h.shieldTime > 0){
-        h.shieldTime -= dt;
-        if (h.shieldTime < 0) h.shieldTime = 0;
-      }
+      if (h.shieldTime > 0){ h.shieldTime -= dt; if (h.shieldTime < 0) h.shieldTime = 0; }
 
-      if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){
-        State.bubbleTick = 0;
-        spawnBubble();
-      }
-      if ((State.spawnTick  += dt) > cfg.obstacleRate){
-        State.spawnTick  = 0;
-        spawnObstacle();
-      }
-      if ((State.coinTick   += dt) > cfg.coinRate){
-        State.coinTick   = 0;
-        spawnCoin();
-      }
+      if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){ State.bubbleTick=0; spawnBubble(); }
+      if ((State.spawnTick  += dt) > cfg.obstacleRate){ State.spawnTick =0; spawnObstacle(); }
+      if ((State.coinTick   += dt) > cfg.coinRate){ State.coinTick  =0; spawnCoin(); }
 
-      State.heartTick += dt;
-      const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
-      if (State.heartTick >= heartInterval){
-        const baseP = 0.18;
-        const bonus = Math.min(0.10, State.surviveTime / 180 * 0.10);
-        if (Math.random() < baseP + bonus){
-          spawnHeart();
-        }
-        State.heartTick = 0;
-      }
+      State.heartTick += dt; const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
+      if (State.heartTick >= heartInterval){ const baseP=0.18, bonus=Math.min(0.10, State.surviveTime/180*0.10); if (Math.random() < baseP + bonus){ spawnHeart(); } State.heartTick=0; }
+      State.shieldTick += dt; const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
+      if (State.shieldTick >= shieldInterval){ const baseSP=0.25, bonusS=Math.min(0.12, State.surviveTime/180*0.12); if (Math.random() < baseSP + bonusS){ spawnShield(); } State.shieldTick=0; }
 
-      State.shieldTick += dt;
-      const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
-      if (State.shieldTick >= shieldInterval){
-        const baseSP = 0.25;
-        const bonusS = Math.min(0.12, State.surviveTime / 180 * 0.12);
-        if (Math.random() < baseSP + bonusS){
-          spawnShield();
-        }
-        State.shieldTick = 0;
-      }
-
-      for (let i=State.bubbles.length-1;i>=0;i--){
-        const b=State.bubbles[i];
-        b.life -= dt;
-        b.y += -40*dt;
-        if (b.life<=0) State.bubbles.splice(i,1);
-      }
+      for (let i=State.bubbles.length-1;i>=0;i--){ const b=State.bubbles[i]; b.life-=dt; b.y += -40*dt; if (b.life<=0) State.bubbles.splice(i,1); }
 
       for (let i=State.obs.length-1;i>=0;i--){
-        const o=State.obs[i];
-        const zRel = o.z - w.z;
-        if (zRel < -40){
-          State.obs.splice(i,1);
-          continue;
-        }
+        const o=State.obs[i], zRel=o.z - w.z;
+        if (zRel < -40){ State.obs.splice(i,1); continue; }
         if (!o.hit && Math.abs(zRel) < 40){
-          if (aabbCircleOverlap(o.x - o.w/2, o.y - o.h/2, o.w, o.h, h.x, h.y, h.r)){
-            o.hit=true;
-            onHit();
-          }
+          if (aabbCircleOverlap(o.x - o.w/2, o.y - o.h/2, o.w, o.h, h.x, h.y, h.r)){ o.hit=true; onHit(); }
         }
       }
 
       for (let i=State.coins.length-1;i>=0;i--){
         const c=State.coins[i];
         if (!c.floating){
-          const zRel = c.z - w.z;
-          maybeSwitchToFloatingPickup(c, zRel);
-          if (!c.floating && zRel < -20){
-            State.coins.splice(i,1);
-            continue;
-          }
+          const zRel = c.z - w.z; maybeSwitchToFloatingPickup(c, zRel);
+          if (!c.floating && zRel < -20){ State.coins.splice(i,1); continue; }
           if (!c.got && !c.floating && Math.abs(zRel) < 40){
             const dx=c.x-h.x, dy=c.y-h.y;
-            if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
-              c.got=true;
-              State.hero.score += 10;
-              showToast('+10');
-              spawnCoinBurst(h.x, h.y);
-            }
+            if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){ c.got=true; h.score += 10; showToast('+10'); spawnCoinBurst(h.x,h.y); }
           }
         }else{
-          updateFloatingItem(c, dt);
-          checkPickupFloatingCoin(c);
-          if (c.remove || c.got){
-            State.coins.splice(i,1);
-            continue;
-          }
+          updateFloatingItem(c, dt); checkPickupFloatingCoin(c);
+          if (c.remove || c.got){ State.coins.splice(i,1); continue; }
         }
       }
 
       for (let i=State.hearts.length-1;i>=0;i--){
         const hc=State.hearts[i];
         if (!hc.floating){
-          const zRel = hc.z - w.z;
-          maybeSwitchToFloatingPickup(hc, zRel);
-          if (!hc.floating && zRel < -20){
-            State.hearts.splice(i,1);
-            continue;
-          }
+          const zRel = hc.z - w.z; maybeSwitchToFloatingPickup(hc, zRel);
+          if (!hc.floating && zRel < -20){ State.hearts.splice(i,1); continue; }
           if (!hc.got && !hc.floating && Math.abs(zRel) < 40){
             const dx=hc.x-h.x, dy=hc.y-h.y;
-            if (dx*dx+dy*dy < (h.r+hc.r)*(h.r+hc.r)){
-              hc.got=true;
-              if (h.hp < cfg.hpMax){
-                h.hp++;
-                showToast('生命+1');
-              }else{
-                State.hero.score += 5;
-                showToast('+5（满血）');
-              }
-              triggerPulse();
-              triggerFlash();
-            }
+            if (dx*dx+dy*dy < (h.r+hc.r)*(h.r+hc.r)){ hc.got=true; if (h.hp < cfg.hpMax){ h.hp++; showToast('生命+1'); }else{ h.score += 5; showToast('+5（满血）'); } triggerPulse(); triggerFlash(); }
           }
         }else{
-          updateFloatingItem(hc, dt);
-          checkPickupFloatingHeart(hc);
-          if (hc.remove || hc.got){
-            State.hearts.splice(i,1);
-            continue;
-          }
+          updateFloatingItem(hc, dt); checkPickupFloatingHeart(hc);
+          if (hc.remove || hc.got){ State.hearts.splice(i,1); continue; }
         }
       }
 
       for (let i=State.shields.length-1;i>=0;i--){
         const sh=State.shields[i];
         if (!sh.floating){
-          const zRel = sh.z - w.z;
-          maybeSwitchToFloatingPickup(sh, zRel);
-          if (!sh.floating && zRel < -20){
-            State.shields.splice(i,1);
-            continue;
-          }
+          const zRel = sh.z - w.z; maybeSwitchToFloatingPickup(sh, zRel);
+          if (!sh.floating && zRel < -20){ State.shields.splice(i,1); continue; }
           if (!sh.got && !sh.floating && Math.abs(zRel) < 40){
             const dx=sh.x-h.x, dy=sh.y-h.y;
-            if (dx*dx+dy*dy < (h.r+sh.r)*(h.r+sh.r)){
-              sh.got=true;
-              h.shieldTime = cfg.shieldDuration;
-              showToast('护盾已激活');
-            }
+            if (dx*dx+dy*dy < (h.r+sh.r)*(h.r+sh.r)){ sh.got=true; h.shieldTime = cfg.shieldDuration; showToast('护盾已激活'); }
           }
         }else{
-          updateFloatingItem(sh, dt);
-          checkPickupFloatingShield(sh);
-          if (sh.remove || sh.got){
-            State.shields.splice(i,1);
-            continue;
-          }
+          updateFloatingItem(sh, dt); checkPickupFloatingShield(sh);
+          if (sh.remove || sh.got){ State.shields.splice(i,1); continue; }
         }
       }
 
       h.invul = Math.max(0, h.invul - dt);
 
       for (let i = State.fx.particles.length-1; i>=0; i--){
-        const p = State.fx.particles[i];
-        p.t += dt;
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
-        if (p.t >= p.life){
-          State.fx.particles.splice(i,1);
-        }
+        const p = State.fx.particles[i]; p.t += dt; p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.t >= p.life){ State.fx.particles.splice(i,1); }
       }
 
-      if (State.fx.pulse > 0){
-        State.fx.pulse -= dt;
-        if (State.fx.pulse < 0) State.fx.pulse = 0;
-      }
-      if (State.fx.flash > 0){
-        State.fx.flash -= dt;
-        if (State.fx.flash < 0) State.fx.flash = 0;
-      }
+      if (State.fx.pulse > 0){ State.fx.pulse -= dt; if (State.fx.pulse < 0) State.fx.pulse = 0; }
+      if (State.fx.flash > 0){ State.fx.flash -= dt; if (State.fx.flash < 0) State.fx.flash = 0; }
 
       scoreEl.textContent = Math.floor(h.score);
       spdEl.textContent = w.speed.toFixed(1);
       hpEl.textContent = h.hp;
-
       h.score += dt * w.speed * 0.7;
 
-      if (State.shake.t > 0){
-        State.shake.t -= dt;
-        if (State.shake.t < 0) State.shake.t = 0;
-      }
+      if (State.shake.t > 0){ State.shake.t -= dt; if (State.shake.t < 0) State.shake.t = 0; }
     }
 
     function onHit(){
       const h=State.hero;
-      if (h.shieldTime > 0){
-        h.shieldTime = 0;
-        h.invul = State.cfg.hurtCooldown * 0.5;
-        State.shake.t = 0.2;
-        State.shake.mag = 4;
-        showToast('护盾抵挡!');
-        return;
-      }
+      if (h.shieldTime > 0){ h.shieldTime = 0; h.invul = State.cfg.hurtCooldown * 0.5; State.shake.t = 0.2; State.shake.mag = 4; showToast('护盾抵挡!'); return; }
       if (h.invul>0) return;
-
-      h.hp -= State.cfg.damage;
-      h.invul = State.cfg.hurtCooldown;
-      State.shake.t = 0.25;
-      State.shake.mag = 5;
-      showToast(h.hp>0 ? '-HP' : '你被击倒了');
-
-      if (h.hp <= 0){
-        gameOver();
-      }
+      h.hp -= State.cfg.damage; h.invul = State.cfg.hurtCooldown; State.shake.t = 0.25; State.shake.mag = 5; showToast(h.hp>0 ? '-HP' : '你被击倒了');
+      if (h.hp <= 0){ gameOver(); }
     }
 
     function gameOver(){
-      State.running=false;
-      State.paused=false;
-      pauseOverlay.style.display='none';
-
+      State.running=false; State.paused=false; pauseOverlay.style.display='none';
       saveScore(State.runDifficulty, State.hero.score);
-
       panelTitleEl.textContent='Game Over · 再来一把？';
       panelDescEl.innerHTML='你被击倒了。可以直接重新开始，或点右下角“重开”回到主菜单重新调难度。';
       startBtn.textContent='重新开始';
-      renderLeaderboardPanel();
-      panel.style.display='block';
-
+      renderLeaderboardPanel(); panel.style.display='block';
       State.time.last = 0;
     }
 
     function goToMenu(){
-      State.running=false;
-      State.paused=false;
-      pauseOverlay.style.display='none';
-
+      State.running=false; State.paused=false; pauseOverlay.style.display='none';
       panelTitleEl.innerHTML='<span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>';
       panelDescEl.innerHTML='按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>左右倾斜控制水平移动；前后倾斜控制上/下浮。';
       startBtn.textContent='开始游戏';
-      renderLeaderboardPanel();
-      panel.style.display='block';
-
+      renderLeaderboardPanel(); panel.style.display='block';
       State.time.last = 0;
     }
 
-    function start(){
-      State.reset();
-      State.running=true;
-      State.paused=false;
-      State.time.last=0;
-      panel.style.display='none';
-      showToast('左右倾斜控制移动');
-    }
-
-    function restart(){
-      goToMenu();
-    }
-
-    function togglePause(){
-      if (!State.running) return;
-      State.paused=!State.paused;
-      pauseOverlay.style.display = State.paused?'grid':'none';
-    }
+    function start(){ State.reset(); State.running=true; State.paused=false; State.time.last=0; panel.style.display='none'; showToast('左右倾斜控制移动'); }
+    function restart(){ goToMenu(); }
+    function togglePause(){ if (!State.running) return; State.paused=!State.paused; pauseOverlay.style.display = State.paused?'grid':'none'; }
 
     let rafId=0;
     function loop(){
       rafId = requestAnimationFrame(loop);
       if (!State.running || State.paused) return;
-
-      const now=performance.now();
-      if (!State.time.last) State.time.last=now;
-      const dt = clamp((now - State.time.last)/1000, 0, 0.05);
-      State.time.last=now;
+      const now=performance.now(); if (!State.time.last) State.time.last=now;
+      const dt = clamp((now - State.time.last)/1000, 0, 0.05); State.time.last=now;
 
       update(dt);
 
       ctx.save();
-
       if (State.shake.t > 0){
-        const decay = State.shake.t / 0.25;
-        const magNow = State.shake.mag * decay;
-        const sx = (Math.random()*2-1) * magNow;
-        const sy = (Math.random()*2-1) * magNow;
+        const decay = State.shake.t / 0.25, magNow = State.shake.mag * decay;
+        const sx=(Math.random()*2-1)*magNow, sy=(Math.random()*2-1)*magNow;
         ctx.translate(sx, sy);
       }
-
       clearFrame();
 
-      for (const b of State.bubbles){
-        ctx.globalAlpha=0.35;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
-        ctx.fillStyle='#7fdcff';
-        ctx.fill();
-        ctx.globalAlpha=1;
-      }
-
-      for (const c of State.coins){
-        if (!c.floating){
-          const zRel = c.z - State.world.z;
-          drawCoinDepth(c, zRel);
-        }else{
-          drawCoinFloating(c);
-        }
-      }
-
-      for (const o of State.obs){
-        drawObstacle(o, o.z - State.world.z);
-      }
-
-      for (const hc of State.hearts){
-        if (!hc.floating){
-          const zRel = hc.z - State.world.z;
-          drawHeartDepth(hc, zRel);
-        }else{
-          drawHeartFloating(hc);
-        }
-      }
-
-      for (const sh of State.shields){
-        if (!sh.floating){
-          drawShieldDepth(sh);
-        }else{
-          drawShieldFloating(sh);
-        }
-      }
+      for (const b of State.bubbles){ ctx.globalAlpha=0.35; ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fillStyle='#7fdcff'; ctx.fill(); ctx.globalAlpha=1; }
+      for (const c of State.coins){ if (!c.floating){ const zRel=c.z - State.world.z; drawCoinDepth(c, zRel); } else { drawCoinFloating(c); } }
+      for (const o of State.obs){ drawObstacle(o, o.z - State.world.z); }
+      for (const hc of State.hearts){ if (!hc.floating){ const zRel=hc.z - State.world.z; drawHeartDepth(hc, zRel); } else { drawHeartFloating(hc); } }
+      for (const sh of State.shields){ if (!sh.floating){ drawShieldDepth(sh); } else { drawShieldFloating(sh); } }
 
       if (State.fx.pulse > 0){
-        const h = State.hero;
-        const k = 1 - (State.fx.pulse / State.fx.pulseMax);
-        theRadius = 50 + k * (150-50);
-        const alpha  = 0.4 * (1 - k);
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        const grd = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, theRadius);
-        grd.addColorStop(0, 'rgba(255,120,160,1)');
-        grd.addColorStop(1, 'rgba(255,120,160,0)');
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(h.x, h.y, theRadius, 0, Math.PI*2);
-        ctx.fill();
-        ctx.restore();
+        const h = State.hero; const k = 1 - (State.fx.pulse / State.fx.pulseMax);
+        const radius = 50 + k * (150-50); const alpha  = 0.4 * (1 - k);
+        ctx.save(); ctx.globalAlpha = alpha;
+        const grd = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, radius);
+        grd.addColorStop(0, 'rgba(255,120,160,1)'); grd.addColorStop(1, 'rgba(255,120,160,0)');
+        ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(h.x, h.y, radius, 0, Math.PI*2); ctx.fill(); ctx.restore();
       }
 
       drawHero(State.hero, State.world.t);
 
       for (const p of State.fx.particles){
-        const lifeK = 1 - (p.t / p.life);
-        ctx.save();
-        ctx.globalAlpha = lifeK;
+        const lifeK = 1 - (p.t / p.life); ctx.save(); ctx.globalAlpha = lifeK;
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*2);
-        grad.addColorStop(0, 'rgba(255,230,150,1)');
-        grad.addColorStop(1, 'rgba(255,230,150,0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r*2, 0, Math.PI*2);
-        ctx.fill();
-        ctx.restore();
+        grad.addColorStop(0, 'rgba(255,230,150,1)'); grad.addColorStop(1, 'rgba(255,230,150,0)');
+        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(p.x, p.y, p.r*2, 0, Math.PI*2); ctx.fill(); ctx.restore();
       }
 
       if (State.fx.flash > 0){
-        const k = 1 - (State.fx.flash / State.fx.flashMax);
-        const alpha = 0.2 * (1 - k);
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = '#ff99bb';
-        ctx.fillRect(0,0,W,H);
-        ctx.restore();
+        const k = 1 - (State.fx.flash / State.fx.flashMax), alpha = 0.2 * (1 - k);
+        ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#ff99bb'; ctx.fillRect(0,0,W,H); ctx.restore();
       }
 
       ctx.restore();
     }
 
-    // 事件绑定
-    startBtn.addEventListener('click', ()=>{
-      requestMotionPermission();
-      start();
-    }, {passive:true});
-
+    // 绑定
+    startBtn.addEventListener('click', ()=>{ requestMotionPermission(); start(); }, {passive:true});
     pauseBtn.addEventListener('click', ()=> togglePause());
     resumeBtn.addEventListener('click', ()=> togglePause());
-    restartBtn.addEventListener('click', ()=> {
-      restart();
-    });
+    restartBtn.addEventListener('click', ()=> { restart(); });
 
     calBtn.addEventListener('click', ()=>{
       calibrate();
@@ -1839,14 +942,10 @@
       setTimeout(()=>{ calBtn.textContent = oldText; }, 1200);
     });
 
-    sensSlider.addEventListener('input', ()=>{
-      State.device.sens = parseFloat(sensSlider.value);
-    });
+    sensSlider.addEventListener('input', ()=>{ State.device.sens = parseFloat(sensSlider.value); });
 
-    // 难度切换：不弹 toast，只记录
-    document.getElementById('diffGroup').addEventListener('change', ()=>{
-      State.runDifficulty = getDifficulty();
-    });
+    // 难度切换：只记录，不弹 toast
+    document.getElementById('diffGroup').addEventListener('change', ()=>{ State.runDifficulty = getDifficulty(); });
 
     renderLeaderboardPanel();
     loop();
