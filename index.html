@@ -18,6 +18,9 @@
       --danger:#ff4d6d;
       --rock:#6f8a99;
       --shield:#7fdcff;
+      --btn-bg:#003c52;
+      --btn-text:#ddf;
+      --btn-border:#ffffff4d;
     }
     html,body{
       margin:0; padding:0; width:100%; height:100%; overflow:hidden;
@@ -77,17 +80,209 @@
       flex-wrap:wrap;
     }
     #panel p{line-height:1.35;margin:.35rem 0;color:var(--ui);}
-    #panel .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
-    #panel label{font-size:.9rem;opacity:.9}
-    #panel input[type=range]{width:160px}
-    #panel button{
-      appearance:none;border:0;border-radius:999px;
-      padding:.65rem 1rem;font-weight:700;
-      background:var(--accent);color:#05384c;
-      cursor:pointer;
-      box-shadow:0 8px 20px #00c8ff44
-    }
     #panel small{opacity:.8}
+    #panel kbd{
+      background:#0008;
+      border:1px solid #ffffff4d;
+      border-radius:4px;
+      padding:0 .3rem;
+      font-size:.75rem;
+      line-height:1.3;
+      font-weight:600;
+      color:#fff;
+    }
+
+    /* 控制区整体布局 */
+    .controlSection{
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      margin-top:1rem;
+      margin-bottom:.5rem;
+    }
+    @media(min-width:600px){
+      .controlSection{
+        flex-direction:row;
+        align-items:flex-start;
+        justify-content:space-between;
+      }
+    }
+
+    /* 左半部分（灵敏度+难度） */
+    .controlLeft{
+      flex:1;
+      min-width:0;
+      background:#0004;
+      border:1px solid #ffffff22;
+      border-radius:12px;
+      box-shadow:0 8px 24px #0008;
+      padding:.9rem .9rem .8rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .sensBlock{
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+    }
+    .sensHeader{
+      font-size:.9rem;
+      opacity:.9;
+      line-height:1.2;
+      font-weight:500;
+      color:var(--ui);
+    }
+    #sens{
+      width:100%;
+    }
+
+    /* 难度块 */
+    .diffWrap{
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+    }
+    .diffLabel{
+      font-size:.9rem;
+      opacity:.9;
+      line-height:1.2;
+      font-weight:500;
+      color:var(--ui);
+    }
+    .diffGroup{
+      display:flex;
+      background:#0004;
+      border:1px solid #ffffff22;
+      border-radius:12px;
+      padding:.4rem;
+      box-shadow:0 8px 24px #0008;
+      gap:.4rem;
+    }
+    .diffOption{
+      position:relative;
+      flex:1;
+    }
+    .diffOption input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+    .diffBtn{
+      width:100%;
+      background:#001a27aa;
+      border:1px solid #ffffff2b;
+      border-radius:10px;
+      color:#cfe8ff;
+      font-size:.8rem;
+      font-weight:600;
+      line-height:1.2;
+      padding:.6rem .5rem .55rem;
+      text-align:center;
+      box-shadow:0 6px 16px #000a;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-width:4.5rem;
+      cursor:pointer;
+      user-select:none;
+    }
+    .diffMainTxt{
+      font-size:.8rem;
+      font-weight:600;
+      color:#fff;
+      text-shadow:0 1px 2px #000;
+      display:block;
+    }
+    .diffSubTxt{
+      font-size:.7rem;
+      line-height:1.2;
+      color:#cfe8ff99;
+      text-shadow:0 1px 2px #000a;
+      font-weight:400;
+      margin-top:.25rem;
+    }
+    /* 选中态 */
+    #diff_easy:checked + .diffBtn{
+      background:rgba(0,60,30,.6);
+      border:1px solid rgba(0,255,128,.4);
+      box-shadow:0 0 12px rgba(0,255,128,.4),0 10px 24px #000c;
+      color:#cfffef;
+    }
+    #diff_easy:checked + .diffBtn .diffMainTxt{
+      color:#6bffb0;
+      text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000;
+    }
+    #diff_normal:checked + .diffBtn{
+      background:#003044aa;
+      border:1px solid #00e1ff55;
+      box-shadow:0 0 12px rgba(0,200,255,.4),0 10px 24px #000c;
+      color:#dff9ff;
+    }
+    #diff_normal:checked + .diffBtn .diffMainTxt{
+      color:var(--accent);
+      text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000;
+    }
+    #diff_hard:checked + .diffBtn{
+      background:rgba(60,0,10,.6);
+      border:1px solid rgba(255,0,80,.4);
+      box-shadow:0 0 12px rgba(255,0,80,.4),0 10px 24px #000c;
+      color:#ffe3f0;
+    }
+    #diff_hard:checked + .diffBtn .diffMainTxt{
+      color:#ff4d6d;
+      text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000;
+    }
+
+    /* 右半部分（按钮+说明） */
+    .controlRight{
+      flex-shrink:0;
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+      background:#0000;
+    }
+    @media(min-width:600px){
+      .controlRight{
+        min-width:180px;
+        background:#0004;
+        border:1px solid #ffffff22;
+        border-radius:12px;
+        box-shadow:0 8px 24px #0008;
+        padding:.9rem .9rem .8rem;
+      }
+    }
+    .btnRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+    }
+    .mainBtn{
+      appearance:none;
+      border:1px solid var(--btn-border);
+      background:var(--btn-bg);
+      color:var(--btn-text);
+      border-radius:999px;
+      padding:.65rem 1rem;
+      font-weight:700;
+      font-size:.9rem;
+      line-height:1.2;
+      box-shadow:0 8px 20px #000a;
+      cursor:pointer;
+      flex:1;
+      text-align:center;
+      white-space:nowrap;
+      min-width:7rem;
+    }
+    .calibNote{
+      font-size:.75rem;
+      line-height:1.3;
+      color:#cfe8ffcc;
+      text-shadow:0 1px 2px #0009;
+      font-weight:400;
+    }
+
     #leaderboardBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -143,7 +338,7 @@
     .lb-scores{
       flex:1;
       text-align:right;
-      color:#ffd166;
+      color:var(--gold);
       font-variant-numeric:tabular-nums;
     }
     .lb-hint{
@@ -154,6 +349,7 @@
       margin-top:.2rem;
       font-weight:400;
     }
+
     #howtoBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -267,6 +463,7 @@
       text-shadow:0 1px 2px #000;
       font-weight:400;
     }
+
     #tips{
       position:fixed;
       left:50%;transform:translateX(-50%);
@@ -286,10 +483,11 @@
       border:1px solid #ffffff24;
       border-radius:12px;
       display:none;
-      z-index:15;
+      z-index:30;
       font-weight:500;
       text-shadow:0 1px 2px #000;
     }
+
     #pauseOverlay{
       position:fixed;inset:0;
       background:#00000080;
@@ -307,6 +505,7 @@
       box-shadow:0 10px 30px #000a;
     }
     #pauseOverlay button{margin-top:10px}
+
     .floating{
       position:fixed;
       right:10px;
@@ -317,15 +516,16 @@
     }
     .ghostBtn{
       appearance:none;
-      border:1px solid #ffffff4d;
+      border:1px solid var(--btn-border);
       background:#0005;
-      color:#ddf;
+      color:var(--btn-text);
       border-radius:999px;
       padding:.55rem .8rem;
       font-weight:700;
       box-shadow:0 6px 20px #000a;
       cursor:pointer;
     }
+
     @supports (padding: env(safe-area-inset-top)){
       #hud{padding-top:calc(.6rem + env(safe-area-inset-top));}
     }
@@ -335,37 +535,75 @@
   <div id="wrap">
     <canvas id="c" aria-label="Gyro Swim Runner game canvas"></canvas>
   </div>
+
   <div id="hud">
     <div class="pill">分数 <span id="score">0</span></div>
     <div class="pill">速度 <span id="spd">0.0</span> m/s</div>
     <div class="pill">剩余生命 <span id="hp">3</span></div>
   </div>
+
   <div id="panel" role="dialog" aria-modal="true">
     <h1 id="panelTitle">
       <span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>
     </h1>
     <p id="panelDesc">
       按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>
-      左右倾斜控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。
+      左右倾斜控制水平移动；前后倾斜控制上/下浮。
     </p>
-    <div class="row" style="margin:.5rem 0 .25rem">
-      <label>灵敏度</label>
-      <input id="sens" type="range" min="0.2" max="3" step="0.1" value="1.3" />
-      <label>难度</label>
-      <select id="difficulty">
-        <option value="easy">Easy</option>
-        <option value="normal" selected>Normal</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
-    <div class="row" style="gap:1rem;margin-top:.6rem">
-      <button id="startBtn">开始游戏</button>
-      <button id="calBtn" class="ghostBtn" style="border-radius:12px">校准水平</button>
-      <small>（将手机保持你觉得的“水平”姿态后点校准）</small>
-    </div>
-    <p style="margin-top:.6rem">
-      <small>调试：桌面可用 ← → ↑ ↓ 控制；<kbd>P</kbd> 暂停；<kbd>R</kbd> 复位。</small>
+
+    <!-- 控制区 -->
+    <section class="controlSection">
+      <!-- 左：灵敏度+难度 -->
+      <div class="controlLeft">
+        <div class="sensBlock">
+          <div class="sensHeader">灵敏度</div>
+          <input id="sens" type="range" min="0.2" max="3" step="0.1" value="1.3" />
+        </div>
+
+        <div class="diffWrap">
+          <div class="diffLabel">难度</div>
+          <div class="diffGroup" id="diffGroup">
+            <label class="diffOption">
+              <input type="radio" name="difficulty" id="diff_easy" value="easy">
+              <div class="diffBtn">
+                <span class="diffMainTxt">Easy</span>
+                <span class="diffSubTxt">更少障碍</span>
+              </div>
+            </label>
+
+            <label class="diffOption">
+              <input type="radio" name="difficulty" id="diff_normal" value="normal" checked>
+              <div class="diffBtn">
+                <span class="diffMainTxt">Normal</span>
+                <span class="diffSubTxt">标准速度</span>
+              </div>
+            </label>
+
+            <label class="diffOption">
+              <input type="radio" name="difficulty" id="diff_hard" value="hard">
+              <div class="diffBtn">
+                <span class="diffMainTxt">Hard</span>
+                <span class="diffSubTxt">高压挑战</span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：开始+校准 -->
+      <div class="controlRight">
+        <div class="btnRow">
+          <button id="startBtn" class="mainBtn">开始游戏</button>
+          <button id="calBtn" class="mainBtn">校准水平</button>
+        </div>
+        <div class="calibNote">（将手机保持你觉得的“水平”姿态后点校准）</div>
+      </div>
+    </section>
+
+    <p style="margin-top:.2rem">
+      <small>调试：桌面可用 <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> 控制；<kbd>P</kbd> 暂停；<kbd>R</kbd> 复位。</small>
     </p>
+
     <div id="howtoBox">
       <div id="howtoBoxTitle">
         <span>玩法说明 / 道具与危险</span>
@@ -436,20 +674,25 @@
         </div>
       </div>
     </div>
+
     <div id="leaderboardBox"></div>
   </div>
+
   <div id="pauseOverlay">
     <div class="box">
       <div style="font-size:1.2rem;margin-bottom:.4rem">已暂停</div>
       <button class="ghostBtn" id="resumeBtn">继续</button>
     </div>
   </div>
+
   <div id="tips">提示：若无反应，请在系统设置里开启“运动与体能访问权限”。</div>
   <div id="toast"></div>
+
   <div class="floating">
     <button id="pauseBtn" class="ghostBtn">暂停</button>
     <button id="restartBtn" class="ghostBtn">重开</button>
   </div>
+
   <script>
   ;(() => {
     const canvas = document.getElementById('c');
@@ -458,8 +701,7 @@
     const spdEl = document.getElementById('spd');
     const hpEl = document.getElementById('hp');
     const panel = document.getElementById('panel');
-    the_panelTitleEl = document.getElementById('panelTitle'); // 保持原写法
-    const panelTitleEl = the_panelTitleEl;
+    const panelTitleEl = document.getElementById('panelTitle');
     const panelDescEl = document.getElementById('panelDesc');
     const pauseOverlay = document.getElementById('pauseOverlay');
     const startBtn = document.getElementById('startBtn');
@@ -468,9 +710,13 @@
     const restartBtn = document.getElementById('restartBtn');
     const calBtn = document.getElementById('calBtn');
     const sensSlider = document.getElementById('sens');
-    const diffSel = document.getElementById('difficulty');
     const toast = document.getElementById('toast');
     const leaderboardBox = document.getElementById('leaderboardBox');
+
+    function getDifficulty(){
+      const r = document.querySelector('input[name="difficulty"]:checked');
+      return r ? r.value : 'normal';
+    }
 
     let W = 0, H = 0, dpr = 1;
 
@@ -491,6 +737,7 @@
     fitToViewport();
     window.addEventListener('resize', fitToViewport, {passive:true});
     window.visualViewport?.addEventListener('resize', fitToViewport, {passive:true});
+    window.addEventListener('orientationchange', fitToViewport, {passive:true});
 
     const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
     const rand = (a,b)=>a + Math.random()*(b-a);
@@ -553,7 +800,7 @@
       leaderboardBox.innerHTML = html;
     }
 
-    // 资源图片
+    // 图片资源
     const coinImg = new Image();
     coinImg.src = 'assets/coin.svg';
     const heartImg = new Image();
@@ -571,11 +818,15 @@
         this.reset();
         this.running=false;
         this.paused=false;
-        this.device={alpha:0,beta:0,gamma:0, calib:{beta:0,gamma:0}, sens: parseFloat(sensSlider.value)};
+        this.device={
+          beta:0,gamma:0,
+          calib:{beta:0,gamma:0},
+          sens: parseFloat(sensSlider.value)
+        };
         this.input={ax:0,ay:0,sprint:false};
-        this.time={now:0,last:0,dt:0};
+        this.time={now:0,last:0};
         this.shake = { t:0, mag:0 };
-        this.runDifficulty = diffSel.value;
+        this.runDifficulty = getDifficulty();
         this.fx = {
           particles: [],
           pulse: 0,
@@ -585,7 +836,7 @@
         };
       },
       reset(){
-        const diff = diffSel.value;
+        const diff = getDifficulty();
         const diffCfg = {
           easy:   { baseSpeed:4,  maxSpeed:8.5,  spawn:1.1,  damage:1, heartRate:[12,18], sharkProb:0.15 },
           normal: { baseSpeed:5,  maxSpeed:10.5, spawn:0.95, damage:1, heartRate:[16,24], sharkProb:0.30 },
@@ -607,7 +858,6 @@
           worldPadding: padding,
           swimAccel: 18,
           swimDamp:0.90,
-          gravity:0,
           sprintBoost:1.8,
           bubbleRate:60,
           coinRate:2.2,
@@ -654,7 +904,7 @@
           flash: 0,
           flashMax: 0.15
         };
-        this.runDifficulty = diffSel.value;
+        this.runDifficulty = diff;
       }
     };
     State.init();
@@ -673,45 +923,57 @@
       }
     }
 
-    function handleOrientation(e){
-      const {beta, gamma} = e;
-      const b0=State.device.calib.beta, g0=State.device.calib.gamma, sens=State.device.sens;
-      const ax = clamp((gamma - g0) / 25, -1, 1) * sens;
-      const ay = clamp(((beta - b0)) / 25, -1, 1) * sens;
-      State.input.ax = clamp(ax, -1.5, 1.5);
-      State.input.ay = clamp(ay, -1.5, 1.5);
+    // 根据竖屏/横屏选择不同轴映射
+    function computeInputFromOrientation(beta, gamma){
+      const b0=State.device.calib.beta;
+      const g0=State.device.calib.gamma;
+      const sens=State.device.sens;
+
+      const isLandscape = W > H;
+
+      let ax, ay;
+      if (!isLandscape){
+        // 竖屏：和之前一样
+        ax = clamp((gamma - g0) / 25, -1, 1);
+        ay = clamp((beta  - b0) / 25, -1, 1);
+      }else{
+        // 横屏：把beta当作左右，把-gamma当作上下
+        ax = clamp((beta  - b0) / 25, -1, 1);
+        ay = clamp(-(gamma - g0) / 25, -1, 1);
+      }
+
+      State.input.ax = clamp(ax * sens, -1.5, 1.5);
+      State.input.ay = clamp(ay * sens, -1.5, 1.5);
     }
+
     function calibrate(){
       State.device.calib.beta = State.device.beta;
       State.device.calib.gamma = State.device.gamma;
-      showToast('已校准');
+      // 按钮文字闪一下
     }
 
     window.addEventListener('deviceorientation', (e)=>{
-      State.device.alpha=e.alpha||0;
       State.device.beta=e.beta||0;
       State.device.gamma=e.gamma||0;
-      handleOrientation(State.device);
+      computeInputFromOrientation(State.device.beta, State.device.gamma);
     });
 
-    // 触摸 / 键盘输入
+    // 触摸占位（不再有冲刺）
     let touchId = null;
     canvas.addEventListener('touchstart',(e)=>{
       if (touchId===null){
         touchId=e.changedTouches[0].identifier;
-        State.input.sprint=true;
       }
     }, {passive:true});
-
     canvas.addEventListener('touchend',(e)=>{
       for (const t of e.changedTouches){
         if (t.identifier===touchId){
           touchId=null;
-          State.input.sprint=false;
         }
       }
     }, {passive:true});
 
+    // 键盘（桌面）
     const keys = new Set();
     window.addEventListener('keydown', (e)=>{
       keys.add(e.key);
@@ -725,15 +987,12 @@
       const ay = (keys.has('ArrowDown')?1:0) - (keys.has('ArrowUp')?1:0);
       State.input.ax = ax * State.device.sens;
       State.input.ay = ay * State.device.sens;
-      State.input.sprint = keys.has(' ');
     }
 
-    // 生成障碍物（含随机左右翻转 + 限制到玩家可达区域）
     function spawnObstacle(){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
 
-      // 避开左右死区：使用 worldPadding
       const minX = State.cfg.worldPadding + w/2;
       const maxX = W - State.cfg.worldPadding - w/2;
 
@@ -743,13 +1002,11 @@
       const z = State.world.z + rand(H*1.1, H*2.0);
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
 
-      // 随机水平翻转
       const flip = (Math.random() < 0.5) ? 1 : -1;
 
       State.obs.push({x,y,z,w,h,type,hit:false,flip});
     }
 
-    // 生成金币（限制到玩家可达区域）
     function spawnCoin(){
       const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
 
@@ -771,7 +1028,6 @@
       });
     }
 
-    // 生成爱心（限制到玩家可达区域）
     function spawnHeart(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
 
@@ -793,7 +1049,6 @@
       });
     }
 
-    // 生成护盾（限制到玩家可达区域）
     function spawnShield(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
 
@@ -841,7 +1096,6 @@
       const sway = Math.sin(t*8 + h.y*0.02) * 6;
       const x=h.x, y=h.y;
 
-      // 护盾发光
       if (h.shieldTime > 0){
         const glowR = h.r + 18;
         ctx.save();
@@ -865,7 +1119,6 @@
         ctx.restore();
       }
 
-      // 泡泡尾迹
       ctx.globalAlpha = 0.8;
       ctx.fillStyle = '#7fdcff';
       for(let i=0;i<4;i++){
@@ -877,25 +1130,21 @@
       }
       ctx.globalAlpha = 1;
 
-      // 身体
       ctx.fillStyle = '#73c6ff';
       ctx.beginPath();
       ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2);
       ctx.fill();
 
-      // 头
       ctx.fillStyle = '#ffd4a3';
       ctx.beginPath();
       ctx.arc(x+24, y-2, 7, 0, Math.PI*2);
       ctx.fill();
 
-      // 护目镜
       ctx.fillStyle = '#144d66';
       ctx.fillRect(x+18, y-6, 12, 8);
       ctx.fillStyle = '#8be0ff';
       ctx.fillRect(x+19, y-5, 10, 6);
 
-      // 手臂
       ctx.strokeStyle = '#73c6ff';
       ctx.lineWidth = 4;
       ctx.lineCap='round';
@@ -908,7 +1157,6 @@
       ctx.lineTo(x-8, y - sway*0.6);
       ctx.stroke();
 
-      // 受伤闪烁
       if (h.invul>0){
         ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30);
         ctx.fillStyle='#fff';
@@ -919,7 +1167,6 @@
       }
     }
 
-    // 绘制障碍物（带水平翻转）
     function drawObstacle(o, zRel){
       ctx.save();
 
@@ -949,7 +1196,6 @@
           drawW *= SCALE;
           drawH *= SCALE;
 
-          // 根据 o.flip 水平翻转
           const flipSign = (o.flip === -1) ? -1 : 1;
 
           ctx.save();
@@ -1192,20 +1438,16 @@
       w.t += dt;
       State.surviveTime += dt;
 
-      // 难度随时间加速
       const targetSpd = cfg.baseSpeed + Math.min(1, State.surviveTime/120) * (cfg.maxSpeed - cfg.baseSpeed);
       w.speed += (targetSpd - w.speed) * 0.2;
 
-      const spdMul = State.input.sprint ? cfg.sprintBoost : 1;
-      w.z += w.speed * spdMul * dt * 60;
+      w.z += w.speed * dt * 60;
 
-      // 角色运动
       h.vx += State.input.ax * cfg.swimAccel;
       h.vy += State.input.ay * cfg.swimAccel;
       h.vx *= cfg.swimDamp;
       h.vy *= cfg.swimDamp;
 
-      // clamp 到 worldPadding 内部
       h.x = clamp(
         h.x + h.vx * dt,
         cfg.worldPadding + h.r,
@@ -1218,23 +1460,19 @@
         if (h.shieldTime < 0) h.shieldTime = 0;
       }
 
-      // 生成气泡
       if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){
         State.bubbleTick = 0;
         spawnBubble();
       }
-      // 生成障碍
       if ((State.spawnTick  += dt) > cfg.obstacleRate){
         State.spawnTick  = 0;
         spawnObstacle();
       }
-      // 生成金币
       if ((State.coinTick   += dt) > cfg.coinRate){
         State.coinTick   = 0;
         spawnCoin();
       }
 
-      // 生成心
       State.heartTick += dt;
       const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
       if (State.heartTick >= heartInterval){
@@ -1246,7 +1484,6 @@
         State.heartTick = 0;
       }
 
-      // 生成护盾
       State.shieldTick += dt;
       const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
       if (State.shieldTick >= shieldInterval){
@@ -1258,7 +1495,6 @@
         State.shieldTick = 0;
       }
 
-      // 气泡上浮衰减
       for (let i=State.bubbles.length-1;i>=0;i--){
         const b=State.bubbles[i];
         b.life -= dt;
@@ -1266,7 +1502,6 @@
         if (b.life<=0) State.bubbles.splice(i,1);
       }
 
-      // 障碍检测
       for (let i=State.obs.length-1;i>=0;i--){
         const o=State.obs[i];
         const zRel = o.z - w.z;
@@ -1282,7 +1517,6 @@
         }
       }
 
-      // 金币
       for (let i=State.coins.length-1;i>=0;i--){
         const c=State.coins[i];
         if (!c.floating){
@@ -1311,7 +1545,6 @@
         }
       }
 
-      // 爱心
       for (let i=State.hearts.length-1;i>=0;i--){
         const hc=State.hearts[i];
         if (!hc.floating){
@@ -1346,7 +1579,6 @@
         }
       }
 
-      // 护盾
       for (let i=State.shields.length-1;i>=0;i--){
         const sh=State.shields[i];
         if (!sh.floating){
@@ -1374,10 +1606,8 @@
         }
       }
 
-      // 受伤后无敌计时
       h.invul = Math.max(0, h.invul - dt);
 
-      // 粒子更新
       for (let i = State.fx.particles.length-1; i>=0; i--){
         const p = State.fx.particles[i];
         p.t += dt;
@@ -1388,7 +1618,6 @@
         }
       }
 
-      // 心跳脉冲、闪光衰减
       if (State.fx.pulse > 0){
         State.fx.pulse -= dt;
         if (State.fx.pulse < 0) State.fx.pulse = 0;
@@ -1398,15 +1627,12 @@
         if (State.fx.flash < 0) State.fx.flash = 0;
       }
 
-      // HUD
       scoreEl.textContent = Math.floor(h.score);
       spdEl.textContent = w.speed.toFixed(1);
       hpEl.textContent = h.hp;
 
-      // 基础分随时间增加
-      h.score += dt * w.speed * (State.input.sprint?1.0:0.7);
+      h.score += dt * w.speed * 0.7;
 
-      // 震屏衰减
       if (State.shake.t > 0){
         State.shake.t -= dt;
         if (State.shake.t < 0) State.shake.t = 0;
@@ -1458,7 +1684,7 @@
       pauseOverlay.style.display='none';
 
       panelTitleEl.innerHTML='<span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>';
-      panelDescEl.innerHTML='按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>左右倾斜控制水平移动；前后倾斜控制上/下浮；长按屏幕冲刺。';
+      panelDescEl.innerHTML='按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>左右倾斜控制水平移动；前后倾斜控制上/下浮。';
       startBtn.textContent='开始游戏';
       renderLeaderboardPanel();
       panel.style.display='block';
@@ -1472,7 +1698,7 @@
       State.paused=false;
       State.time.last=0;
       panel.style.display='none';
-      showToast('左右倾斜移动，长按冲刺');
+      showToast('左右倾斜控制移动');
     }
 
     function restart(){
@@ -1499,7 +1725,6 @@
 
       ctx.save();
 
-      // 屏幕抖动
       if (State.shake.t > 0){
         const decay = State.shake.t / 0.25;
         const magNow = State.shake.mag * decay;
@@ -1510,7 +1735,6 @@
 
       clearFrame();
 
-      // 画背景泡泡
       for (const b of State.bubbles){
         ctx.globalAlpha=0.35;
         ctx.beginPath();
@@ -1520,7 +1744,6 @@
         ctx.globalAlpha=1;
       }
 
-      // 金币（两种状态：深度 or 飘浮）
       for (const c of State.coins){
         if (!c.floating){
           const zRel = c.z - State.world.z;
@@ -1530,12 +1753,10 @@
         }
       }
 
-      // 障碍物（鲨鱼/剑鱼，带随机朝向）
       for (const o of State.obs){
         drawObstacle(o, o.z - State.world.z);
       }
 
-      // 爱心
       for (const hc of State.hearts){
         if (!hc.floating){
           const zRel = hc.z - State.world.z;
@@ -1545,7 +1766,6 @@
         }
       }
 
-      // 护盾
       for (const sh of State.shields){
         if (!sh.floating){
           drawShieldDepth(sh);
@@ -1554,28 +1774,25 @@
         }
       }
 
-      // 获得爱心/受击时的粉色脉冲圈
       if (State.fx.pulse > 0){
         const h = State.hero;
         const k = 1 - (State.fx.pulse / State.fx.pulseMax);
-        const radius = 50 + k * (150-50);
+        theRadius = 50 + k * (150-50);
         const alpha  = 0.4 * (1 - k);
         ctx.save();
         ctx.globalAlpha = alpha;
-        const grd = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, radius);
+        const grd = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, theRadius);
         grd.addColorStop(0, 'rgba(255,120,160,1)');
         grd.addColorStop(1, 'rgba(255,120,160,0)');
         ctx.fillStyle = grd;
         ctx.beginPath();
-        ctx.arc(h.x, h.y, radius, 0, Math.PI*2);
+        ctx.arc(h.x, h.y, theRadius, 0, Math.PI*2);
         ctx.fill();
         ctx.restore();
       }
 
-      // 主角
       drawHero(State.hero, State.world.t);
 
-      // 金币爆裂的金色小粒子
       for (const p of State.fx.particles){
         const lifeK = 1 - (p.t / p.life);
         ctx.save();
@@ -1590,7 +1807,6 @@
         ctx.restore();
       }
 
-      // 红粉色闪屏
       if (State.fx.flash > 0){
         const k = 1 - (State.fx.flash / State.fx.flashMax);
         const alpha = 0.2 * (1 - k);
@@ -1604,6 +1820,7 @@
       ctx.restore();
     }
 
+    // 事件绑定
     startBtn.addEventListener('click', ()=>{
       requestMotionPermission();
       start();
@@ -1626,8 +1843,9 @@
       State.device.sens = parseFloat(sensSlider.value);
     });
 
-    diffSel.addEventListener('change', ()=>{
-      showToast('难度：'+diffSel.value);
+    // 难度切换：不弹 toast，只记录
+    document.getElementById('diffGroup').addEventListener('change', ()=>{
+      State.runDifficulty = getDifficulty();
     });
 
     renderLeaderboardPanel();
