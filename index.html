@@ -92,11 +92,11 @@
       color:#fff;
     }
 
-    /* —— 新控制区：三行垂直居中 —— */
+    /* —— 三行垂直居中的控制区 —— */
     .controlSection{
       display:flex;
       flex-direction:column;
-      align-items:center;   /* 让每个区块居中 */
+      align-items:center;
       gap:.8rem;
       margin-top:1rem;
       margin-bottom:.5rem;
@@ -116,56 +116,105 @@
       line-height:1.2;
       font-weight:500;
       color:var(--ui);
-      margin-bottom:.5rem;
+      margin-bottom:.7rem;
       text-align:center;
     }
 
-    /* 难度选择 */
+    /* 难度选择（新版样式，防止重叠） */
     .diffGroup{
       display:flex;
-      gap:.4rem;
-      background:#0004;
-      border:1px solid #ffffff22;
-      border-radius:12px;
-      padding:.4rem;
-      box-shadow:0 8px 24px #0008;
-    }
-    .diffOption{ position:relative; flex:1; }
-    .diffOption input{ position:absolute; opacity:0; pointer-events:none; }
-    .diffBtn{
-      width:100%;
-      background:#001a27aa;
-      border:1px solid #ffffff2b;
       border-radius:10px;
-      color:#cfe8ff;
-      font-size:.8rem;
-      font-weight:600;
-      line-height:1.2;
-      padding:.6rem .5rem .55rem;
+      background:#001a27aa;
+      border:1px solid #ffffff30;
+      box-shadow:0 8px 24px #000a;
+      overflow:hidden;            /* clip 子元素的高亮光晕，避免溢出叠影 */
+      min-width:0;
+    }
+    .diffOption{
+      position:relative;
+      flex:1;
+      min-width:0;
+      display:flex;
+    }
+    .diffOption:not(:last-child) .diffBtn{
+      border-right:1px solid #ffffff22;  /* 中间竖线分隔段 */
+    }
+    .diffOption input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+    .diffBtn{
+      flex:1;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:.7rem .5rem .6rem;
       text-align:center;
-      box-shadow:0 6px 16px #000a;
-      display:flex; flex-direction:column; justify-content:center; align-items:center;
-      min-width:4.5rem; cursor:pointer; user-select:none;
+      background:transparent;
+      color:#cfe8ff;
+      line-height:1.2;
+      font-weight:600;
+      user-select:none;
     }
-    .diffMainTxt{ font-size:.8rem; font-weight:600; color:#fff; text-shadow:0 1px 2px #000; }
-    .diffSubTxt{ font-size:.7rem; line-height:1.2; color:#cfe8ff99; text-shadow:0 1px 2px #000a; margin-top:.25rem; }
+    .diffMainTxt{
+      font-size:.9rem;
+      font-weight:600;
+      color:#fff;
+      text-shadow:0 1px 2px #000;
+      white-space:nowrap;
+    }
+    .diffSubTxt{
+      font-size:.7rem;
+      line-height:1.2;
+      color:#cfe8ff99;
+      text-shadow:0 1px 2px #000a;
+      font-weight:400;
+      margin-top:.25rem;
+      white-space:nowrap;
+    }
 
-    /* 选中态高亮 */
+    /* 选中态：用背景高亮 + 内阴影，而不是外发光，避免“浮上来”重叠 */
     #diff_easy:checked + .diffBtn{
-      background:rgba(0,60,30,.6); border:1px solid rgba(0,255,128,.4);
-      box-shadow:0 0 12px rgba(0,255,128,.4),0 10px 24px #000c; color:#cfffef;
+      background:linear-gradient(
+        rgba(0,80,40,.7),
+        rgba(0,60,30,.4)
+      );
+      box-shadow:inset 0 0 12px rgba(0,255,128,.45);
+      color:#cfffef;
     }
-    #diff_easy:checked + .diffBtn .diffMainTxt{ color:#6bffb0; text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000; }
+    #diff_easy:checked + .diffBtn .diffMainTxt{
+      color:#6bffb0;
+      text-shadow:0 0 6px rgba(0,255,170,.8),0 1px 2px #000;
+    }
+
     #diff_normal:checked + .diffBtn{
-      background:#003044aa; border:1px solid #00e1ff55;
-      box-shadow:0 0 12px rgba(0,200,255,.4),0 10px 24px #000c; color:#dff9ff;
+      background:linear-gradient(
+        rgba(0,90,110,.7),
+        rgba(0,60,80,.4)
+      );
+      box-shadow:inset 0 0 12px rgba(0,200,255,.45);
+      color:#dff9ff;
     }
-    #diff_normal:checked + .diffBtn .diffMainTxt{ color:var(--accent); text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000; }
+    #diff_normal:checked + .diffBtn .diffMainTxt{
+      color:var(--accent);
+      text-shadow:0 0 6px rgba(0,255,255,.8),0 1px 2px #000;
+    }
+
     #diff_hard:checked + .diffBtn{
-      background:rgba(60,0,10,.6); border:1px solid rgba(255,0,80,.4);
-      box-shadow:0 0 12px rgba(255,0,80,.4),0 10px 24px #000c; color:#ffe3f0;
+      background:linear-gradient(
+        rgba(110,0,30,.7),
+        rgba(60,0,10,.4)
+      );
+      box-shadow:inset 0 0 12px rgba(255,0,80,.45);
+      color:#ffe3f0;
     }
-    #diff_hard:checked + .diffBtn .diffMainTxt{ color:#ff4d6d; text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000; }
+    #diff_hard:checked + .diffBtn .diffMainTxt{
+      color:#ff4d6d;
+      text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000;
+    }
 
     /* 灵敏度滑条 */
     #sens{ width:100%; }
@@ -191,7 +240,7 @@
       box-shadow:0 8px 20px #000a;
       cursor:pointer;
       min-width:7.5rem;
-      flex:1 1 10rem;      /* 宽屏均分，窄屏可换行 */
+      flex:1 1 10rem;
       text-align:center;
     }
     .calibNote{
@@ -204,7 +253,7 @@
       margin-top:.35rem;
     }
 
-    /* 其他 UI（榜单/说明等，保持原样） */
+    /* 其他 UI（榜单/说明等） */
     #leaderboardBox{
       background:#0004;
       border:1px solid #ffffff22;
@@ -581,7 +630,7 @@
       if (!isLandscape){           // 竖屏
         ax = clamp((gamma - g0) / 25, -1, 1);
         ay = clamp((beta  - b0) / 25, -1, 1);
-      }else{                        // 横屏：beta 控左右，-gamma 控上下
+      }else{                        // 横屏
         ax = clamp((beta  - b0) / 25, -1, 1);
         ay = clamp(-(gamma - g0) / 25, -1, 1);
       }
@@ -592,7 +641,6 @@
     function calibrate(){
       State.device.calib.beta = State.device.beta;
       State.device.calib.gamma = State.device.gamma;
-      // 不弹窗，按钮文案轻量提示
     }
 
     window.addEventListener('deviceorientation', (e)=>{
@@ -601,12 +649,12 @@
       computeInputFromOrientation(State.device.beta, State.device.gamma);
     });
 
-    // 触摸（无长按冲刺）
+    // 触摸（无冲刺）
     let touchId = null;
     canvas.addEventListener('touchstart',(e)=>{ if (touchId===null){ touchId=e.changedTouches[0].identifier; } }, {passive:true});
     canvas.addEventListener('touchend',(e)=>{ for (const t of e.changedTouches){ if (t.identifier===touchId){ touchId=null; } } }, {passive:true});
 
-    // 键盘（桌面）
+    // 键盘
     const keys = new Set();
     window.addEventListener('keydown', (e)=>{
       keys.add(e.key);
@@ -621,7 +669,6 @@
       State.input.ay = ay * State.device.sens;
     }
 
-    // 生成物体 & 绘制等 —— 与前版本一致
     function spawnObstacle(){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
