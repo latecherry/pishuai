@@ -22,7 +22,6 @@
       --btn-text:#ddf;
       --btn-border:#ffffff4d;
     }
-    /* 关键：统一盒模型，保证 100% 宽度包含 padding/border */
     *, *::before, *::after { box-sizing: border-box; }
 
     html,body{
@@ -68,7 +67,7 @@
       border:1px solid var(--panel-border);
       border-radius:16px;
       color:var(--ui);
-      padding:16px;              /* 内边距统一 */
+      padding:16px;
       box-shadow:0 10px 30px var(--panel-shadow);
       backdrop-filter:blur(6px);
       z-index:20
@@ -95,7 +94,6 @@
       color:#fff;
     }
 
-    /* —— 三行垂直居中的控制区 —— */
     .controlSection{
       display:flex;
       flex-direction:column;
@@ -104,7 +102,6 @@
       margin-top:1rem;
       margin-bottom:.5rem;
     }
-    /* 关键：宽度 100% 与下方卡片一致；左右对齐 */
     .blockCard{
       width:100%;
       background:#0004;
@@ -112,7 +109,7 @@
       border-radius:12px;
       box-shadow:0 8px 24px #0008;
       padding:.9rem .9rem .8rem;
-      margin:0;                 /* 与下方盒子保持相同的左右外边距（0） */
+      margin:0;
     }
     .rowTitle{
       font-size:.9rem;
@@ -124,7 +121,6 @@
       text-align:center;
     }
 
-    /* 难度选择（分段控件样式） */
     .diffGroup{
       display:flex;
       border-radius:10px;
@@ -163,11 +159,9 @@
     }
     #diff_hard:checked + .diffBtn .diffMainTxt{ color:#ff4d6d; text-shadow:0 0 6px rgba(255,0,80,.8),0 1px 2px #000; }
 
-    /* 灵敏度滑条 */
     #sens{ width:100%; }
     .sensWrap{ max-width:520px; margin:0 auto; }
 
-    /* 按钮行 */
     .btnRow{ display:flex; justify-content:center; gap:.8rem; flex-wrap:wrap; }
     .mainBtn{
       appearance:none;
@@ -190,7 +184,6 @@
       font-weight:400; text-align:center; margin-top:.35rem;
     }
 
-    /* 下方两块也保持 100% 宽度，样式一致 */
     #leaderboardBox, #howtoBox{
       width:100%;
       background:#0004; border:1px solid #ffffff22; border-radius:12px;
@@ -229,8 +222,13 @@
     .infoCard{ background:#ffffff08; border:1px solid #ffffff22; border-radius:10px; padding:.5rem .6rem .55rem; box-shadow:0 6px 16px #000a; min-height:4.5rem; display:flex; flex-direction:column; justify-content:flex-start; position:relative; }
     .infoHead{ font-size:.8rem; font-weight:600; line-height:1.2; display:flex; align-items:center; gap:.4rem; color:#fff; text-shadow:0 1px 2px #000; margin-bottom:.4rem; }
     .tagIcon{ width:.7rem; height:.7rem; border-radius:4px; border:1px solid #ffffff66; box-shadow:0 0 6px #000a; }
-    .tagCoin{ background:var(--gold); color:#000; } .tagHeart{ background:var(--danger); } .tagShield{ background:var(--shield); }
-    .tagMine{ background:var(--danger); } .tagRock{ background:var(--rock); }
+    .tagCoin{ background:var(--gold); color:#000; }
+    .tagDiamond{ background:#9ef; color:#000; }
+    .tagHeart{ background:var(--danger); }
+    .tagShield{ background:var(--shield); }
+    .tagMine{ background:var(--danger); }
+    .tagRock{ background:var(--rock); }
+    .tagInk{ background:#222; }
     .infoBody{ font-size:.75rem; line-height:1.3; color:#cfe8ffdd; text-shadow:0 1px 2px #000; font-weight:400; }
 
     #tips{
@@ -281,7 +279,6 @@
       左右倾斜控制水平移动；前后倾斜控制上/下浮。
     </p>
 
-    <!-- 三行，宽度与下方完全一致 -->
     <section class="controlSection">
       <div class="blockCard">
         <div class="rowTitle">难度</div>
@@ -341,7 +338,11 @@
           <div class="infoList">
             <div class="infoCard">
               <div class="infoHead"><div class="tagIcon tagCoin"></div><div>金币</div></div>
-              <div class="infoBody">吃到后 +10 分。分数会进入本机排行榜（按难度分别记录）。</div>
+              <div class="infoBody">吃到后 +10 分。</div>
+            </div>
+            <div class="infoCard">
+              <div class="infoHead"><div class="tagIcon tagDiamond"></div><div>钻石</div></div>
+              <div class="infoBody">稀有高分道具，吃到后 +50 分。出现频率很低，记得去抢！</div>
             </div>
             <div class="infoCard">
               <div class="infoHead"><div class="tagIcon tagHeart"></div><div>爱心</div></div>
@@ -357,12 +358,16 @@
           <div class="colBlockTitle bad"><div class="dot"></div><div>危险障碍</div></div>
           <div class="infoList">
             <div class="infoCard">
-              <div class="infoHead"><div class="tagIcon tagMine"></div><div>鲨鱼</div></div>
-              <div class="infoBody">撞到会掉血：Easy/Normal 掉 1，Hard 掉 2。若有护盾则先消耗护盾。</div>
+              <div class="infoHead"><div class="tagIcon tagRock"></div><div>剑鱼</div></div>
+              <div class="infoBody">危险障碍，会造成伤害，也能被护盾抵挡。现在是一条一条游进来，但它自己会晃动漂移，不是死在原地。</div>
             </div>
             <div class="infoCard">
-              <div class="infoHead"><div class="tagIcon tagRock"></div><div>剑鱼</div></div>
-              <div class="infoBody">危险障碍，会造成伤害，也能被护盾抵挡。</div>
+              <div class="infoHead"><div class="tagIcon tagMine"></div><div>鲨鱼</div></div>
+              <div class="infoBody">撞到会掉血：Easy/Normal 掉 1，Hard 掉 2。它们同样会在屏幕里微微游，不再是“贴上来瞬间消失”。</div>
+            </div>
+            <div class="infoCard">
+              <div class="infoHead"><div class="tagIcon tagInk"></div><div>章鱼墨云</div></div>
+              <div class="infoBody">碰到就整屏变浑浊变暗，什么都不太看得清；一直碰就一直黑。离开后还会黑一小段时间才慢慢恢复。墨团会往上漂，顶到上边缘会停留一会再消失，且在消失前可以多次污染你。</div>
             </div>
           </div>
         </div>
@@ -480,11 +485,13 @@
     }
 
     // 资源
-    const coinImg = new Image();   coinImg.src   = 'assets/coin.svg';
-    const heartImg = new Image();  heartImg.src  = 'assets/heart.svg';
-    const shieldImg = new Image(); shieldImg.src = 'assets/shield.svg';
-    const sharkImg = new Image();  sharkImg.src  = 'assets/shark.png';
+    const coinImg = new Image();     coinImg.src     = 'assets/coin.svg';
+    const diamondImg = new Image();  diamondImg.src  = 'assets/diamond.svg';
+    const heartImg = new Image();    heartImg.src    = 'assets/heart.svg';
+    const shieldImg = new Image();   shieldImg.src   = 'assets/shield.svg';
+    const sharkImg = new Image();    sharkImg.src    = 'assets/shark.png';
     const swordfishImg = new Image(); swordfishImg.src = 'assets/swordfish.png';
+    const inkImg = new Image();      inkImg.src      = 'assets/octo_inkcloud.svg';
 
     // 状态
     const State = {
@@ -497,14 +504,49 @@
         this.time={now:0,last:0};
         this.shake = { t:0, mag:0 };
         this.runDifficulty = getDifficulty();
-        this.fx = { particles: [], pulse: 0, pulseMax: 0.3, flash: 0, flashMax: 0.15 };
+        this.fx = { 
+          particles: [], 
+          pulse: 0, pulseMax: 0.3, 
+          flash: 0, flashMax: 0.15,
+          ink: {
+            alpha:0,
+            alphaMax:0.6,
+            touching:false,
+            hold:0
+          }
+        };
       },
       reset(){
         const diff = getDifficulty();
+        // 难度相关参数
         const diffCfg = {
-          easy:   { baseSpeed:4,  maxSpeed:8.5,  spawn:1.1,  damage:1, heartRate:[12,18], sharkProb:0.15 },
-          normal: { baseSpeed:5,  maxSpeed:10.5, spawn:0.95, damage:1, heartRate:[16,24], sharkProb:0.30 },
-          hard:   { baseSpeed:6,  maxSpeed:12.5, spawn:0.85, damage:2, heartRate:[22,30], sharkProb:0.50 }
+          easy:   { 
+            baseSpeed:4,  maxSpeed:8.5,  spawn:1.1,  damage:1,
+            heartRate:[12,18], sharkProb:0.15, 
+            inkRate:[10,16],
+            inkDuration:1.8,
+            inkAlpha:0.55,
+            inkFloatLinger:8.0,
+            inkTopHold:1.0
+          },
+          normal: { 
+            baseSpeed:5,  maxSpeed:10.5, spawn:0.95, damage:1, 
+            heartRate:[16,24], sharkProb:0.30, 
+            inkRate:[9,13],
+            inkDuration:2.6,
+            inkAlpha:0.65,
+            inkFloatLinger:9.0,
+            inkTopHold:1.2
+          },
+          hard:   { 
+            baseSpeed:6,  maxSpeed:12.5, spawn:0.85, damage:2, 
+            heartRate:[22,30], sharkProb:0.50, 
+            inkRate:[7,11],
+            inkDuration:3.4,
+            inkAlpha:0.70,
+            inkFloatLinger:10.0,
+            inkTopHold:1.4
+          }
         }[diff];
 
         const laneW = clamp(Math.round(W/9), 90, 140);
@@ -515,23 +557,71 @@
         this.cfg = Object.assign({
           laneWidth: laneW, lanes, worldPadding: padding,
           swimAccel: 18, swimDamp:0.90, sprintBoost:1.8,
-          bubbleRate:60, coinRate:2.2, obstacleRate: diffCfg.spawn,
+          bubbleRate:60,
+
+          // 刷金币的频率（秒）：越小越密
+          coinRate: 0.75,
+
+          obstacleRate: diffCfg.spawn, // 我们用它作为 waveCooldownBase
           hurtCooldown:0.9, hpMax:5,
-          heartRateRange: diffCfg.heartRate, shieldRateRange,
-          shieldDuration: 10.0, sharkProb: diffCfg.sharkProb
+          heartRateRange: diffCfg.heartRate,
+          shieldRateRange,
+          shieldDuration: 10.0,
+          sharkProb: diffCfg.sharkProb,
+
+          diamondRate: 5.0,
+
+          // 墨云配置
+          inkRateRange: diffCfg.inkRate,
+          inkDuration: diffCfg.inkDuration,
+          inkAlpha: diffCfg.inkAlpha,
+          inkFloatLinger: diffCfg.inkFloatLinger,
+          inkTopHold: diffCfg.inkTopHold
         }, diffCfg);
 
-        this.world = { z:0, speed:this.cfg.baseSpeed, t:0 };
-        this.hero = { x:W/2, y:H/2, vx:0, vy:0, r:Math.max(14, Math.min(20, Math.round(Math.min(W,H)/30))), hp:3, invul:0, score:0, shieldTime:0 };
+        // 刷障碍的冷却：我们现在是一条一条刷
+        this.cfg.waveCooldownBase = this.cfg.obstacleRate;
 
-        this.obs=[]; this.coins=[]; this.bubbles=[]; this.hearts=[]; this.shields=[];
-        this.spawnTick=0; this.coinTick=0; this.bubbleTick=0;
+        this.world = { z:0, speed:this.cfg.baseSpeed, t:0 };
+        this.hero = {
+          x:W/2, y:H/2,
+          vx:0, vy:0,
+          r:Math.max(14, Math.min(20, Math.round(Math.min(W,H)/30))),
+          hp:3, invul:0,
+          score:0,
+          shieldTime:0
+        };
+
+        this.obs=[];
+        this.coins=[];
+        this.diamonds=[];
+        this.bubbles=[];
+        this.hearts=[];
+        this.shields=[];
+        this.inks=[];
+
+        this.spawnTick=0;
+        this.coinTick=0;
+        this.diamondTick=0;
+        this.bubbleTick=0;
         this.heartTick=rand(this.cfg.heartRateRange[0], this.cfg.heartRateRange[1]) * 0.3;
         this.shieldTick=rand(this.cfg.shieldRateRange[0], this.cfg.shieldRateRange[1]) * 0.3;
+        this.inkTick=rand(this.cfg.inkRateRange[0], this.cfg.inkRateRange[1]) * 0.5;
+
         this.surviveTime=0;
 
         this.shake = { t:0, mag:0 };
-        this.fx = { particles: [], pulse: 0, pulseMax: 0.3, flash: 0, flashMax: 0.15 };
+        this.fx = { 
+          particles: [], 
+          pulse: 0, pulseMax: 0.3, 
+          flash: 0, flashMax: 0.15,
+          ink: { 
+            alpha:0,
+            alphaMax:this.cfg.inkAlpha,
+            touching:false,
+            hold:0
+          }
+        };
         this.runDifficulty = diff;
       }
     };
@@ -549,15 +639,14 @@
       }
     }
 
-    // 横竖屏轴映射
     function computeInputFromOrientation(beta, gamma){
       const b0=State.device.calib.beta, g0=State.device.calib.gamma, sens=State.device.sens;
       const isLandscape = W > H;
       let ax, ay;
-      if (!isLandscape){           // 竖屏
+      if (!isLandscape){
         ax = clamp((gamma - g0) / 25, -1, 1);
         ay = clamp((beta  - b0) / 25, -1, 1);
-      }else{                        // 横屏
+      }else{
         ax = clamp((beta  - b0) / 25, -1, 1);
         ay = clamp(-(gamma - g0) / 25, -1, 1);
       }
@@ -576,7 +665,7 @@
       computeInputFromOrientation(State.device.beta, State.device.gamma);
     });
 
-    // 触摸（无冲刺）
+    // 触摸
     let touchId = null;
     canvas.addEventListener('touchstart',(e)=>{ if (touchId===null){ touchId=e.changedTouches[0].identifier; } }, {passive:true});
     canvas.addEventListener('touchend',(e)=>{ for (const t of e.changedTouches){ if (t.identifier===touchId){ touchId=null; } } }, {passive:true});
@@ -596,18 +685,36 @@
       State.input.ay = ay * State.device.sens;
     }
 
-    // 物体生成 & 绘制
-    function spawnObstacle(){
+    // ===== 生成物体 =====
+
+    // 我们用这个函数生成一条会游动的鲨鱼/剑鱼
+    function spawnObstacleWaveMember(baseZ, indexInWave){
       const w = rand(State.cfg.laneWidth*0.7, State.cfg.laneWidth*1.2);
       const h = rand(Math.max(24,H*0.04), Math.max(40,H*0.08));
       const minX = State.cfg.worldPadding + w/2;
       const maxX = W - State.cfg.worldPadding - w/2;
-      const x = rand(minX, maxX), y = rand(h/2, H - h/2);
-      const z = State.world.z + rand(H*1.1, H*2.0);
+
+      const x = rand(minX, maxX);
+      const y = rand(h/2, H - h/2);
+
+      const z = baseZ + indexInWave * rand(H*0.05, H*0.15);
+
       const type = (Math.random() < State.cfg.sharkProb) ? 'shark' : 'swordfish';
       const flip = (Math.random() < 0.5) ? 1 : -1;
-      State.obs.push({x,y,z,w,h,type,hit:false,flip});
+
+      const swimVX = rand(-20,20); // px/s
+      const swimVY = rand(-10,10);
+
+      State.obs.push({
+        x,y,z,w,h,
+        type,
+        hit:false,
+        flip,
+        vx:swimVX,
+        vy:swimVY
+      });
     }
+
     function spawnCoin(){
       const r = Math.max(9, Math.min(14, Math.round(Math.min(W,H)/50)));
       const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
@@ -615,6 +722,15 @@
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.coins.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
+
+    function spawnDiamond(){
+      const r = Math.max(10, Math.min(16, Math.round(Math.min(W,H)/45)));
+      const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
+      const x = rand(minX, maxX), y = rand(r, H - r);
+      const z = State.world.z + rand(H*0.9, H*1.8);
+      State.diamonds.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
+    }
+
     function spawnHeart(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
       const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
@@ -622,6 +738,7 @@
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.hearts.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
+
     function spawnShield(){
       const r = Math.max(11, Math.min(16, Math.round(Math.min(W,H)/46)));
       const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
@@ -629,146 +746,558 @@
       const z = State.world.z + rand(H*0.9, H*1.8);
       State.shields.push({x,y,z,r,got:false,floating:false,linger:0,fx:0,fy:0,fr:0,remove:false});
     }
+
+    // 章鱼墨云
+    function spawnInkCloud(){
+      const r = Math.max(88, Math.min(100, Math.round(Math.min(W,H)/35)));
+      const minX = State.cfg.worldPadding + r, maxX = W - State.cfg.worldPadding - r;
+      const x = rand(minX, maxX), y = rand(r, H - r);
+      const z = State.world.z + rand(H*1.0, H*1.8);
+      State.inks.push({
+        x,y,z,r,
+        floating:false,
+        fx:0,fy:0,fr:0,
+        linger:0,
+        topHoldLeft:0,
+        hitCD:0,
+        remove:false
+      });
+    }
+
     function spawnBubble(){
       const x = rand(20, W-20), y = rand(H-30, H-10);
       State.bubbles.push({x,y, r:rand(2,5), vz:rand(-120,-60), life:rand(0.8,1.8)});
     }
-    const aabbCircleOverlap=(ax,ay,aw,ah,cx,cy,cr)=>{ const nx = Math.max(ax, Math.min(cx, ax+aw)); const ny = Math.max(ay, Math.min(cy, ay+ah)); const dx=cx-nx, dy=cy-ny; return dx*dx+dy*dy <= cr*cr; };
-    function clearFrame(){ ctx.clearRect(0,0,W,H); }
 
+    // ===== 工具 / 粒子 =====
+    const aabbCircleOverlap=(ax,ay,aw,ah,cx,cy,cr)=>{
+      const nx = Math.max(ax, Math.min(cx, ax+aw));
+      const ny = Math.max(ay, Math.min(cy, ay+ah));
+      const dx=cx-nx, dy=cy-ny;
+      return dx*dx+dy*dy <= cr*cr;
+    };
+
+    function spawnCoinBurst(x, y){
+      for (let i=0;i<8;i++){
+        const ang=Math.random()*Math.PI*2;
+        const spd=60+Math.random()*80;
+        State.fx.particles.push({
+          type:'coin',
+          x,y,
+          vx:Math.cos(ang)*spd,
+          vy:Math.sin(ang)*spd,
+          life:0.2+Math.random()*0.15,
+          t:0,
+          r:3+Math.random()*2
+        });
+      }
+    }
+
+    function spawnDiamondBurst(x, y){
+      for (let i=0;i<8;i++){
+        const ang=Math.random()*Math.PI*2;
+        const spd=60+Math.random()*80;
+        State.fx.particles.push({
+          type:'diamond',
+          x,y,
+          vx:Math.cos(ang)*spd,
+          vy:Math.sin(ang)*spd,
+          life:0.2+Math.random()*0.15,
+          t:0,
+          r:3+Math.random()*2
+        });
+      }
+    }
+
+    function triggerPulse(){ State.fx.pulse = State.fx.pulseMax; }
+    function triggerFlash(){ State.fx.flash = State.fx.flashMax; }
+
+    // 碰到墨云：标记本帧有接触
+    function triggerInk(){
+      State.fx.ink.touching = true;
+      showToast('墨云!!');
+    }
+
+    // ===== 绘制角色/道具/障碍/墨云 =====
     function drawHero(h, t){
       const sway = Math.sin(t*8 + h.y*0.02) * 6, x=h.x, y=h.y;
+
+      // 护盾发光
       if (h.shieldTime > 0){
         const glowR = h.r + 18;
-        ctx.save(); ctx.globalAlpha = 0.35;
+        ctx.save();
+        ctx.globalAlpha = 0.35;
         const grd = ctx.createRadialGradient(x, y, 0, x, y, glowR);
-        grd.addColorStop(0,'rgba(120,200,255,0.8)'); grd.addColorStop(1,'rgba(120,200,255,0)');
-        ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.fill(); ctx.restore();
-        ctx.save(); ctx.globalAlpha = 0.7; ctx.strokeStyle = '#7fdcff'; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.stroke(); ctx.restore();
+        grd.addColorStop(0,'rgba(120,200,255,0.8)');
+        grd.addColorStop(1,'rgba(120,200,255,0)');
+        ctx.fillStyle = grd;
+        ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.fill();
+        ctx.restore();
+
+        ctx.save();
+        ctx.globalAlpha = 0.7;
+        ctx.strokeStyle = '#7fdcff';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(x,y,glowR,0,Math.PI*2); ctx.stroke();
+        ctx.restore();
       }
-      ctx.globalAlpha = 0.8; ctx.fillStyle = '#7fdcff';
-      for(let i=0;i<4;i++){ const bx = x - 22 - i*10 + Math.sin(t*10+i)*2; const by = y + Math.cos(t*8+i)*2; ctx.beginPath(); ctx.arc(bx, by, 2+i*0.8, 0, Math.PI*2); ctx.fill(); }
+
+      // 泡泡尾迹
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = '#7fdcff';
+      for(let i=0;i<4;i++){
+        const bx = x - 22 - i*10 + Math.sin(t*10+i)*2;
+        const by = y + Math.cos(t*8+i)*2;
+        ctx.beginPath(); ctx.arc(bx, by, 2+i*0.8, 0, Math.PI*2); ctx.fill();
+      }
       ctx.globalAlpha = 1;
-      ctx.fillStyle = '#73c6ff'; ctx.beginPath(); ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = '#ffd4a3'; ctx.beginPath(); ctx.arc(x+24, y-2, 7, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = '#144d66'; ctx.fillRect(x+18, y-6, 12, 8); ctx.fillStyle = '#8be0ff'; ctx.fillRect(x+19, y-5, 10, 6);
-      ctx.strokeStyle='#73c6ff'; ctx.lineWidth=4; ctx.lineCap='round';
+
+      // 身体
+      ctx.fillStyle = '#73c6ff';
+      ctx.beginPath(); ctx.ellipse(x, y, 26, 12, 0, 0, Math.PI*2); ctx.fill();
+
+      // 脸
+      ctx.fillStyle = '#ffd4a3';
+      ctx.beginPath(); ctx.arc(x+24, y-2, 7, 0, Math.PI*2); ctx.fill();
+
+      // 护目镜
+      ctx.fillStyle = '#144d66';
+      ctx.fillRect(x+18, y-6, 12, 8);
+      ctx.fillStyle = '#8be0ff';
+      ctx.fillRect(x+19, y-5, 10, 6);
+
+      // 手臂
+      ctx.strokeStyle='#73c6ff';
+      ctx.lineWidth=4; ctx.lineCap='round';
       ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-18, y + sway*0.6); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(x+6,y+2); ctx.lineTo(x-8, y - sway*0.6); ctx.stroke();
+
+      // 受伤无敌闪
       if (h.invul>0){
-        ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30); ctx.fillStyle='#fff';
-        ctx.beginPath(); ctx.ellipse(x, y, 29, 15, 0, 0, Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
+        ctx.globalAlpha = 0.5 + 0.5*Math.sin(t*30);
+        ctx.fillStyle='#fff';
+        ctx.beginPath(); ctx.ellipse(x, y, 29, 15, 0, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha=1;
       }
     }
 
     function drawObstacle(o, zRel){
       ctx.save();
-      const par = clamp(1 - zRel/(H*2.0), 0, 1), rx=o.x, ry=o.y, boxW=o.w*par, boxH=o.h*par;
+      const par = clamp(1 - zRel/(H*2.0), 0, 1),
+            rx=o.x, ry=o.y,
+            boxW=o.w*par, boxH=o.h*par;
       if (o.type==='shark' || o.type==='swordfish'){
-        const imgObj = (o.type==='shark') ? sharkImg : swordfishImg, SCALE = (o.type==='shark') ? 3.5 : 2.5;
+        const imgObj = (o.type==='shark') ? sharkImg : swordfishImg;
+        const SCALE = (o.type==='shark') ? 3.5 : 2.5;
         if (imgObj.complete && imgObj.naturalWidth){
-          const iw = imgObj.naturalWidth, ih = imgObj.naturalHeight, imgRatio=iw/ih, boxRatio=boxW/boxH;
+          const iw = imgObj.naturalWidth, ih = imgObj.naturalHeight;
+          const imgRatio=iw/ih, boxRatio=boxW/boxH;
           let drawW, drawH;
-          if (boxRatio > imgRatio){ drawH = boxH; drawW = drawH * imgRatio; } else { drawW = boxW; drawH = drawW / imgRatio; }
+          if (boxRatio > imgRatio){
+            drawH = boxH; drawW = drawH * imgRatio;
+          } else {
+            drawW = boxW; drawH = drawW / imgRatio;
+          }
           drawW *= SCALE; drawH *= SCALE;
           const flipSign = (o.flip === -1) ? -1 : 1;
-          ctx.save(); ctx.translate(rx, ry); ctx.scale(flipSign, 1); ctx.drawImage(imgObj, -drawW/2, -drawH/2, drawW, drawH); ctx.restore();
+          ctx.save();
+          ctx.translate(rx, ry);
+          ctx.scale(flipSign, 1);
+          ctx.drawImage(imgObj, -drawW/2, -drawH/2, drawW, drawH);
+          ctx.restore();
         }else{
           ctx.fillStyle = (o.type==='shark')? '#8a1f1f' : '#274e5f';
           ctx.beginPath(); ctx.ellipse(rx, ry, boxW*0.6, boxH*0.4, 0, 0, Math.PI*2); ctx.fill();
         }
       }else{
-        ctx.fillStyle='#ff00ff'; ctx.beginPath(); ctx.roundRect(rx-boxW/2, ry-boxH/2, boxW, boxH, 10); ctx.fill();
+        ctx.fillStyle='#ff00ff';
+        ctx.beginPath(); ctx.roundRect(rx-boxW/2, ry-boxH/2, boxW, boxH, 10); ctx.fill();
       }
       ctx.restore();
     }
 
     function drawCoinDepth(c, zRel){
       if (!coinImg.complete || !coinImg.naturalWidth) return;
-      ctx.save(); const par=clamp(1 - zRel/(H*2.0),0,1), r=c.r*(par*0.8+0.2), s=r*2;
-      ctx.drawImage(coinImg, c.x - s/2, c.y - s/2, s, s); ctx.restore();
+      ctx.save();
+      const par=clamp(1 - zRel/(H*2.0),0,1);
+      const r=c.r*(par*0.8+0.2);
+      const s=r*2;
+      ctx.drawImage(coinImg, c.x - s/2, c.y - s/2, s, s);
+      ctx.restore();
     }
-    function drawCoinFloating(c){ if (!coinImg.complete || !coinImg.naturalWidth) return; const s=c.fr*2; ctx.drawImage(coinImg, c.fx - s/2, c.fy - s/2, s, s); }
+    function drawCoinFloating(c){
+      if (!coinImg.complete || !coinImg.naturalWidth) return;
+      const s=c.fr*2;
+      ctx.drawImage(coinImg, c.fx - s/2, c.fy - s/2, s, s);
+    }
+
+    function drawDiamondDepth(d, zRel){
+      if (!diamondImg.complete || !diamondImg.naturalWidth) return;
+      ctx.save();
+      const par=clamp(1 - zRel/(H*2.0),0,1);
+      const r=d.r*(par*0.8+0.2);
+      const s=r*2;
+      ctx.drawImage(diamondImg, d.x - s/2, d.y - s/2, s, s);
+      ctx.restore();
+    }
+    function drawDiamondFloating(d){
+      if (!diamondImg.complete || !diamondImg.naturalWidth) return;
+      const s=d.fr*2;
+      ctx.drawImage(diamondImg, d.fx - s/2, d.fy - s/2, s, s);
+    }
 
     function drawHeartDepth(hc, zRel){
-      const par=clamp(1 - zRel/(H*2.0),0,1), r=hc.r*(par*0.8+0.2);
-      if (heartImg.complete && heartImg.naturalWidth){ const s=r*2; ctx.drawImage(heartImg, hc.x - s/2, hc.y - s/2, s, s); }
-      else{ ctx.save(); ctx.translate(hc.x, hc.y); ctx.scale(r/12, r/12); ctx.fillStyle='#ff4d6d';
-        ctx.beginPath(); ctx.moveTo(0,8); ctx.bezierCurveTo(12,-6,8,-14,0,-6); ctx.bezierCurveTo(-8,-14,-12,-6,0,8); ctx.fill(); ctx.restore(); }
+      const par=clamp(1 - zRel/(H*2.0),0,1);
+      const r=hc.r*(par*0.8+0.2);
+      if (heartImg.complete && heartImg.naturalWidth){
+        const s=r*2;
+        ctx.drawImage(heartImg, hc.x - s/2, hc.y - s/2, s, s);
+      } else {
+        ctx.save();
+        ctx.translate(hc.x, hc.y);
+        ctx.scale(r/12, r/12);
+        ctx.fillStyle='#ff4d6d';
+        ctx.beginPath();
+        ctx.moveTo(0,8);
+        ctx.bezierCurveTo(12,-6,8,-14,0,-6);
+        ctx.bezierCurveTo(-8,-14,-12,-6,0,8);
+        ctx.fill();
+        ctx.restore();
+      }
     }
     function drawHeartFloating(hc){
-      if (heartImg.complete && heartImg.naturalWidth){ const s=hc.fr*2; ctx.drawImage(heartImg, hc.fx - s/2, hc.fy - s/2, s, s); }
-      else{ ctx.save(); ctx.translate(hc.fx, hc.fy); ctx.scale(hc.fr/12, hc.fr/12); ctx.fillStyle='#ff4d6d';
-        ctx.beginPath(); ctx.moveTo(0,8); ctx.bezierCurveTo(12,-6,8,-14,0,-6); ctx.bezierCurveTo(-8,-14,-12,-6,0,8); ctx.fill(); ctx.restore(); }
+      if (heartImg.complete && heartImg.naturalWidth){
+        const s=hc.fr*2;
+        ctx.drawImage(heartImg, hc.fx - s/2, hc.fy - s/2, s, s);
+      } else {
+        ctx.save();
+        ctx.translate(hc.fx, hc.fy);
+        ctx.scale(hc.fr/12, hc.fr/12);
+        ctx.fillStyle='#ff4d6d';
+        ctx.beginPath();
+        ctx.moveTo(0,8);
+        ctx.bezierCurveTo(12,-6,8,-14,0,-6);
+        ctx.bezierCurveTo(-8,-14,-12,-6,0,8);
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
     function drawShieldDepth(sh){
-      const zRel = sh.z - State.world.z, par=clamp(1 - zRel/(H*2.0),0,1), r = sh.r*(par*0.8+0.2);
-      if (shieldImg.complete && shieldImg.naturalWidth){ const s=r*2; ctx.drawImage(shieldImg, sh.x - s/2, sh.y - s/2, s, s); }
-      else{ ctx.save(); ctx.translate(sh.x, sh.y); ctx.scale(r/12, r/12); ctx.fillStyle='#5ad0ff';
-        ctx.beginPath(); ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6); ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4); ctx.closePath(); ctx.fill(); ctx.restore(); }
+      const zRel = sh.z - State.world.z;
+      const par=clamp(1 - zRel/(H*2.0),0,1);
+      const r = sh.r*(par*0.8+0.2);
+      if (shieldImg.complete && shieldImg.naturalWidth){
+        const s=r*2;
+        ctx.drawImage(shieldImg, sh.x - s/2, sh.y - s/2, s, s);
+      } else {
+        ctx.save();
+        ctx.translate(sh.x, sh.y);
+        ctx.scale(r/12, r/12);
+        ctx.fillStyle='#5ad0ff';
+        ctx.beginPath();
+        ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6);
+        ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4);
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
     }
     function drawShieldFloating(sh){
-      if (shieldImg.complete && shieldImg.naturalWidth){ const s=sh.fr*2; ctx.drawImage(shieldImg, sh.fx - s/2, sh.fy - s/2, s, s); }
-      else{ ctx.save(); ctx.translate(sh.fx, sh.fy); ctx.scale(sh.fr/12, sh.fr/12); ctx.fillStyle='#5ad0ff';
-        ctx.beginPath(); ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6); ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4); ctx.closePath(); ctx.fill(); ctx.restore(); }
+      if (shieldImg.complete && shieldImg.naturalWidth){
+        const s=sh.fr*2;
+        ctx.drawImage(shieldImg, sh.fx - s/2, sh.fy - s/2, s, s);
+      } else {
+        ctx.save();
+        ctx.translate(sh.fx, sh.fy);
+        ctx.scale(sh.fr/12, sh.fr/12);
+        ctx.fillStyle='#5ad0ff';
+        ctx.beginPath();
+        ctx.moveTo(0,-10); ctx.lineTo(8,-4); ctx.lineTo(6,6);
+        ctx.lineTo(0,10); ctx.lineTo(-6,6); ctx.lineTo(-8,-4);
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
     }
 
+    function drawInkBlob(cx, cy, rr){
+      if (inkImg.complete && inkImg.naturalWidth){
+        const s = rr * 2.2;
+        ctx.save();
+        ctx.globalAlpha = 0.9;
+        ctx.drawImage(inkImg, cx - s/2, cy - s/2, s, s);
+        ctx.restore();
+      } else {
+        ctx.save();
+        ctx.globalAlpha = 0.9;
+        ctx.fillStyle = '#111';
+        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      }
+    }
+    function drawInkDepth(ic, zRel){
+      const par = clamp(1 - zRel/(H*2.0), 0, 1);
+      const r = ic.r * (par*0.8 + 0.2);
+      drawInkBlob(ic.x, ic.y, r);
+    }
+    function drawInkFloating(ic){
+      drawInkBlob(ic.fx, ic.fy, ic.fr);
+    }
+
+    // ===== 浮动逻辑：道具 =====
     function maybeSwitchToFloatingPickup(item, zRel){
       if (item.floating || item.got) return;
-      if (zRel < 0){ const par=clamp(1 - zRel/(H*2.0),0,1); item.fx=item.x; item.fy=item.y; item.fr=item.r*(par*0.8+0.2); item.floating=true; item.linger=1.5; }
+      if (zRel < 0){
+        const par=clamp(1 - zRel/(H*2.0),0,1);
+        item.fx=item.x; item.fy=item.y;
+        item.fr=item.r*(par*0.8+0.2);
+        item.floating=true;
+        item.linger=1.5;
+      }
     }
-    function updateFloatingItem(item, dt){ if (!item.floating || item.got) return; item.linger -= dt; item.fy += -20*dt; if (item.linger <= 0){ item.remove = true; } }
-    function spawnCoinBurst(x, y){ for (let i=0;i<8;i++){ const ang=Math.random()*Math.PI*2, spd=60+Math.random()*80; State.fx.particles.push({x,y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,life:0.2+Math.random()*0.15,t:0,r:3+Math.random()*2}); } }
-    function triggerPulse(){ State.fx.pulse = State.fx.pulseMax; }
-    function triggerFlash(){ State.fx.flash = State.fx.flashMax; }
-    function checkPickupFloatingCoin(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){ item.got=true; h.score += 10; showToast('+10'); spawnCoinBurst(h.x,h.y); } }
-    function checkPickupFloatingHeart(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){ item.got=true; if (h.hp < State.cfg.hpMax){ h.hp++; showToast('生命+1'); }else{ h.score += 5; showToast('+5（满血）'); } triggerPulse(); triggerFlash(); } }
-    function checkPickupFloatingShield(item){ if (item.got) return; const h=State.hero; const dx=item.fx-h.x, dy=item.fy-h.y; if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){ item.got=true; h.shieldTime = State.cfg.shieldDuration; showToast('护盾已激活'); } }
+    function updateFloatingItem(item, dt){
+      if (!item.floating || item.got) return;
+      item.linger -= dt;
+      item.fy += -20*dt;
+      if (item.linger <= 0){
+        item.remove = true;
+      }
+    }
+    function checkPickupFloatingCoin(item){
+      if (item.got) return;
+      const h=State.hero;
+      const dx=item.fx-h.x, dy=item.fy-h.y;
+      if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
+        item.got=true;
+        h.score += 10;
+        showToast('+10');
+        spawnCoinBurst(h.x,h.y);
+      }
+    }
+    function checkPickupFloatingDiamond(item){
+      if (item.got) return;
+      const h=State.hero;
+      const dx=item.fx-h.x, dy=item.fy-h.y;
+      if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
+        item.got=true;
+        h.score += 50;
+        showToast('+50💎');
+        spawnDiamondBurst(h.x,h.y);
+      }
+    }
+    function checkPickupFloatingHeart(item){
+      if (item.got) return;
+      const h=State.hero;
+      const dx=item.fx-h.x, dy=item.fy-h.y;
+      if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){
+        item.got=true;
+        if (h.hp < State.cfg.hpMax){
+          h.hp++;
+          showToast('生命+1');
+        }else{
+          h.score += 5;
+          showToast('+5（满血）');
+        }
+        triggerPulse(); triggerFlash();
+      }
+    }
+    function checkPickupFloatingShield(item){
+      if (item.got) return;
+      const h=State.hero;
+      const dx=item.fx-h.x, dy=item.fy-h.y;
+      if (dx*dx+dy*dy < (h.r+item.fr)*(h.r+item.fr)){
+        item.got=true;
+        h.shieldTime = State.cfg.shieldDuration;
+        showToast('护盾已激活');
+      }
+    }
 
+    // ===== 墨云浮动逻辑 =====
+    function maybeSwitchToFloatingInk(ic, zRel){
+      if (!ic.floating && zRel < 0){
+        const par=clamp(1 - zRel/(H*2.0),0,1);
+        ic.fx = ic.x;
+        ic.fy = ic.y;
+        ic.fr = ic.r*(par*0.8+0.2);
+        ic.floating = true;
+        ic.linger = State.cfg.inkFloatLinger;
+        ic.topHoldLeft = 0;
+      }
+    }
+
+    function updateFloatingInk(ic, dt){
+      if (!ic.floating) return;
+
+      if (ic.hitCD > 0){
+        ic.hitCD -= dt;
+        if (ic.hitCD < 0) ic.hitCD = 0;
+      }
+
+      const topLimit = 20;
+      const riseSpeed = 20;
+
+      if (ic.topHoldLeft > 0){
+        ic.topHoldLeft -= dt;
+        if (ic.topHoldLeft <= 0){
+          ic.remove = true;
+        }
+        return;
+      }
+
+      ic.fy += -riseSpeed * dt;
+      ic.linger -= dt;
+
+      if (ic.fy - ic.fr <= topLimit){
+        ic.fy = topLimit + ic.fr;
+        ic.topHoldLeft = State.cfg.inkTopHold;
+      } else if (ic.linger <= 0){
+        ic.remove = true;
+      }
+    }
+
+    // ===== 主游戏更新 =====
     function update(dt){
       if (!('ontouchstart' in window)) keyboardInput();
-      const h=State.hero, w=State.world, cfg=State.cfg;
-      State.time.now += dt; w.t += dt; State.surviveTime += dt;
 
+      const h=State.hero;
+      const w=State.world;
+      const cfg=State.cfg;
+
+      State.time.now += dt;
+      w.t += dt;
+      State.surviveTime += dt;
+
+      // 速度随生存时间提升
       const targetSpd = cfg.baseSpeed + Math.min(1, State.surviveTime/120) * (cfg.maxSpeed - cfg.baseSpeed);
-      w.speed += (targetSpd - w.speed) * 0.2; w.z += w.speed * dt * 60;
+      w.speed += (targetSpd - w.speed) * 0.2;
+      w.z += w.speed * dt * 60;
 
-      h.vx += State.input.ax * cfg.swimAccel; h.vy += State.input.ay * cfg.swimAccel;
-      h.vx *= cfg.swimDamp; h.vy *= cfg.swimDamp;
+      // 英雄位移
+      h.vx += State.input.ax * cfg.swimAccel;
+      h.vy += State.input.ay * cfg.swimAccel;
+      h.vx *= cfg.swimDamp;
+      h.vy *= cfg.swimDamp;
       h.x = clamp(h.x + h.vx * dt, cfg.worldPadding + h.r, W - cfg.worldPadding - h.r);
       h.y = clamp(h.y + h.vy * dt, h.r, H - h.r);
 
-      if (h.shieldTime > 0){ h.shieldTime -= dt; if (h.shieldTime < 0) h.shieldTime = 0; }
+      // 护盾计时
+      if (h.shieldTime > 0){
+        h.shieldTime -= dt;
+        if (h.shieldTime < 0) h.shieldTime = 0;
+      }
 
-      if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){ State.bubbleTick=0; spawnBubble(); }
-      if ((State.spawnTick  += dt) > cfg.obstacleRate){ State.spawnTick =0; spawnObstacle(); }
-      if ((State.coinTick   += dt) > cfg.coinRate){ State.coinTick  =0; spawnCoin(); }
+      // 生成气泡
+      if ((State.bubbleTick += dt) > 1/cfg.bubbleRate){
+        State.bubbleTick=0; spawnBubble();
+      }
 
-      State.heartTick += dt; const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
-      if (State.heartTick >= heartInterval){ const baseP=0.18, bonus=Math.min(0.10, State.surviveTime/180*0.10); if (Math.random() < baseP + bonus){ spawnHeart(); } State.heartTick=0; }
-      State.shieldTick += dt; const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
-      if (State.shieldTick >= shieldInterval){ const baseSP=0.25, bonusS=Math.min(0.12, State.surviveTime/180*0.12); if (Math.random() < baseSP + bonusS){ spawnShield(); } State.shieldTick=0; }
+      // 生成单个障碍物（鲨鱼/剑鱼，带自己的游动）
+      State.spawnTick += dt;
+      if (State.spawnTick >= cfg.waveCooldownBase){
+        State.spawnTick = 0;
+        const baseZ = State.world.z + rand(H*1.1, H*2.0);
+        // 现在一次只刷一条，indexInWave=0
+        spawnObstacleWaveMember(baseZ, 0);
+      }
 
-      for (let i=State.bubbles.length-1;i>=0;i--){ const b=State.bubbles[i]; b.life-=dt; b.y += -40*dt; if (b.life<=0) State.bubbles.splice(i,1); }
+      // 金币
+      if ((State.coinTick   += dt) > cfg.coinRate){
+        State.coinTick  =0; 
+        spawnCoin();
+      }
 
+      // 钻石
+      if ((State.diamondTick += dt) > cfg.diamondRate){
+        State.diamondTick = 0;
+        const baseP = 0.18;
+        const bonus = Math.min(0.12, State.surviveTime/180*0.12);
+        if (Math.random() < baseP + bonus){ spawnDiamond(); }
+      }
+
+      // 爱心
+      State.heartTick += dt;
+      const heartInterval = rand(cfg.heartRateRange[0], cfg.heartRateRange[1]);
+      if (State.heartTick >= heartInterval){
+        const baseP=0.18;
+        const bonus=Math.min(0.10, State.surviveTime/180*0.10);
+        if (Math.random() < baseP + bonus){ spawnHeart(); }
+        State.heartTick=0;
+      }
+
+      // 护盾
+      State.shieldTick += dt;
+      const shieldInterval = rand(cfg.shieldRateRange[0], cfg.shieldRateRange[1]);
+      if (State.shieldTick >= shieldInterval){
+        const baseSP=0.25;
+        const bonusS=Math.min(0.12, State.surviveTime/180*0.12);
+        if (Math.random() < baseSP + bonusS){ spawnShield(); }
+        State.shieldTick=0;
+      }
+
+      // 章鱼墨云生成
+      State.inkTick += dt;
+      const inkInterval = rand(cfg.inkRateRange[0], cfg.inkRateRange[1]);
+      if (State.inkTick >= inkInterval){
+        const baseIP=0.28;
+        const bonusI=Math.min(0.12, State.surviveTime/200*0.12);
+        if (Math.random() < baseIP + bonusI){ spawnInkCloud(); }
+        State.inkTick = 0;
+      }
+
+      // 气泡上浮+寿命
+      for (let i=State.bubbles.length-1;i>=0;i--){
+        const b=State.bubbles[i];
+        b.life-=dt; b.y += -40*dt;
+        if (b.life<=0){ State.bubbles.splice(i,1); }
+      }
+
+      // 障碍物更新+碰撞
       for (let i=State.obs.length-1;i>=0;i--){
-        const o=State.obs[i], zRel=o.z - w.z;
-        if (zRel < -40){ State.obs.splice(i,1); continue; }
+        const o=State.obs[i];
+        const zRel=o.z - w.z;
+
+        // 轻微游动（左右/上下漂）
+        if (o.vx !== undefined && o.vy !== undefined){
+          o.x += o.vx * dt;
+          o.y += o.vy * dt;
+
+          // 边界反弹，避免游出画面
+          const minX = State.cfg.worldPadding + o.w/2;
+          const maxX = W - State.cfg.worldPadding - o.w/2;
+          if (o.x < minX){ o.x = minX; o.vx = Math.abs(o.vx); }
+          if (o.x > maxX){ o.x = maxX; o.vx = -Math.abs(o.vx); }
+
+          const minY = o.h/2;
+          const maxY = H - o.h/2;
+          if (o.y < minY){ o.y = minY; o.vy = Math.abs(o.vy); }
+          if (o.y > maxY){ o.y = maxY; o.vy = -Math.abs(o.vy); }
+        }
+
+        // 超过玩家身后就清掉
+        if (zRel < -40){
+          State.obs.splice(i,1);
+          continue;
+        }
+
+        // 碰撞判定（掉血/护盾吸收）
         if (!o.hit && Math.abs(zRel) < 40){
-          if (aabbCircleOverlap(o.x - o.w/2, o.y - o.h/2, o.w, o.h, h.x, h.y, h.r)){ o.hit=true; onHit(); }
+          if (aabbCircleOverlap(o.x - o.w/2, o.y - o.h/2, o.w, o.h, h.x, h.y, h.r)){
+            o.hit=true; onHit();
+          }
         }
       }
 
+      // 金币
       for (let i=State.coins.length-1;i>=0;i--){
         const c=State.coins[i];
         if (!c.floating){
-          const zRel = c.z - w.z; maybeSwitchToFloatingPickup(c, zRel);
+          const zRel = c.z - w.z;
+          maybeSwitchToFloatingPickup(c, zRel);
           if (!c.floating && zRel < -20){ State.coins.splice(i,1); continue; }
           if (!c.got && !c.floating && Math.abs(zRel) < 40){
             const dx=c.x-h.x, dy=c.y-h.y;
-            if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){ c.got=true; h.score += 10; showToast('+10'); spawnCoinBurst(h.x,h.y); }
+            if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
+              c.got=true; h.score += 10; showToast('+10'); spawnCoinBurst(h.x,h.y);
+            }
           }
         }else{
           updateFloatingItem(c, dt); checkPickupFloatingCoin(c);
@@ -776,14 +1305,40 @@
         }
       }
 
+      // 钻石
+      for (let i=State.diamonds.length-1;i>=0;i--){
+        const d=State.diamonds[i];
+        if (!d.floating){
+          const zRel = d.z - w.z;
+          maybeSwitchToFloatingPickup(d, zRel);
+          if (!d.floating && zRel < -20){ State.diamonds.splice(i,1); continue; }
+          if (!d.got && !d.floating && Math.abs(zRel) < 40){
+            const dx=d.x-h.x, dy=d.y-h.y;
+            if (dx*dx+dy*dy < (h.r+12)*(h.r+12)){
+              d.got=true; h.score += 50; showToast('+50💎'); spawnDiamondBurst(h.x,h.y);
+            }
+          }
+        }else{
+          updateFloatingItem(d, dt); checkPickupFloatingDiamond(d);
+          if (d.remove || d.got){ State.diamonds.splice(i,1); continue; }
+        }
+      }
+
+      // 爱心
       for (let i=State.hearts.length-1;i>=0;i--){
         const hc=State.hearts[i];
         if (!hc.floating){
-          const zRel = hc.z - w.z; maybeSwitchToFloatingPickup(hc, zRel);
+          const zRel = hc.z - w.z;
+          maybeSwitchToFloatingPickup(hc, zRel);
           if (!hc.floating && zRel < -20){ State.hearts.splice(i,1); continue; }
           if (!hc.got && !hc.floating && Math.abs(zRel) < 40){
             const dx=hc.x-h.x, dy=hc.y-h.y;
-            if (dx*dx+dy*dy < (h.r+hc.r)*(h.r+hc.r)){ hc.got=true; if (h.hp < cfg.hpMax){ h.hp++; showToast('生命+1'); }else{ h.score += 5; showToast('+5（满血）'); } triggerPulse(); triggerFlash(); }
+            if (dx*dx+dy*dy < (h.r+hc.r)*(h.r+hc.r)){
+              hc.got=true;
+              if (h.hp < cfg.hpMax){ h.hp++; showToast('生命+1'); }
+              else { h.score += 5; showToast('+5（满血）'); }
+              triggerPulse(); triggerFlash();
+            }
           }
         }else{
           updateFloatingItem(hc, dt); checkPickupFloatingHeart(hc);
@@ -791,14 +1346,18 @@
         }
       }
 
+      // 护盾
       for (let i=State.shields.length-1;i>=0;i--){
         const sh=State.shields[i];
         if (!sh.floating){
-          const zRel = sh.z - w.z; maybeSwitchToFloatingPickup(sh, zRel);
+          const zRel = sh.z - w.z;
+          maybeSwitchToFloatingPickup(sh, zRel);
           if (!sh.floating && zRel < -20){ State.shields.splice(i,1); continue; }
           if (!sh.got && !sh.floating && Math.abs(zRel) < 40){
             const dx=sh.x-h.x, dy=sh.y-h.y;
-            if (dx*dx+dy*dy < (h.r+sh.r)*(h.r+sh.r)){ sh.got=true; h.shieldTime = cfg.shieldDuration; showToast('护盾已激活'); }
+            if (dx*dx+dy*dy < (h.r+sh.r)*(h.r+sh.r)){
+              sh.got=true; h.shieldTime = cfg.shieldDuration; showToast('护盾已激活');
+            }
           }
         }else{
           updateFloatingItem(sh, dt); checkPickupFloatingShield(sh);
@@ -806,109 +1365,305 @@
         }
       }
 
+      // 章鱼墨云：可多次污染 + 漂浮消失前还能继续碰
+      for (let i=State.inks.length-1;i>=0;i--){
+        const ic = State.inks[i];
+
+        if (!ic.floating){
+          const zRel = ic.z - w.z;
+          maybeSwitchToFloatingInk(ic, zRel);
+
+          if (zRel < -60 && !ic.floating){
+            State.inks.splice(i,1);
+            continue;
+          }
+
+          // 深度阶段碰撞
+          if (Math.abs(zRel) < 40){
+            if (ic.hitCD > 0){
+              ic.hitCD -= dt;
+              if (ic.hitCD < 0) ic.hitCD = 0;
+            }
+            const dx = ic.x - h.x, dy = ic.y - h.y;
+            if (dx*dx + dy*dy < (h.r + ic.r)*(h.r + ic.r)){
+              triggerInk();
+              if (ic.hitCD <= 0){
+                ic.hitCD = 0.4;
+              }
+            }
+          }
+
+        } else {
+          // 漂浮阶段
+          updateFloatingInk(ic, dt);
+          if (ic.remove){
+            State.inks.splice(i,1);
+            continue;
+          }
+
+          const dx = ic.fx - h.x, dy = ic.fy - h.y;
+          if (ic.hitCD > 0){
+            ic.hitCD -= dt;
+            if (ic.hitCD < 0) ic.hitCD = 0;
+          }
+          if (dx*dx + dy*dy < (h.r + ic.fr)*(h.r + ic.fr)){
+            triggerInk();
+            if (ic.hitCD <= 0){
+              ic.hitCD = 0.4;
+            }
+          }
+        }
+      }
+
+      // 根据墨云接触情况刷新黑屏
+      {
+        const inkfx = State.fx.ink;
+        if (inkfx.touching){
+          inkfx.alpha = inkfx.alphaMax;
+          inkfx.hold  = cfg.inkDuration;
+        }else{
+          if (inkfx.hold > 0){
+            inkfx.hold -= dt;
+            if (inkfx.hold < 0) inkfx.hold = 0;
+          }else{
+            inkfx.alpha = Math.max(0, inkfx.alpha - dt*2.0);
+          }
+        }
+        inkfx.touching = false;
+      }
+
+      // 无敌时间 / 冷却
       h.invul = Math.max(0, h.invul - dt);
 
+      // 粒子
       for (let i = State.fx.particles.length-1; i>=0; i--){
-        const p = State.fx.particles[i]; p.t += dt; p.x += p.vx * dt; p.y += p.vy * dt;
+        const p = State.fx.particles[i];
+        p.t += dt; p.x += p.vx * dt; p.y += p.vy * dt;
         if (p.t >= p.life){ State.fx.particles.splice(i,1); }
       }
 
-      if (State.fx.pulse > 0){ State.fx.pulse -= dt; if (State.fx.pulse < 0) State.fx.pulse = 0; }
-      if (State.fx.flash > 0){ State.fx.flash -= dt; if (State.fx.flash < 0) State.fx.flash = 0; }
+      // 爱心柔光计时
+      if (State.fx.pulse > 0){ State.fx.pulse = Math.max(0, State.fx.pulse - dt); }
+      if (State.fx.flash > 0){ State.fx.flash = Math.max(0, State.fx.flash - dt); }
 
+      // HUD
       scoreEl.textContent = Math.floor(h.score);
       spdEl.textContent = w.speed.toFixed(1);
       hpEl.textContent = h.hp;
+
+      // 生存加分
       h.score += dt * w.speed * 0.7;
 
-      if (State.shake.t > 0){ State.shake.t -= dt; if (State.shake.t < 0) State.shake.t = 0; }
+      // 摄像机抖动衰减
+      if (State.shake.t > 0){
+        State.shake.t -= dt;
+        if (State.shake.t < 0) State.shake.t = 0;
+      }
     }
 
+    // 掉血（鲨鱼/剑鱼）
     function onHit(){
       const h=State.hero;
-      if (h.shieldTime > 0){ h.shieldTime = 0; h.invul = State.cfg.hurtCooldown * 0.5; State.shake.t = 0.2; State.shake.mag = 4; showToast('护盾抵挡!'); return; }
+      if (h.shieldTime > 0){
+        h.shieldTime = 0;
+        h.invul = State.cfg.hurtCooldown * 0.5;
+        State.shake.t = 0.2;
+        State.shake.mag = 4;
+        showToast('护盾抵挡!');
+        return;
+      }
       if (h.invul>0) return;
-      h.hp -= State.cfg.damage; h.invul = State.cfg.hurtCooldown; State.shake.t = 0.25; State.shake.mag = 5; showToast(h.hp>0 ? '-HP' : '你被击倒了');
-      if (h.hp <= 0){ gameOver(); }
+      h.hp -= State.cfg.damage;
+      h.invul = State.cfg.hurtCooldown;
+      State.shake.t = 0.25;
+      State.shake.mag = 5;
+      showToast(h.hp>0 ? '-HP' : '你被击倒了');
+      if (h.hp <= 0){
+        gameOver();
+      }
     }
 
     function gameOver(){
-      State.running=false; State.paused=false; pauseOverlay.style.display='none';
+      State.running=false;
+      State.paused=false;
+      pauseOverlay.style.display='none';
+
       saveScore(State.runDifficulty, State.hero.score);
+
       panelTitleEl.textContent='Game Over · 再来一把？';
       panelDescEl.innerHTML='你被击倒了。可以直接重新开始，或点右下角“重开”回到主菜单重新调难度。';
       startBtn.textContent='重新开始';
-      renderLeaderboardPanel(); panel.style.display='block';
+
+      renderLeaderboardPanel();
+      panel.style.display='block';
       State.time.last = 0;
     }
 
     function goToMenu(){
-      State.running=false; State.paused=false; pauseOverlay.style.display='none';
+      State.running=false;
+      State.paused=false;
+      pauseOverlay.style.display='none';
+
       panelTitleEl.innerHTML='<span>Gyro Swim Runner · 游泳陀螺仪跑酷</span>';
       panelDescEl.innerHTML='按<strong>开始</strong>后，若是 iOS 设备会弹出“允许运动访问”的对话框，请选择允许。<br>左右倾斜控制水平移动；前后倾斜控制上/下浮。';
       startBtn.textContent='开始游戏';
-      renderLeaderboardPanel(); panel.style.display='block';
+
+      renderLeaderboardPanel();
+      panel.style.display='block';
       State.time.last = 0;
     }
 
-    function start(){ State.reset(); State.running=true; State.paused=false; State.time.last=0; panel.style.display='none'; showToast('左右倾斜控制移动'); }
-    function restart(){ goToMenu(); }
-    function togglePause(){ if (!State.running) return; State.paused=!State.paused; pauseOverlay.style.display = State.paused?'grid':'none'; }
+    function start(){
+      State.reset();
+      State.running=true;
+      State.paused=false;
+      State.time.last=0;
+      panel.style.display='none';
+      showToast('左右倾斜控制移动');
+    }
 
+    function restart(){ goToMenu(); }
+
+    function togglePause(){
+      if (!State.running) return;
+      State.paused=!State.paused;
+      pauseOverlay.style.display = State.paused?'grid':'none';
+    }
+
+    // ===== 渲染循环（透明canvas叠在海图上） =====
     function loop(){
       requestAnimationFrame(loop);
       if (!State.running || State.paused) return;
-      const now=performance.now(); if (!State.time.last) State.time.last=now;
-      const dt = Math.max(0, Math.min(0.05, (now - State.time.last)/1000)); State.time.last=now;
+
+      const now=performance.now();
+      if (!State.time.last) State.time.last=now;
+      const dt = Math.max(0, Math.min(0.05, (now - State.time.last)/1000));
+      State.time.last=now;
 
       update(dt);
 
       ctx.save();
+
+      // 画面抖动
       if (State.shake.t > 0){
-        const decay = State.shake.t / 0.25, magNow = State.shake.mag * decay;
-        const sx=(Math.random()*2-1)*magNow, sy=(Math.random()*2-1)*magNow;
-        ctx.translate(sx, sy);
-      }
-      ctx.clearRect(0,0,canvas.width,canvas.height); // dpr 已设置
-
-      for (const b of State.bubbles){ ctx.globalAlpha=0.35; ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fillStyle='#7fdcff'; ctx.fill(); ctx.globalAlpha=1; }
-      for (const c of State.coins){ if (!c.floating){ const zRel=c.z - State.world.z; drawCoinDepth(c, zRel); } else { drawCoinFloating(c); } }
-      for (const o of State.obs){ drawObstacle(o, o.z - State.world.z); }
-      for (const hc of State.hearts){ if (!hc.floating){ const zRel=hc.z - State.world.z; drawHeartDepth(hc, zRel); } else { drawHeartFloating(hc); } }
-      for (const sh of State.shields){ if (!sh.floating){ drawShieldDepth(sh); } else { drawShieldFloating(sh); } }
-
-      if (State.fx.pulse > 0){
-        const h = State.hero; const k = 1 - (State.fx.pulse / State.fx.pulseMax);
-        const radius = 50 + k * (150-50); const alpha  = 0.4 * (1 - k);
-        ctx.save(); ctx.globalAlpha = alpha;
-        const grd = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, radius);
-        grd.addColorStop(0, 'rgba(255,120,160,1)'); grd.addColorStop(1, 'rgba(255,120,160,0)');
-        ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(h.x, h.y, radius, 0, Math.PI*2); ctx.fill(); ctx.restore();
+        const k = State.shake.t;
+        const mag = State.shake.mag * k;
+        ctx.translate((Math.random()*2-1)*mag, (Math.random()*2-1)*mag);
       }
 
+      // 不要整块刷深色背景，保持透明，露出 wrap 背景
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // 深度层
+      for (const o of State.obs){
+        const zRel=o.z - State.world.z;
+        if (zRel > -200 && zRel < 400){
+          drawObstacle(o,zRel);
+        }
+      }
+      for (const c of State.coins){
+        if (!c.floating){
+          const zRel=c.z - State.world.z;
+          if (zRel>-200 && zRel<400) drawCoinDepth(c,zRel);
+        }
+      }
+      for (const d of State.diamonds){
+        if (!d.floating){
+          const zRel=d.z - State.world.z;
+          if (zRel>-200 && zRel<400) drawDiamondDepth(d,zRel);
+        }
+      }
+      for (const hc of State.hearts){
+        if (!hc.floating){
+          const zRel=hc.z - State.world.z;
+          if (zRel>-200 && zRel<400) drawHeartDepth(hc,zRel);
+        }
+      }
+      for (const sh of State.shields){
+        if (!sh.floating){
+          drawShieldDepth(sh);
+        }
+      }
+      for (const ic of State.inks){
+        if (!ic.floating){
+          const zRel=ic.z - State.world.z;
+          if (zRel>-200 && zRel<400) drawInkDepth(ic,zRel);
+        }
+      }
+
+      // 主角
       drawHero(State.hero, State.world.t);
 
+      // 漂浮层
+      for (const c of State.coins){ if (c.floating && !c.remove) drawCoinFloating(c); }
+      for (const d of State.diamonds){ if (d.floating && !d.remove) drawDiamondFloating(d); }
+      for (const hc of State.hearts){ if (hc.floating && !hc.remove) drawHeartFloating(hc); }
+      for (const sh of State.shields){ if (sh.floating && !sh.remove) drawShieldFloating(sh); }
+      for (const ic of State.inks){ if (ic.floating && !ic.remove) drawInkFloating(ic); }
+
+      // 粒子特效
       for (const p of State.fx.particles){
-        const lifeK = 1 - (p.t / p.life); ctx.save(); ctx.globalAlpha = lifeK;
-        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*2);
-        grad.addColorStop(0, 'rgba(255,230,150,1)'); grad.addColorStop(1, 'rgba(255,230,150,0)');
-        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(p.x, p.y, p.r*2, 0, Math.PI*2); ctx.fill(); ctx.restore();
+        const lifeK = 1 - (p.t / p.life);
+        ctx.save();
+        ctx.globalAlpha = lifeK;
+        let grad;
+        if (p.type === 'diamond'){
+          grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*2);
+          grad.addColorStop(0, 'rgba(180,240,255,1)');
+          grad.addColorStop(1, 'rgba(180,240,255,0)');
+        }else{
+          grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*2);
+          grad.addColorStop(0, 'rgba(255,230,150,1)');
+          grad.addColorStop(1, 'rgba(255,230,150,0)');
+        }
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r*2, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
       }
 
+      // 爱心回血柔光
       if (State.fx.flash > 0){
-        const k = 1 - (State.fx.flash / State.fx.flashMax), alpha = 0.2 * (1 - k);
-        ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = '#ff99bb'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.restore();
+        const k = 1 - (State.fx.flash / State.fx.flashMax);
+        const alpha = 0.2 * (1 - k);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#ff99bb';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+      }
+
+      // 墨云黑屏层
+      if (State.fx.ink.alpha > 0){
+        ctx.save();
+        ctx.globalAlpha = State.fx.ink.alpha;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+
+        ctx.save();
+        ctx.globalAlpha = State.fx.ink.alpha * 0.6;
+        ctx.fillStyle = 'rgba(20,40,60,1)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
       }
 
       ctx.restore();
     }
 
-    // 绑定
-    startBtn.addEventListener('click', ()=>{ requestMotionPermission(); start(); }, {passive:true});
-    document.getElementById('diffGroup').addEventListener('change', ()=>{ State.runDifficulty = getDifficulty(); }); // 切换难度不弹 toast
+    // 绑定事件
+    startBtn.addEventListener('click', ()=>{
+      requestMotionPermission();
+      start();
+    }, {passive:true});
+
+    document.getElementById('diffGroup').addEventListener('change', ()=>{
+      State.runDifficulty = getDifficulty();
+    });
+
     pauseBtn.addEventListener('click', ()=> togglePause());
     resumeBtn.addEventListener('click', ()=> togglePause());
     restartBtn.addEventListener('click', ()=> { goToMenu(); });
+
     calBtn.addEventListener('click', ()=>{
       State.device.calib.beta = State.device.beta;
       State.device.calib.gamma = State.device.gamma;
@@ -916,7 +1671,10 @@
       calBtn.textContent = '已校准 ✅';
       setTimeout(()=>{ calBtn.textContent = txt; }, 1200);
     });
-    sensSlider.addEventListener('input', ()=>{ State.device.sens = parseFloat(sensSlider.value); });
+
+    sensSlider.addEventListener('input', ()=>{
+      State.device.sens = parseFloat(sensSlider.value);
+    });
 
     renderLeaderboardPanel();
     loop();
